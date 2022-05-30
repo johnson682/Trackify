@@ -1,0 +1,108 @@
+
+.modal-body {
+    display: flex;
+    padding: 0;
+    border-radius: 4rem;
+    font-family: 'PT Sans', sans-serif;
+  }
+  
+  .modal-content {
+    border-radius: 4rem;
+    width: 100%;
+    box-shadow: -1px -2px 42px -19px rgba(0,0,0,0.74);
+  }
+  .modal-content h1, .modal-content h2, .modal-content h3 {
+      text-align: center;
+  }
+  .modal-content h1 {
+    font-size: 1.3em;
+    text-transform: uppercase;
+  }
+  
+  .modal-content h2 {
+      font-size: 1.1em;
+  }
+  .modal-content h3 {
+    font-size: .8em;
+    letter-spacing: 2px;
+  }
+  form {
+      font-size: .8em;
+  }
+  .column {
+    flex: 25%;
+    padding: 10px;
+  }
+  
+  .column#main {
+    flex: 75%;
+    margin-top: 50px;
+  }
+  
+  #secondary {
+    background-color: #7386D5;
+    border-radius: 0 4rem 4rem 0;
+    text-align: center;
+  }
+  
+  #main .form-control {
+    border-radius: 0;
+    font-size: .9em;
+  }
+  
+  .btn {
+    text-transform: uppercase;
+    border-radius: .15rem;
+    width: 200px;
+    font-family: 'PT Sans', sans-serif;
+    letter-spacing: 2px;
+  }
+  
+  .btn-primary {
+    border-color: rgba( 255, 255, 255, 0);
+    background: #7386D5; /* Old browsers */
+    background: -moz-linear-gradient(left, #7386D5 0%, #d4daf0 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #7386D5 0%,#cad1ee 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #7386D5 0%,#cdd4f0 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#7386D5',GradientType=1 ); IE6-9 */
+  }
+  .btn-default {
+      color: white;
+    border-color: rgba( 255, 255, 255, 0);
+    background: #7386D5; /* Old browsers */
+    background: -moz-linear-gradient(right, #7386D5 0%, #d4daf0 99%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(right, #7386D5 0%,#cad1ee 99%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to left, #7386D5 0%,#cdd4f0 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1da36', endColorstr='#7386D5',GradientType=1 ); IE6-9 */
+  }
+  
+  .btn-primary:hover {
+    border-color: rgba( 255, 255, 255, 0);
+  }
+  
+  #main .btn-primary {
+    width: 100%;
+  }
+  #secondary .btn-primary {
+    background: #f8f9fa4f;
+    color: #000;
+  }
+
+  .btn-default:hover {
+    border-color: rgba( 255, 255, 255, 0);
+  }
+  
+  #main .btn-default {
+    width: 100%;
+  }
+  #secondary .btn-default {
+    background: #f8f9fa4f;
+    color: #000;
+  }
+  .modal-body label {
+    margin-bottom: 0;
+  }
+  
+  .sec-content {
+    margin-top: 85%;
+  }

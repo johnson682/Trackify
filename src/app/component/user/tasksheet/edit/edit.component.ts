@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class EditComponent implements OnInit {
     private router:Router,
     private tasksheet:TasksheetService,
     private authService:AuthService,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute,
+    private toastr:NotificationService) { }
 
   ngOnInit(): void {
 
@@ -44,6 +46,7 @@ export class EditComponent implements OnInit {
           this.task = ele
           console.log(ele);
           this.addtaskForm = new FormGroup({
+            "projectType":new FormControl(this.task.projectType,Validators.required),
             'date':new FormControl(this.task.date,Validators.required),
             'day':new FormControl(this.task.day,Validators.required),
             'description':new FormControl(this.task.description,Validators.required)
@@ -60,11 +63,15 @@ export class EditComponent implements OnInit {
     let date = this.addtaskForm.value.date
     let day = this.addtaskForm.value.day
     let description = this.addtaskForm.value.description
-    this.tasksheet.updateTask(this.uid,this.id,{date:date,day:day,description:description})
+    let projectType = this.addtaskForm.value.projectType
+    this.tasksheet.updateTask(this.uid,this.id,{date:date,day:day,description:description,projectType:projectType})
     this.onCancel()
+    this.toastr.showInfo("Successfully updated" , 'Well Done!!')
   }
 
   onCancel(){
     this.router.navigate(['/user/tasksheet'])
+    document.getElementById("closeModalButton").click();
+
   }
 }

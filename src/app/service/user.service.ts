@@ -24,5 +24,4 @@ export class UserService {
         update.doc(uid).update(newData)
     }
 
-
-}
+}   

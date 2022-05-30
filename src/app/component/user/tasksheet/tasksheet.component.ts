@@ -62,6 +62,8 @@ export class TasksheetComponent implements OnInit {
   }
 
   onEditTask(id){
+    console.log("hit");
+    
     this.router.navigate(['/user/tasksheet/'+id])
   }
 

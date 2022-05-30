@@ -1,10 +1,31 @@
-<ul class="list-group list-group-flush">
-    <a class="list-group-item" routerLink="userprofile" routerLinkActive="active">
-      <i class="fa fa-home"></i>
-      <span > UserProfile</span>
-    </a>
-    <a class="list-group-item"  routerLinkActive="active" routerLink="tasksheet" >
-      <i class="fa fa-landmark"></i>
-      <span> TaskSheet</span>
-    </a>
-</ul>
+
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar">
+      <div class="sidebar-header">
+          <h3>User</h3>
+      </div>
+
+      <ul class="list-unstyled components">
+        <li>
+          <a routerLink="userprofile" routerLinkActive="active"> <i class="fa fa-user"></i> &nbsp; Profile</a>
+        </li>
+        <li>
+          <a routerLinkActive="active" routerLink="tasksheet"><i class="fa fa-list"></i> &nbsp; Task Sheet</a>
+        </li>
+        <li>
+          <a>Status</a>
+        </li>
+        <li>
+          <a>About</a>
+        </li>
+      </ul>
+
+      <ul class="list-unstyled CTAs">
+        <li>
+          <a class="download" (click)="authService.logout()">Logout</a>
+        </li>
+      </ul>
+  </nav>
+
+</div>

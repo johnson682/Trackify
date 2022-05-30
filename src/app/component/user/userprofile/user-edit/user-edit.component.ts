@@ -14,8 +14,8 @@ export class UserEditComponent implements OnInit {
 
   userEditForm:FormGroup
   id:any
-  photoURL:any;
-  displayName:any;
+  isEdit=false
+
   constructor(private route:ActivatedRoute,private userService:UserService,private router:Router) { }
 
   ngOnInit(): void {
@@ -25,13 +25,15 @@ export class UserEditComponent implements OnInit {
     this.userService.users.subscribe(data=>{
       data.forEach(ele=>{
         if(ele.uid === this.id){
-
-          this.photoURL=ele.profileURL;
-          this.displayName = ele.name;
+          
           
           this.userEditForm = new FormGroup({
-            'displayName':new FormControl(this.displayName,Validators.required),
-            'photoURL':new FormControl(this.photoURL,Validators.required)
+            'firstname':new FormControl(ele.firstname != null ?ele.firstname : ''),
+            'lastname':new FormControl(ele.lastname!= null ?ele.lastname : ''),
+            'photoURL':new FormControl(ele.profileURL!= null ?ele.profileURL : ''),
+            'dob':new FormControl(ele.dob!= null ?ele.dob : ''),
+            'state':new FormControl(ele.state!= null ?ele.state : ''),
+            'mobile':new FormControl(ele.mobile!= null ?ele.mobile : '')
           })
         }
       })
@@ -40,14 +42,20 @@ export class UserEditComponent implements OnInit {
   }
 
   onSubmit(){
-    this.displayName = this.userEditForm.value.displayName
-    this.photoURL = this.userEditForm.value.photoURL
-    this.userService.updateUserData(this.id,{name:this.displayName,profileURL:this.photoURL})
+    console.log(this.userEditForm.value);
+    let firstname = this.userEditForm.value.firstname
+    let lastname = this.userEditForm.value.lastname
+    let dob = this.userEditForm.value.dob
+    let photoURL = this.userEditForm.value.photoURL
+    let state = this.userEditForm.value.state
+    let mobile = this.userEditForm.value.mobile
+    this.userService.updateUserData(this.id,{firstname:firstname,lastname:lastname,profileURL:photoURL,dob:dob,state:state,mobile:mobile})
     this.onCancel()
   }
-
   onCancel(){
-    this.router.navigate(['/user/userprofile'])
+    this.router.navigate(['user/userprofile'])
+    document.getElementById("closeModalButton").click();
+  
   }
 
 }

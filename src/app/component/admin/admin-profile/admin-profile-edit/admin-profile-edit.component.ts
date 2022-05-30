@@ -27,8 +27,12 @@ export class AdminProfileEditComponent implements OnInit {
         if(ele.uid === this.uid){
 
           this.adminEditForm = new FormGroup({
-            "displayName":new FormControl(ele.name,Validators.required),
-            "photoURL":new FormControl(ele.profileURL,Validators.required)
+            'firstname':new FormControl(ele.firstname != null ?ele.firstname : '',Validators.required),
+            'lastname':new FormControl(ele.lastname!= null ?ele.lastname : ''),
+            'photoURL':new FormControl(ele.profileURL!= null ?ele.profileURL : ''),
+            'dob':new FormControl(ele.dob!= null ?ele.dob : ''),
+            'state':new FormControl(ele.state!= null ?ele.state : ''),
+            'mobile':new FormControl(ele.mobile!= null ?ele.mobile : '')
           })
         }
       })
@@ -37,13 +41,18 @@ export class AdminProfileEditComponent implements OnInit {
 
   onSubmit(){
     let name=this.adminEditForm.value.displayName
-    let photoURL =this.adminEditForm.value.photoURL
-
-    this.AdminProfileService.updateAdminData(this.uid,{name:name,profileURL:photoURL})
+    let firstname = this.adminEditForm.value.firstname
+    let lastname = this.adminEditForm.value.lastname
+    let dob = this.adminEditForm.value.dob
+    let photoURL = this.adminEditForm.value.photoURL
+    let state = this.adminEditForm.value.state
+    let mobile = this.adminEditForm.value.mobile
+    this.AdminProfileService.updateAdminData(this.uid,{firstname:firstname,lastname:lastname,profileURL:photoURL,dob:dob,state:state,mobile:mobile})
     this.onCancel()
   }
   onCancel(){
     this.router.navigate(['/admin/adminProfile'])
+    document.getElementById("closeModalButton").click();
   }
 
 }

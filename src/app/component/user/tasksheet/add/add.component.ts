@@ -67,6 +67,7 @@ export class AddComponent implements OnInit {
 
   onCancel(){
     this.router.navigate(['/user/tasksheet'])
+    document.getElementById("closeModalButton").click();
   }
 
   getDay(){

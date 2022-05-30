@@ -29,7 +29,7 @@ export class AdminProfileComponent implements OnInit {
     })
   }
 
-  onEdit(){
-    this.router.navigate(['admin/'+this.uid])
+  onEdit(uid){
+    this.router.navigate(['admin/'+uid])
   }
 }

@@ -1,60 +1,90 @@
-<div class="backdrop"></div>
-<div class="alert-box animate__animated animate__fadeInDown">
-    <h2 class="text-center">Task</h2>
-    <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()" >
-        <div class="form-floating">
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="column" id="main">
+            <h1>Task</h1>
+            <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()">
+              <div class="form-floating">
+                <input
+                type="text"
+                class="form-control"
+                placeholder="projectType"
+                name="projectType"
+                formControlName="projectType">
+                <label>ProjectType</label>
+                <span *ngIf="!addtaskForm.get('projectType').valid && addtaskForm.get('projectType').touched" class="help-block">
+                The field is required
+                </span>
+            </div>
+              <div class="form-floating">
+                <input
+                type="text"
+                class="form-control"
+                placeholder="date"
+                name="date"
+                formControlName="date">
+                <label>Date</label>
+                <span *ngIf="!addtaskForm.get('date').valid && addtaskForm.get('date').touched" class="help-block">
+                The field is required
+                </span>
+            </div>
+          <br>
+          <div class="form-floating">
             <input
-            type="text"
-            class="form-control"
-            placeholder="date"
-            name="date"
-            formControlName="date">
-            <label>Date</label>
-            <span *ngIf="!addtaskForm.get('date').valid && addtaskForm.get('date').touched" class="help-block">
-            The field is required
+              type="text"
+              class="form-control"
+              name="day"
+              placeholder="day"
+              formControlName="day">
+            <label>Day</label>
+            <span *ngIf="!addtaskForm.get('day').valid && addtaskForm.get('day').touched" class="help-block">
+              The field is required
             </span>
+          </div>
+          <br>
+          <div class="form-floating">
+            <textarea
+              type="text"
+              class="form-control"
+              name="description"
+              placeholder="Description"
+              formControlName="description"></textarea>
+            <label>Description</label>
+            <span *ngIf="!addtaskForm.get('description').valid && addtaskForm.get('description').touched" class="help-block">
+              The field is required
+            </span>
+          </div>
+          <br>
+          <button
+            style="cursor: pointer;"
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!addtaskForm.valid">
+             Update
+          </button>
+          <button class="btn btn-default" (click)="onCancel()">Cancel</button>
+            </form>
+          </div>
+          <div>
+            <svg width="67px" height="578px" viewBox="0 0 67 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+                <title>Path</title>
+                <desc>Created with Sketch.</desc>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path  d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#7386D5"></path>
+                </g>
+            </svg>
+          </div>
+          <div class="column" id="secondary">
+            <div class="sec-content">
+              <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
+              data-target="#myModal" class="btn btn-default"                          
+             data-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
-      <br>
-      <div class="form-floating">
-        <input
-          type="text"
-          class="form-control"
-          name="day"
-          placeholder="day"
-          formControlName="day">
-        <label>Day</label>
-        <span *ngIf="!addtaskForm.get('day').valid && addtaskForm.get('day').touched" class="help-block">
-          The field is required
-        </span>
       </div>
-      <br>
-      <div class="form-floating">
-        <textarea
-          type="text"
-          class="form-control"
-          name="description"
-          placeholder="Description"
-          formControlName="description"></textarea>
-        <label>Description</label>
-        <span *ngIf="!addtaskForm.get('description').valid && addtaskForm.get('description').touched" class="help-block">
-          The field is required
-        </span>
-      </div>
-      <br>
-      <button
-        style="cursor: pointer;"
-        type="submit"
-        class="btn btn-success"
-        [disabled]="!addtaskForm.valid">
-         Update
-      </button>
-      <button
-        style="cursor: pointer;"
-        type="submit"
-        class="btn btn-success"
-        (click)="onCancel()" >
-        Cancel
-      </button>
-    </form>
+    </div>
   </div>
-  

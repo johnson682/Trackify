@@ -15,6 +15,8 @@ export class AdminEmployeeListComponent implements OnInit {
   ngOnInit(): void {
     this.userService.users.subscribe(data=>{
       this.users=data
+      console.log(this.users);
+      
     })
   }
 

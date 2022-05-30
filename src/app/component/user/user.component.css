@@ -1,8 +1,9 @@
-.col-md-9{
+.col-md-10{
     height: 500px;
     overflow-y: auto;
-    
-    /* overflow-x: hidden; */
+}
+.row{
+    overflow-x: auto;
 }
 ::-webkit-scrollbar {
     width: 15px;

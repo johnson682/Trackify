@@ -59,7 +59,7 @@ export class EmployeeDetailsComponent implements OnInit {
 
     this.employeeTaskSheetService.getId().doc(this.uid).valueChanges().subscribe(data=>{
       console.log(data);
-      this.userName = data.name
+      this.userName = data.firstname + data.lastname
     })
   }
 

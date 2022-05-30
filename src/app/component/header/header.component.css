@@ -1,6 +1,6 @@
 #navbar {
     overflow: hidden;
-    background-color: #aff5eb;
+    background-color: #7386D5;
     padding: 10px 10px; /* Large padding which will shrink on scroll (using JS) */
     transition: 0.4s; /* Adds a transition effect when the padding is decreased */
     position: fixed; /* Sticky/fixed navbar */
@@ -24,18 +24,5 @@
   /* Style the logo */
   #navbar #brand {
     font-size: 35px;
-    font-weight: bold;
-    transition: 0.4s;
-  }
-  
-  /* Links on mouse-over */
-  #navbar a:hover {
-    transition-duration: 0.4s;
-    color: rgb(35, 204, 35);
-  }
-  
-  /* Style the active/current link */
-  #navbar a.active {
-    background-color: white;
-    color: rgb(35, 204, 35);
+
   }

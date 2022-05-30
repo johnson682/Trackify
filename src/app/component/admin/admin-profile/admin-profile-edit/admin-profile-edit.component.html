@@ -1,44 +1,127 @@
-<h2 class="text-center">Login</h2>
-    <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()" >
-        <div class="form-floating">
-            <input
-              type="text"
-              class="form-control"
-              name="displayName"
-              placeholder="displayName"
-              formControlName="displayName">
-            <label>displayName</label>
-            <span *ngIf="!adminEditForm.get('displayName').valid && adminEditForm.get('displayName').touched" class="help-block">
-              The field is required
-            </span>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="column" id="main">
+            <h1>Edit Profile </h1>
+            <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="firstname"
+                              placeholder="firstname"
+                              formControlName="firstname">
+                            <label>FirstName</label>
+                            <span *ngIf="!adminEditForm.get('firstname').valid && adminEditForm.get('firstname').touched" class="help-block">
+                              The field is required
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-floating">
+                          <input
+                          type="text"
+                          class="form-control"
+                          name="lastname"
+                          placeholder="lastname"
+                          formControlName="lastname">
+                          <label>Lastname</label>
+                          <span *ngIf="!adminEditForm.get('lastname').valid && adminEditForm.get('lastname').touched" class="help-block">
+                          The field is required
+                          </span>
+                      </div>
+                    </div>
+                </div>
+              <br>
+              <div class="form-floating">
+                  <input
+                  type="text"
+                  class="form-control"
+                  placeholder="photoURL"
+                  name="photoURL"
+                  formControlName="photoURL">
+                  <label>photoURL</label>
+                  <span *ngIf="!adminEditForm.get('photoURL').valid && adminEditForm.get('photoURL').touched" class="help-block">
+                  The field is required
+                  </span>
+              </div>
+              
+              <br>
+              <div class="row">
+                  <div class="col">
+                      <div class="form-floating">
+                          <input
+                          type="date"
+                          class="form-control"
+                          placeholder="dob"
+                          name="dob"
+                          formControlName="dob">
+                          <label>DOB</label>
+                          <!-- <span *ngIf="!adminEditForm.get('dob').valid && adminEditForm.get('dob').touched" class="help-block">
+                          The field is required
+                          </span> -->
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="form-floating">
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="state"
+                            placeholder="state"
+                            formControlName="state">
+                          <label>State</label>
+                          <!-- <span *ngIf="!adminEditForm.get('state').valid && adminEditForm.get('state').touched" class="help-block">
+                            The field is required
+                          </span> -->
+                      </div>
+                  </div>
+              </div>
+              <br>
+              <div class="form-floating">
+                  <input
+                  type="text"
+                  class="form-control"
+                  placeholder="mobile"
+                  name="mobile"
+                  formControlName="mobile">
+                  <label>Mobile</label>
+                  <!-- <span *ngIf="!adminEditForm.get('mobile').valid && adminEditForm.get('mobile').touched" class="help-block">
+                  The field is required
+                  </span> -->
+              </div>
+              <button
+                  style="cursor: pointer;"
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!adminEditForm.valid"
+  >
+                  Save
+              </button>
+              <button class="btn btn-default" (click)="onCancel()">Cancel</button>
+            </form>
+          </div>
+          <div>
+            <svg width="67px" height="578px" viewBox="0 0 67 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+                <title>Path</title>
+                <desc>Created with Sketch.</desc>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <path  d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#7386D5"></path>
+                </g>
+            </svg>
+          </div>
+          <div class="column" id="secondary">
+            <div class="sec-content">
+              <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
+                data-target="#myModal" class="btn btn-default"                          
+                data-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
-        <br>
-        <div class="form-floating">
-            <input
-            type="text"
-            class="form-control"
-            placeholder="photoURL"
-            name="photoURL"
-            formControlName="photoURL">
-            <label>photoURL</label>
-            <span *ngIf="!adminEditForm.get('photoURL').valid && adminEditForm.get('photoURL').touched" class="help-block">
-            The field is required
-            </span>
-        </div>
-        <br>
-      
-        <button
-            style="cursor: pointer;"
-            type="submit"
-            class="btn btn-success"
-            [disabled]="!adminEditForm.valid">
-            Save
-        </button>
-        <button
-            style="cursor: pointer;"
-            type="submit"
-            class="btn btn-warning"
-            (click)="onCancel()" >
-            Cancel
-        </button>
-    </form>
+      </div>
+    </div>
+  </div>
