@@ -1,0 +1,44 @@
+<h2 class="text-center">Login</h2>
+    <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()" >
+        <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              name="displayName"
+              placeholder="displayName"
+              formControlName="displayName">
+            <label>displayName</label>
+            <span *ngIf="!adminEditForm.get('displayName').valid && adminEditForm.get('displayName').touched" class="help-block">
+              The field is required
+            </span>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input
+            type="text"
+            class="form-control"
+            placeholder="photoURL"
+            name="photoURL"
+            formControlName="photoURL">
+            <label>photoURL</label>
+            <span *ngIf="!adminEditForm.get('photoURL').valid && adminEditForm.get('photoURL').touched" class="help-block">
+            The field is required
+            </span>
+        </div>
+        <br>
+      
+        <button
+            style="cursor: pointer;"
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!adminEditForm.valid">
+            Save
+        </button>
+        <button
+            style="cursor: pointer;"
+            type="submit"
+            class="btn btn-warning"
+            (click)="onCancel()" >
+            Cancel
+        </button>
+    </form>

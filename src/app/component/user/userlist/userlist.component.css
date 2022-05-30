@@ -1,0 +1,17 @@
+
+.list-group{
+    padding:30px;
+    width: 100%;
+    background:transparent;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+    transition-duration: 0.4s;
+  
+  }
+  .list-group-item{
+    width: 100%;
+    background:transparent;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+    transition-duration: 0.4s;
+    color: black;
+  }
+  

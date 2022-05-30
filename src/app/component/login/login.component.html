@@ -1,0 +1,48 @@
+<div class="backdrop"></div>
+<div class="alert-box animate__animated animate__fadeInDown">
+    <h2 class="text-center">Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="email"
+          name="email"
+          formControlName="email">
+        <label>Email</label>
+        <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" class="help-block">
+          The field is required
+        </span>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          placeholder="password"
+          formControlName="password">
+        <label>Password</label>
+        <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" class="help-block">
+          The field is required
+        </span>
+      </div>
+      <br>
+      <button
+        style="cursor: pointer;"
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!loginForm.valid">
+        Login
+      </button>
+    </form>
+    <div class="footer" style="text-align: center;">
+        <div class="formGroup">
+          <p >Or</p>
+        </div>
+        <div class="forgotPassword">
+          <a routerLink="/forgot-password">Forgot Password?</a>
+        </div>
+    </div>
+  </div>
+  

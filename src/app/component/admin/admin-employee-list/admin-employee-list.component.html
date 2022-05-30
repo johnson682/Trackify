@@ -1,0 +1,21 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4" *ngFor="let user of users">
+            <div class="card" style="height: 400px;">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                  <img src="{{user.profileURL}}" class="img-fluid" style="width: 400px;height:200px;"/>
+                  <a href="#!">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{user.name}}</h5>
+                  <p class="card-text">{{user.uid}}</p>
+                  <button class="btn btn-primary" (click)="onView(user.uid)" >View Tasksheet</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<router-outlet></router-outlet>

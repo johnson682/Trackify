@@ -1,0 +1,60 @@
+<div class="backdrop"></div>
+<div class="alert-box animate__animated animate__fadeInDown">
+    <h2 class="text-center">Task</h2>
+    <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()" >
+        <div class="form-floating">
+            <input
+            type="text"
+            class="form-control"
+            placeholder="date"
+            name="date"
+            formControlName="date">
+            <label>Date</label>
+            <span *ngIf="!addtaskForm.get('date').valid && addtaskForm.get('date').touched" class="help-block">
+            The field is required
+            </span>
+        </div>
+      <br>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control"
+          name="day"
+          placeholder="day"
+          formControlName="day">
+        <label>Day</label>
+        <span *ngIf="!addtaskForm.get('day').valid && addtaskForm.get('day').touched" class="help-block">
+          The field is required
+        </span>
+      </div>
+      <br>
+      <div class="form-floating">
+        <textarea
+          type="text"
+          class="form-control"
+          name="description"
+          placeholder="Description"
+          formControlName="description"></textarea>
+        <label>Description</label>
+        <span *ngIf="!addtaskForm.get('description').valid && addtaskForm.get('description').touched" class="help-block">
+          The field is required
+        </span>
+      </div>
+      <br>
+      <button
+        style="cursor: pointer;"
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!addtaskForm.valid">
+         Update
+      </button>
+      <button
+        style="cursor: pointer;"
+        type="submit"
+        class="btn btn-success"
+        (click)="onCancel()" >
+        Cancel
+      </button>
+    </form>
+  </div>
+  

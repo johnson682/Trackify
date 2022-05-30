@@ -1,0 +1,47 @@
+<div class="backdrop"></div>
+<div class="alert-box animate__animated animate__fadeInDown">
+    <h2 class="text-center">Login</h2>
+    <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()" >
+        <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              name="displayName"
+              placeholder="displayName"
+              formControlName="displayName">
+            <label>displayName</label>
+            <span *ngIf="!userEditForm.get('displayName').valid && userEditForm.get('displayName').touched" class="help-block">
+              The field is required
+            </span>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input
+            type="text"
+            class="form-control"
+            placeholder="photoURL"
+            name="photoURL"
+            formControlName="photoURL">
+            <label>photoURL</label>
+            <span *ngIf="!userEditForm.get('photoURL').valid && userEditForm.get('photoURL').touched" class="help-block">
+            The field is required
+            </span>
+        </div>
+        <br>
+      
+        <button
+            style="cursor: pointer;"
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!userEditForm.valid">
+            Save
+        </button>
+        <button
+            style="cursor: pointer;"
+            type="submit"
+            class="btn btn-warning"
+            (click)="onCancel()" >
+            Cancel
+        </button>
+    </form>
+  </div>

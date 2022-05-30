@@ -1,0 +1,40 @@
+input.ng-invalid.ng-touched{
+    border:2px solid red;
+}
+input{
+    padding: 20px;
+}
+span{
+color: red;
+}
+
+.form-group {
+    padding-bottom: 40px;
+}
+.control-label {
+    padding-top: 5px;
+}
+.checkbox {
+    margin-left: 5%;
+}
+.backdrop{
+position:fixed;
+top:0vh;
+left:0;
+width:100vw;
+height:100vh;
+background: rgba(0, 0, 0, 0.75);
+z-index:50;
+}
+.alert-box{
+position: fixed;
+top:5vh;
+left:30vh;
+width: 40%;
+padding:30px;
+z-index:100;
+background:white;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+transition-duration: 0.4s;
+margin-top: 30px;
+}

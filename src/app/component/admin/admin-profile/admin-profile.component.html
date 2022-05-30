@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <!-- Main content -->
+    <div class="pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">Admin Profile</h1>
+    </div>
+    <div class="card mb-3" style="max-width: 740px;margin-top: 20px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+            style="width: 250px;"
+              src="{{adminData?.profileURL}}"
+              alt="{{adminData?.name}}"
+              class="img-fluid rounded-start"
+            />
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+            <p class="card-text " style="float:right ;">
+                <button class="btn btn-primary" (click)="onEdit()" >Edit</button>
+            </p>
+              <h3 class="card-title">{{adminData?.name != null ? adminData.name : 'Admin' }}</h3>
+              <hr>
+              <p class="card-text">Email: <strong>{{adminData?.email }}</strong> </p>
+              <p class="card-text">Uid: <strong>{{adminData?.uid }}</strong> </p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
