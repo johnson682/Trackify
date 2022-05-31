@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/component/login/service/auth.service';
 import Swal from 'sweetalert2';
-
+import { NgxSpinnerService } from "ngx-spinner";  
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit{
   loginForm:FormGroup
-  constructor(public authService:AuthService){}
+
+  constructor(public authService:AuthService,private spinnerService:NgxSpinnerService){}
   ngOnInit(): void {
       this.loginForm = new FormGroup({
         'email':new FormControl('',Validators.required),
@@ -19,14 +20,10 @@ export class LoginComponent implements OnInit{
       })
   }
   onSubmit(){
-
     let email = this.loginForm.value.email
     let password = this.loginForm.value.password
 
-    this.authService.login(email,password).catch(error=>{
-      console.log(error);
-      
-    })
-    // Swal.fire('Thank you...', 'You submitted succesfully!', 'success')
+    this.authService.login(email,password)
+
   }
 }

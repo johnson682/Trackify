@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { empty } from 'rxjs';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/component/login/service/auth.service';
 
 @Component({
   selector: 'app-header',

@@ -13,13 +13,12 @@ export class EmployeeDetailsComponent implements OnInit {
 
   uid:any
   employeeDetails:any
-  userName:any
+  userEmail:any
 
   fileName='ExcelSheet.xlsx'
 
   month:any;
   task:any;
-  monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
 
   page: number = 1;
@@ -35,14 +34,10 @@ export class EmployeeDetailsComponent implements OnInit {
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-
     this.route.params.subscribe((params:Params)=>{ 
       this.uid = params['uid']
     })
-
     this.fetchData()
-
-
   }
 
   fetchData(){
@@ -58,8 +53,7 @@ export class EmployeeDetailsComponent implements OnInit {
     })
 
     this.employeeTaskSheetService.getId().doc(this.uid).valueChanges().subscribe(data=>{
-      console.log(data);
-      this.userName = data.firstname + data.lastname
+      this.userEmail =  data.email
     })
   }
 

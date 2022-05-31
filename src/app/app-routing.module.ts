@@ -8,9 +8,11 @@ import { AdminComponent } from './component/admin/admin.component';
 
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
 import { LoginComponent } from './component/login/login.component';
+import { SignupComponent } from './component/signup/signup.component';
 import { AddComponent } from './component/user/tasksheet/add/add.component';
 import { EditComponent } from './component/user/tasksheet/edit/edit.component';
 import { TasksheetComponent } from './component/user/tasksheet/tasksheet.component';
+import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
 import { UserComponent } from './component/user/user.component';
 import { UserEditComponent } from './component/user/userprofile/user-edit/user-edit.component';
 import { UserprofileComponent } from './component/user/userprofile/userprofile.component';
@@ -20,6 +22,7 @@ const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  {path:'addEmployee',component:SignupComponent},
   
 
   {path:'admin',component:AdminComponent,canActivate:[AuthGuard],children:[
@@ -27,7 +30,7 @@ const routes: Routes = [
     {path:'adminEmployeeList',component:AdminEmployeeListComponent},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent},
     {path:'adminProfile',component:AdminProfileComponent},
-    {path:':id',component:AdminProfileEditComponent}
+    {path:':id',component:AdminProfileEditComponent},
   ]},
   
   {path:'user',component:UserComponent,canActivate: [AuthGuard] ,children:[
@@ -37,7 +40,8 @@ const routes: Routes = [
     ]},
     {path:'tasksheet',component:TasksheetComponent},
     {path:'tasksheet/addTotasksheet',component:AddComponent},
-    {path:'tasksheet/:id',component:EditComponent}
+    {path:'tasksheet/:id',component:EditComponent},
+    {path:'timetracker',component:TimetrackerComponent}
   ]}
 
 ];

@@ -7,17 +7,13 @@
             <h1>Task</h1>
             <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()">
               <div class="form-floating">
-                <input
-                type="text"
-                class="form-control"
-                placeholder="projectType"
-                name="projectType"
-                formControlName="projectType">
-                <label>ProjectType</label>
-                <span *ngIf="!addtaskForm.get('projectType').valid && addtaskForm.get('projectType').touched" class="help-block">
-                The field is required
-                </span>
+                <ng-select
+                  [items]="projectType" 
+                  [(ngModel)]="task.projectType"
+                  formControlName="projectType">
+                </ng-select>
             </div>
+            <br>
               <div class="form-floating">
                 <input
                 type="text"
@@ -77,13 +73,9 @@
                 </g>
             </svg>
           </div>
-          <div class="column" id="secondary">
-            <div class="sec-content">
-              <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
-              data-target="#myModal" class="btn btn-default"                          
-             data-dismiss="modal">Close</button>
-            </div>
-          </div>
+          <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
+          data-target="#myModal" class="btn btn-default"                          
+         data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

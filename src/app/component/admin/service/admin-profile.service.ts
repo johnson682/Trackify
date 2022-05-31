@@ -8,8 +8,8 @@ export class AdminProfileService {
 
   dbPath='admin'
   adminRef:AngularFirestoreCollection<any>
+  
   constructor(private db:AngularFirestore) {
-
     this.adminRef = this.db.collection(this.dbPath)
   }
 
@@ -18,9 +18,9 @@ export class AdminProfileService {
   }
 
   updateAdminData(uid:any,newData:any){
-    console.log(newData);
-    
     return this.adminRef.doc(uid).update(newData)
-}
+  }
+
+  
 
 }

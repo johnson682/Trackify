@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/component/login/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
+import { NgxSpinnerService } from 'ngx-spinner'
 
 @Component({
   selector: 'app-user-edit',
@@ -16,9 +17,14 @@ export class UserEditComponent implements OnInit {
   id:any
   isEdit=false
 
-  constructor(private route:ActivatedRoute,private userService:UserService,private router:Router) { }
+  constructor(
+    private route:ActivatedRoute,
+    private userService:UserService,
+    private router:Router,
+    private spinnerService:NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinnerService.hide()
     this.route.params.subscribe((params:Params)=>{
       this.id = params['id']
     })
@@ -55,7 +61,7 @@ export class UserEditComponent implements OnInit {
   onCancel(){
     this.router.navigate(['user/userprofile'])
     document.getElementById("closeModalButton").click();
-  
+    this.spinnerService.hide()
   }
 
 }

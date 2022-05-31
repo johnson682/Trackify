@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
-import { AuthService } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/component/login/service/auth.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-
+import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -16,17 +16,18 @@ export class EditComponent implements OnInit {
   id:any
   uid:any
   update=false
-
+  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   task:any
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,
     private authService:AuthService,
     private route:ActivatedRoute,
-    private toastr:NotificationService) { }
+    private toastr:NotificationService,
+    private spinnerService:NgxSpinnerService) { }
 
   ngOnInit(): void {
-
+    this.spinnerService.hide()
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
 
@@ -44,7 +45,7 @@ export class EditComponent implements OnInit {
       data.forEach(ele=>{
         if(ele.id === this.id){
           this.task = ele
-          console.log(ele);
+          console.log(this.task.projectType);
           this.addtaskForm = new FormGroup({
             "projectType":new FormControl(this.task.projectType,Validators.required),
             'date':new FormControl(this.task.date,Validators.required),
@@ -72,6 +73,7 @@ export class EditComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/user/tasksheet'])
     document.getElementById("closeModalButton").click();
+    this.spinnerService.hide()
 
   }
 }

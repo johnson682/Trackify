@@ -1,28 +1,26 @@
 #navbar {
-    overflow: hidden;
-    background-color: #7386D5;
-    padding: 10px 10px; /* Large padding which will shrink on scroll (using JS) */
-    transition: 0.4s; /* Adds a transition effect when the padding is decreased */
-    position: fixed; /* Sticky/fixed navbar */
-    width: 100%;
-    top: 0; /* At the top */
-    left: 0;
-    z-index: 100;
-    display: inline-flex;
-    
-  
-  }
+  overflow: hidden;
+  background-color: #7386D5;
+  padding: 10px 10px; /* Large padding which will shrink on scroll (using JS) */
+  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
+  position: fixed; /* Sticky/fixed navbar */
+  width: 100%;
+  top: 0; /* At the top */
+  left: 0;
+  z-index: 100;
+  display: inline-flex;
+}
   
   /* Style the navbar links */
-  #navbar a {
-    color: white;
-    padding: 12px;
-    text-decoration: none;
-    transition-duration: 0.4s;
-  }
+#navbar a {
+  color: white;
+  padding: 12px;
+  text-decoration: none;
+  transition-duration: 0.4s;
+}
   
-  /* Style the logo */
-  #navbar #brand {
-    font-size: 35px;
+/* Style the logo */
+#navbar #brand {
+  font-size: 35px;
 
-  }
+}

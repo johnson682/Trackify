@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner'
 
 import { map } from 'rxjs';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
@@ -13,7 +13,10 @@ import * as XLSX from 'xlsx';
 })
 export class TasksheetComponent implements OnInit {
 
-  constructor(private tasksheet:TasksheetService,private router:Router,private db:AngularFirestore) { }
+  constructor(
+    private tasksheet:TasksheetService,
+    private router:Router,
+    private spinnerService:NgxSpinnerService) { }
 
   tasks:any
   id:any
@@ -35,6 +38,9 @@ export class TasksheetComponent implements OnInit {
   
   ngOnInit(): void {
    
+    // this.spinner.getSpinner().subscribe(data=>{
+    //   console.log(data);
+    // })
     this.getMonth()
     this.task={month:this.month,year:new Date().getFullYear()}
     for(let i=2022;i<=2040;i++){
@@ -62,8 +68,6 @@ export class TasksheetComponent implements OnInit {
   }
 
   onEditTask(id){
-    console.log("hit");
-    
     this.router.navigate(['/user/tasksheet/'+id])
   }
 

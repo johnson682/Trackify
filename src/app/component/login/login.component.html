@@ -1,36 +1,37 @@
 
+
   <div class="wrapper">
     <div class="logo">
-        <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="">
+      <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="">
     </div>
     <div class="text-center mt-4 name">
       Login
     </div>
     <form class="p-3 mt-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form-field d-flex align-items-center">
-            <input type="text" name="userName" id="userName" placeholder="Username" formControlName="email">
-            <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" 
-            class="help-block" style="color: red;margin-right: 15px;">
-              <i class="fa-solid fa-exclamation"></i>
-            </span>
-          </div>
-        <div class="form-field d-flex align-items-center">
-          <input type="password" name="password" id="pwd" placeholder="Password" formControlName="password">
-          <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" 
-          class="help-block"
-          style="color: red;margin-right: 15px;">
-            <i class="fa-solid fa-exclamation"></i>
-          </span>
-        </div>
-        <button 
-          class="btn mt-3"
-          style="cursor: pointer;"
-          type="submit"
-          [disabled]="!loginForm.valid">Login
-        </button>
+      <div class="form-field d-flex align-items-center">
+        <input type="text" name="userName" id="userName" placeholder="Username" formControlName="email">
+        <span *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" 
+        class="help-block" style="color: red;margin-right: 15px;">
+          <i class="fa-solid fa-exclamation"></i>
+        </span>
+      </div>
+      <div class="form-field d-flex align-items-center">
+        <input type="password" name="password" id="pwd" placeholder="Password" formControlName="password">
+        <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" 
+        class="help-block"
+        style="color: red;margin-right: 15px;">
+          <i class="fa-solid fa-exclamation"></i>
+        </span>
+      </div>
+      <button 
+        class="btn mt-3"
+        style="cursor: pointer;"
+        type="submit"
+        [disabled]="!loginForm.valid">Login
+      </button>
     </form>
     <div class="text-center fs-6">
-        <a routerLink="/forgot-password">Forget password?</a>
+      <a routerLink="/forgot-password" data-toggle="modal" data-target="#exampleModal3">Forget password?</a>
     </div>
 </div>
-
+    

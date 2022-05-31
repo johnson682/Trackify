@@ -39,11 +39,6 @@ form {
   margin-top: 50px;
 }
 
-#secondary {
-  background-color: #7386D5;
-  border-radius: 0 4rem 4rem 0;
-  text-align: center;
-}
 
 #main .form-control {
   border-radius: 0;
@@ -74,10 +69,7 @@ form {
 #main .btn-primary {
   width: 100%;
 }
-#secondary .btn-primary {
-  background: #f8f9fa4f;
-  color: #000;
-}
+
 
 
 .btn-default {
@@ -98,14 +90,7 @@ border-color: rgba( 255, 255, 255, 0);
 #main .btn-default {
 width: 100%;
 }
-#secondary .btn-default {
-background: #f8f9fa4f;
-color: #000;
-}
+
 .modal-body label {
   margin-bottom: 0;
-}
-
-.sec-content {
-  margin-top: 85%;
 }
