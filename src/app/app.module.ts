@@ -39,6 +39,7 @@ import { EmployeeDetailsComponent } from './component/admin/admin-employee-list/
 import { SignupComponent } from './component/signup/signup.component';
 import { GravatarModule } from 'ngx-gravatar';
 import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
+import { AddtimetrackerComponent } from './component/user/timetracker/addtimetracker/addtimetracker.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -72,7 +73,8 @@ const firebaseConfig = {
     AdminProfileEditComponent,
     EmployeeDetailsComponent,
     SignupComponent,
-    TimetrackerComponent
+    TimetrackerComponent,
+    AddtimetrackerComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,5 @@
 @import "~@ng-select/ng-select/themes/material.theme.css";
 
 body{
-    width: 100%;
     font-family: "Poppins",sans-serif;
 }

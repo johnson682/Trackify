@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
-import { AuthService } from 'src/app/component/login/service/auth.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { NgxSpinnerService } from 'ngx-spinner'
@@ -21,7 +20,6 @@ export class EditComponent implements OnInit {
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,
-    private authService:AuthService,
     private route:ActivatedRoute,
     private toastr:NotificationService,
     private spinnerService:NgxSpinnerService) { }

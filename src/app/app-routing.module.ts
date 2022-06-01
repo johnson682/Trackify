@@ -12,6 +12,7 @@ import { SignupComponent } from './component/signup/signup.component';
 import { AddComponent } from './component/user/tasksheet/add/add.component';
 import { EditComponent } from './component/user/tasksheet/edit/edit.component';
 import { TasksheetComponent } from './component/user/tasksheet/tasksheet.component';
+import { AddtimetrackerComponent } from './component/user/timetracker/addtimetracker/addtimetracker.component';
 import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
 import { UserComponent } from './component/user/user.component';
 import { UserEditComponent } from './component/user/userprofile/user-edit/user-edit.component';
@@ -41,7 +42,8 @@ const routes: Routes = [
     {path:'tasksheet',component:TasksheetComponent},
     {path:'tasksheet/addTotasksheet',component:AddComponent},
     {path:'tasksheet/:id',component:EditComponent},
-    {path:'timetracker',component:TimetrackerComponent}
+    {path:'timetracker',component:TimetrackerComponent},
+    {path:'timetracker/addTimeTracker',component:AddtimetrackerComponent}
   ]}
 
 ];
