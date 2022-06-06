@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class AddtimetrackerComponent implements OnInit {
   constructor(
     private router:Router,
     private spinnerService:NgxSpinnerService,
-    private timetrackerService:TimeTrackerService) { }
+    private timetrackerService:TimeTrackerService,
+    private tasksheetservice:TasksheetService) { }
 
   ngOnInit(): void {
     this.spinnerService.hide()
@@ -39,18 +41,24 @@ export class AddtimetrackerComponent implements OnInit {
     let projectName = this.addTimeTrackerForm.value.projectName
     let projectDescription = this.addTimeTrackerForm.value.projectDescription
     let status = "progress"
-    let started = this.getCurrentTimeInTaskStartEndFormat()
+    let started = this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
     let ended = ""
+    let month = this.tasksheetservice.getMonth()
+    let year = new Date().getFullYear()
+    let day= this.tasksheetservice.getDay()
 
     this.timetrackerService.add(
       this.userData.uid,
       {
         projectType:projectType,
         projectName:projectName,
-        projectDescription:projectDescription,
+        description:projectDescription,
         status:status,
-        started:started,
-        ended:ended,
+        startedDate:started,
+        endedDate:ended,
+        month:month,
+        year:year,
+        day:day
         
       }
     )
@@ -65,19 +73,5 @@ export class AddtimetrackerComponent implements OnInit {
   }
 
 
-  getCurrentTimeInTaskStartEndFormat() {
-    let current_datetime = new Date();
-    let date = current_datetime.getDate();
-    date = (date < 10) ? +"0" + date : date;
-    let month = (current_datetime.getMonth() + 1);
-    month = (month < 10) ? +"0" + month : month;
-    let hours = current_datetime.getHours();
-    hours = (hours < 10) ? +"0" + hours : hours;
-    let minutes = current_datetime.getMinutes();
-    minutes = (minutes < 10) ? +"0" + minutes : minutes;
-    let seconds = current_datetime.getSeconds();
-    seconds = (seconds < 10) ? +"0" + seconds : seconds;
-    let formatted_date = current_datetime.getFullYear() + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
-    return formatted_date;
-  }
+
 }

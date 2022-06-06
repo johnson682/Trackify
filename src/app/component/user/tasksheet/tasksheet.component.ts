@@ -35,7 +35,8 @@ export class TasksheetComponent implements OnInit {
   tableSizes: any = [3, 6, 9, 12];
   
   ngOnInit(): void {
-    this.getMonth()
+    this.month= this.tasksheet.getMonth()
+    
     this.task={month:this.month,year:new Date().getFullYear()}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
@@ -49,13 +50,7 @@ export class TasksheetComponent implements OnInit {
   }
 
   onFetchData(){
-    this.tasksheet.getId().doc(this.uid).collection('task').snapshotChanges().pipe(
-      map(a=>
-        a.map(c=>        
-          ({id:c.payload.doc.id,...c.payload.doc.data()})
-        )
-      )
-    ).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid).subscribe(data=>{
       console.log(data);
       this.tasks = data
     }) 
@@ -66,6 +61,8 @@ export class TasksheetComponent implements OnInit {
   }
 
   onDelete(id){
+    console.log(id);
+    
     this.tasksheet.deleteTask(this.uid,id)
   }
 
@@ -89,43 +86,5 @@ export class TasksheetComponent implements OnInit {
     XLSX.writeFile(wb,this.fileName)
   }
 
-  getMonth(){
-    switch(new Date().getMonth()){
-      case 0:
-        this.month = "Jan";
-        break;
-      case 1:
-        this.month = "Feb";
-        break;
-      case 2:
-        this.month = "Mar";
-        break;
-      case 3:
-        this.month = "Apr";
-        break;
-      case 4:
-        this.month = "May";
-        break;
-      case 5:
-        this.month = "Jun";
-        break;
-      case 6:
-        this.month = "Jul";
-        break;
-      case 7:
-        this.month = "Aug";
-        break;
-      case 8:
-        this.month = "Sep";
-        break;
-      case 9:
-        this.month = "Oct";
-        break;
-      case 10:
-        this.month = "Nov";
-        break;
-      case 11:
-        this.month = "Dec";
-    }
-  }
+  
 }

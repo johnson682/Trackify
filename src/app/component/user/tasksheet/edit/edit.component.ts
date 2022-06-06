@@ -33,20 +33,15 @@ export class EditComponent implements OnInit {
       this.id = params['id']
     })
     
-    this.tasksheet.getId().doc(this.uid).collection('task').snapshotChanges().pipe(
-      map(a=>
-        a.map(c=>        
-          ({id:c.payload.doc.id,...c.payload.doc.data()})
-        )
-      )
-    ).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid).subscribe(data=>{
       data.forEach(ele=>{
-        if(ele.id === this.id){
+        if(ele.uid === this.id){
           this.task = ele
           console.log(this.task.projectType);
           this.addtaskForm = new FormGroup({
             "projectType":new FormControl(this.task.projectType,Validators.required),
-            'date':new FormControl(this.task.date,Validators.required),
+            'startedDate':new FormControl(this.task.startedDate,Validators.required),
+            'endedDate':new FormControl(this.task.endedDate,Validators.required),
             'day':new FormControl(this.task.day,Validators.required),
             'description':new FormControl(this.task.description,Validators.required)
           })
@@ -59,11 +54,12 @@ export class EditComponent implements OnInit {
 
 
   onSubmit(){
-    let date = this.addtaskForm.value.date
+    let startedDate = this.addtaskForm.value.startedDate
+    let endedDate = this.addtaskForm.value.endedDate
     let day = this.addtaskForm.value.day
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
-    this.tasksheet.updateTask(this.uid,this.id,{date:date,day:day,description:description,projectType:projectType})
+    this.tasksheet.updateTask(this.uid,this.id,{startedDate:startedDate,endedDate:endedDate,day:day,description:description,projectType:projectType})
     this.onCancel()
     this.toastr.showInfo("Successfully updated" , 'Well Done!!')
   }

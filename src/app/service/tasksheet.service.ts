@@ -6,7 +6,8 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TasksheetService {
-
+  month;
+  day;
   private dbpath='users'
   data:AngularFirestoreCollection<any>;
 
@@ -28,5 +29,81 @@ export class TasksheetService {
 
   deleteTask(uid,id){
     return this.data.doc(uid).collection('task').doc(id).delete()
+  }
+
+  getAllTask(uid){
+    return this.getId().doc(uid).collection('task').snapshotChanges().pipe(
+      map(a=>a.map(c=>
+          ({uid:c.payload.doc.id,...c.payload.doc.data()})    
+      ))
+    )
+  }
+
+  getMonth(){
+    switch(new Date().getMonth()){
+      case 0:
+        this.month = "Jan";
+        break;
+      case 1:
+        this.month = "Feb";
+        break;
+      case 2:
+        this.month = "Mar";
+        break;
+      case 3:
+        this.month = "Apr";
+        break;
+      case 4:
+        this.month = "May";
+        break;
+      case 5:
+        this.month = "Jun";
+        break;
+      case 6:
+        this.month = "Jul";
+        break;
+      case 7:
+        this.month = "Aug";
+        break;
+      case 8:
+        this.month = "Sep";
+        break;
+      case 9:
+        this.month = "Oct";
+        break;
+      case 10:
+        this.month = "Nov";
+        break;
+      case 11:
+        this.month = "Dec";
+    }
+    return this.month
+  }
+
+  getDay(){
+
+    switch (new Date().getDay()) {
+      case 0:
+        this.day = "Sunday";
+        break;
+      case 1:
+        this.day = "Monday";
+        break;
+      case 2:
+        this.day = "Tuesday";
+        break;
+      case 3:
+        this.day = "Wednesday";
+        break;
+      case 4:
+        this.day = "Thursday";
+        break;
+      case 5:
+        this.day = "Friday";
+        break;
+      case 6:
+        this.day = "Saturday";
+    }
+    return this.day
   }
 }

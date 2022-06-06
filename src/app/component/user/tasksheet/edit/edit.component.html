@@ -18,11 +18,23 @@
                 <input
                 type="text"
                 class="form-control"
-                placeholder="date"
-                name="date"
-                formControlName="date">
-                <label>Date</label>
-                <span *ngIf="!addtaskForm.get('date').valid && addtaskForm.get('date').touched" class="help-block">
+                placeholder="startedDate"
+                name="startedDate"
+                formControlName="startedDate">
+                <label>startedDate</label>
+                <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
+                The field is required
+                </span>
+              </div>
+              <div class="form-floating">
+                <input
+                type="text"
+                class="form-control"
+                placeholder="endedDate"
+                name="endedDate"
+                formControlName="endedDate">
+                <label>endedDate</label>
+                <span *ngIf="!addtaskForm.get('endedDate').valid && addtaskForm.get('endedDate').touched" class="help-block">
                 The field is required
                 </span>
               </div>

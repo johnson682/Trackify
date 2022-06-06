@@ -23,7 +23,8 @@
   <thead class="bg-light">
     <tr>
       <th>S.NO</th>
-      <th>Date</th>
+      <th>StartedDate</th>
+      <th>EndedDate</th>
       <th>Day</th>
       <th>projectType</th>
       <th>Description</th>
@@ -44,7 +45,9 @@
           </div>
         </div>
       </th>
-      <td><p class="text-muted mb-0">{{task.date}}</p></td>
+      <td><p class="text-muted mb-0">{{task.startedDate}}</p></td>
+      <td><p class="text-muted mb-0">{{task.endedDate}}</p></td>
+
       <td><p class="text-muted mb-0">{{task.day}}</p></td>
       <td><p class="text-muted mb-0">{{task.projectType}}</p></td>
       <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.description}}</p></td>

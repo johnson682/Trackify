@@ -20,7 +20,7 @@
   <thead class="bg-light">
     <tr>
       <th>S.NO</th>
-      <th>Date</th>
+      <th>startedDate</th>
       <th>Day</th>
       <th>projectType</th>
       <th>Description</th>
@@ -44,7 +44,7 @@
           </div>
         </th>
         <td>
-          <p class="text-muted mb-0">{{task.date}}</p>
+          <p class="text-muted mb-0">{{task.startedDate}}</p>
         </td>
         <td>
           <p class="text-muted mb-0">{{task.day}}</p>
@@ -57,7 +57,7 @@
           <button type="button" class="btn btn-outline-warning btn-sm" style="border-radius: 100px;cursor: pointer;" data-toggle="modal" data-target="#exampleModal"(click)="onEditTask(task.id)"  >
             <i class="fas fa-pencil"></i>
           </button>
-          <button type="button" class="btn btn-outline-danger btn-sm" style="border-radius: 100px;" (click)="onDelete(task.id)">
+          <button type="button" class="btn btn-outline-danger btn-sm" style="border-radius: 100px;" (click)="onDelete(task.uid)">
             <i class="fas fa-trash"></i>
           </button>
         </td>

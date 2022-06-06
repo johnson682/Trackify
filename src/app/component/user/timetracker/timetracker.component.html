@@ -25,6 +25,7 @@
         <th>status</th>
         <th>Date</th>
         <th>Action</th>
+        <th>Change Status</th>
       </tr>
     </thead>
     <tbody> 
@@ -39,34 +40,33 @@
                 <p class="text-muted mb-0">{{project.projectName}}</p>
             </td>
             <td>
-                <p class="text-muted mb-0">{{project.projectDescription}}</p>
+                <p class="text-muted mb-0">{{project.description}}</p>
             </td>
             <td >
                 <p class="text-muted mb-0">{{project.status}}</p>
             </td>
             <td *ngIf="project.status == 'complete'"> 
                 <p class="text-muted mb-0">
-                    {{project.started}} 
+                    {{project.startedDate}} 
                     <br>
                     <span>to</span>
                     <br>
-                    {{project.ended}}
+                    {{project.endedDate}}
                 </p>
             </td>
             <td *ngIf="project.status != 'complete'"> 
                 <p class="text-muted mb-0">
-                    {{project.started}} 
+                    {{project.startedDate}} 
                 </p>
             </td>
+          
+          <td>
+            <button class="btn btn-outline-danger btn-sm"style="border-radius: 100px;" (click)="delete(project.id)"><i class="fas fa-trash"></i></button>
+            <br>
+            <button class="btn btn-sm" (click)="add(project)" style="border-radius: 100px;"><i class="fas fa-share"></i></button>
+          </td>
           <td style="width: 150px;"> 
-            <form id="form-change-task-status">
-                <select class="form-control" (change)="onChangeStatus($event,project.id)">
-                    <option value="" >Change Status</option>
-                    <option value="complete" *ngIf="project.status == 'complete'? false : true">Mark as Complete</option>
-                    <option value="progress" *ngIf="project.status == 'progress' ? false : true">Mark as Progress</option> 
-                </select>
-            </form> 
-            <button class="btn btn-sm" (click)="delete(project.id)">delete</button>
+            <ng-select [items]="projectStatus" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project.id)"></ng-select> 
           </td>
         </tr>
       </tbody>
