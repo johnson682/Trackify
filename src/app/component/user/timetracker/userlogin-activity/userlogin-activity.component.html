@@ -1,4 +1,4 @@
-
+<h4>LOGIN ACTIVITY</h4>
 <div class="row">
     <div class="col-md-4">
         <div class="row">
@@ -13,18 +13,40 @@
     <div class="col-md-4">  
         <div class="row">
             <div class="col">
-                <button class="btn btn-sm" (click)="onStop()" >End of Day</button>
+                <button class="btn btn-sm" (click)="onStop()" >End of the Day</button>
             </div>
             <div class="col">
                 <p>{{localTimeEnd}}</p>
             </div>
         </div>
     </div>
-    <div class="col-md-4">  
-        <button (click)="save()" class="btn btn-sm" [disabled]="!status">Save</button>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col">
+                <button (click)="save()" class="btn btn-sm" [disabled]="!status">Save</button><br>
+            </div>
+            <div class="col">
+                <button class="btn btn-sm" (click)="clear()" >clear</button>
+            </div>
+        </div> 
     </div>
 </div>
-<br>
+<hr>
+<div class="row">
+    <div class="col">
+      <ng-select
+        style="width: 100px;float:right;" 
+        [items]="monthNames" 
+        [(ngModel)]="task.month"
+        >
+      </ng-select>
+      <ng-select
+        style="width: 100px;float:right;" 
+        [items]="years" 
+        [(ngModel)]="task.year">
+      </ng-select>
+    </div>
+  </div>
 <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
     <thead class="bg-light">
       <tr>
@@ -36,25 +58,19 @@
       </tr>
     </thead>
     <tbody> 
-      <!-- <tr *ngFor="let task of tasks | filterBy:task  | paginate
-      : {
-          itemsPerPage: tableSize,
-          currentPage: page,
-          totalItems: count
-        };let i= index;"> -->
-        <tr *ngFor="let data of datas ">
+        <tr *ngFor="let task of tasks | filterBy:task;">
             <td>
-                <p class="text-muted mb-0">{{data.localDate}}</p>
+                <p class=" mb-0">{{task.localDate}}</p>
             </td>
             <td>
-                <p class="text-muted mb-0">{{data.startTime}}</p>
+                <p class=" mb-0">{{task.startTime}}</p>
             </td>
             <td>
-                <p class="text-muted mb-0">{{data.endTime}}</p>
+                <p class=" mb-0">{{task.endTime}}</p>
             </td>
-            <td><p class="text-muted mb-0">{{data.totalHours}}</p></td>
+            <td><p class=" mb-0">{{task.totalHours}}</p></td>
             <td>
-                <button class="btn btn-sm" (click)="delete(data.uid)"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-sm" (click)="delete(task.uid)"><i class="fas fa-trash"></i></button>
             </td>
         </tr>
       </tbody>

@@ -14,8 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
 export class UserEditComponent implements OnInit {
 
   userEditForm:FormGroup
-  id:any
-  isEdit=false
+  uid:any
 
   constructor(
     private route:ActivatedRoute,
@@ -26,36 +25,24 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
     this.spinnerService.hide()
     this.route.params.subscribe((params:Params)=>{
-      this.id = params['id']
+      this.uid = params['id']
     })
-    this.userService.users.subscribe(data=>{
-      data.forEach(ele=>{
-        if(ele.uid === this.id){
-          
-          
-          this.userEditForm = new FormGroup({
-            'firstname':new FormControl(ele.firstname != null ?ele.firstname : ''),
-            'lastname':new FormControl(ele.lastname!= null ?ele.lastname : ''),
-            'photoURL':new FormControl(ele.profileURL!= null ?ele.profileURL : ''),
-            'dob':new FormControl(ele.dob!= null ?ele.dob : ''),
-            'state':new FormControl(ele.state!= null ?ele.state : ''),
-            'mobile':new FormControl(ele.mobile!= null ?ele.mobile : '')
-          })
-        }
-      })
+
+    this.userEditForm = new FormGroup({
+      "name":new FormControl('',Validators.required),
+      'dob':new FormControl(''),
+      'state':new FormControl(''),
+      'mobile':new FormControl('')
     })
     
   }
 
   onSubmit(){
-    console.log(this.userEditForm.value);
-    let firstname = this.userEditForm.value.firstname
-    let lastname = this.userEditForm.value.lastname
-    let dob = this.userEditForm.value.dob
-    let photoURL = this.userEditForm.value.photoURL
+    let name = this.userEditForm.value.name
+    let dob = this.userEditForm.value.dob   
     let state = this.userEditForm.value.state
     let mobile = this.userEditForm.value.mobile
-    this.userService.updateUserData(this.id,{firstname:firstname,lastname:lastname,profileURL:photoURL,dob:dob,state:state,mobile:mobile})
+    this.userService.updateUserData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})
     this.onCancel()
   }
   onCancel(){

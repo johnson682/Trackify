@@ -21,6 +21,7 @@ export class AdminEmployeeListComponent implements OnInit {
   }
 
   onView(uid){
+    localStorage.setItem('Employee Uid',JSON.stringify(uid))
     this.router.navigate(['/admin/adminEmployeeList/'+uid])
   }
 

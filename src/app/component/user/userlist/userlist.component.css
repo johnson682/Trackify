@@ -78,6 +78,11 @@ a:focus {
     background: #6d7fcc;
 }
 
+#accordionFlushExample{
+    background-color:#7386D5;
+    color:#7386D5;
+   
+}
 #sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid #47748b;
@@ -93,7 +98,21 @@ a:focus {
     font-size: 1.1em;
     display: block;
 }
-
+#sidebar ul li div{
+    background-color:#7386D5;
+}
+#sidebar ul li div h2 button{
+    background-color:#7386D5;
+    color: white;
+}
+#sidebar ul li div a{
+    color: white;
+    background-color:#7386D5;
+}
+#sidebar ul li div a:hover{
+    color:#7386D5 ;
+    background-color:white;
+}
 #sidebar ul li a:hover {
     color: #7386D5;
     background: #fff;

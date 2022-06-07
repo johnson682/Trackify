@@ -56,12 +56,13 @@ export class AddComponent implements OnInit {
 
   onSubmit(){
     let startedDate = this.addtaskForm.value.startedDate
+    let date = new Date().toLocaleDateString()
     let day = this.addtaskForm.value.day
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
     let month =this.month
     let year = this.year
-    this.tasksheet.add(this.uid,{startedDate,day,description,month,year,projectType})
+    this.tasksheet.add(this.uid,{startedDate,day,description,month,year,projectType,date})
     this.onCancel()
     this.toastr.showSuccess('Successfully Added','Well Done!!!')
   }

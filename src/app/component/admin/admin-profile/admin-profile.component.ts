@@ -18,12 +18,8 @@ export class AdminProfileComponent implements OnInit {
   ngOnInit(): void {
     let data = JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
-    this.adminProfileService.getAdminData().valueChanges().subscribe(data=>{
-      data.forEach(ele=>{
-        if(ele.uid === this.uid){
-          this.adminData=ele
-        }
-      })
+    this.adminProfileService.adminRef.doc(this.uid).valueChanges().subscribe(data=>{
+      this.adminData = data
     })
   }
 

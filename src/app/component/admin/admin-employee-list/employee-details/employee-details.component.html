@@ -1,64 +1,17 @@
-<div class="pt-3 pb-2 mb-3 border-bottom">
-  <h5>{{userEmail}}</h5>
-</div>
+
 <div class="row">
   <div class="col">
-    <button class="btn btn-primary" routerLink="/admin/adminEmployeeList" >Back</button>
-    <button class="btn btn-sm" (click)="exportExcel()" >Export</button>
+    <button class="btn btn-sm" routerLink="/admin/adminEmployeeList" ><i class="fas fa-arrow-left"></i></button>
   </div>
   <div class="col">
-    <ng-select
-      style="width: 100px;float:right;" 
-      [items]="month" 
-      [(ngModel)]="task.month">
-    </ng-select>
-    <ng-select
-      style="width: 100px;float:right;" 
-      [items]="years" 
-      [(ngModel)]="task.year">
-    </ng-select>
+    <h5 style="text-align:right;">{{userEmail}}</h5>
   </div>
 </div>
-<table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
-  <thead class="bg-light">
-    <tr>
-      <th>S.NO</th>
-      <th>StartedDate</th>
-      <th>EndedDate</th>
-      <th>Day</th>
-      <th>projectType</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody> 
-    <!-- <tr *ngFor="let task of tasks | filterBy:task  | paginate
-    : {
-        itemsPerPage: tableSize,
-        currentPage: page,
-        totalItems: count
-      };let i= index;"> -->
-    <tr *ngFor="let task of employeeDetails | filterBy:task;let i= index;" >
-      <th>
-        <div class="d-flex align-items-center">
-          <div class="ms-3">
-            <p class="text mb-0">{{i+1}}</p>
-          </div>
-        </div>
-      </th>
-      <td><p class="text-muted mb-0">{{task.startedDate}}</p></td>
-      <td><p class="text-muted mb-0">{{task.endedDate}}</p></td>
-
-      <td><p class="text-muted mb-0">{{task.day}}</p></td>
-      <td><p class="text-muted mb-0">{{task.projectType}}</p></td>
-      <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.description}}</p></td>
-    </tr>
-  </tbody>
-</table>
-    <!-- <div class="d-flex justify-content-center">
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)"
-      >
-      </pagination-controls>
-    </div> -->
+<div style="margin-top: 10px;">
+  <ul class="list-group list-group-horizontal" style="text-decoration: none;list-style-type:none;">
+    <li ><a class="list-group-item" routerLinkActive="active" routerLink="EmployeeLoginActivity">LoginActivity</a></li>
+    <li ><a class="list-group-item" routerLinkActive="active" routerLink="EmployeeTasksheet">TaskSheet</a></li>
+  </ul>
+  <hr>
+  <router-outlet></router-outlet>
+</div>

@@ -1,7 +1,7 @@
 
 <div class="row">
     <div class="col">
-        <button type="button" routerLink="addTimeTracker" class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal" >Add Task</button>
+        <button type="button" routerLink="addTimeTracker" class="btn" style="border-color:#7386D5;color:#7386D5;" data-toggle="modal" data-target="#addTaskModal" data-backdrop="static" data-keyboard="false" >Add Task</button>
       <!-- <button class="btn btn-sm" (click)="exportExcel()" >Export</button> -->
     </div>
     <div class="col">
@@ -37,16 +37,16 @@
         };let i= index;"> -->
         <tr *ngFor="let project of projects ">
             <td>
-                <p class="text-muted mb-0">{{project.projectName}}</p>
+                <p class="mb-0">{{project.projectName}}</p>
             </td>
             <td>
-                <p class="text-muted mb-0">{{project.description}}</p>
+                <p class=" mb-0">{{project.description}}</p>
             </td>
             <td >
-                <p class="text-muted mb-0">{{project.status}}</p>
+                <p class=" mb-0">{{project.status}}</p>
             </td>
             <td *ngIf="project.status == 'complete'"> 
-                <p class="text-muted mb-0">
+                <p class=" mb-0">
                     {{project.startedDate}} 
                     <br>
                     <span>to</span>
@@ -55,7 +55,7 @@
                 </p>
             </td>
             <td *ngIf="project.status != 'complete'"> 
-                <p class="text-muted mb-0">
+                <p class=" mb-0">
                     {{project.startedDate}} 
                 </p>
             </td>

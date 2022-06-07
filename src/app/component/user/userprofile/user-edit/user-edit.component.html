@@ -5,37 +5,20 @@
         <div class="column" id="main">
           <h1>Edit Profile </h1>
           <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                  <div class="col">
-                      <div class="form-floating">
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="firstname"
-                            placeholder="firstname"
-                            formControlName="firstname">
-                          <label>FirstName*</label>
-                          <span *ngIf="!userEditForm.get('firstname').valid && userEditForm.get('firstname').touched" class="help-block">
-                            The field is required
-                          </span>
-                      </div>
-                  </div>
-                  <div class="col">
-                    <div class="form-floating">
-                        <input
-                        type="text"
-                        class="form-control"
-                        name="lastname"
-                        placeholder="lastname"
-                        formControlName="lastname">
-                        <label>Lastname</label>
-                        <span *ngIf="!userEditForm.get('lastname').valid && userEditForm.get('lastname').touched" class="help-block">
-                        The field is required
-                        </span>
-                    </div>
-                  </div>
-              </div>
-            <br>
+
+            <div class="form-floating">
+              <input
+              type="text"
+              class="form-control"
+              name="name"
+              placeholder="name"
+              formControlName="name">
+              <label>Name</label>
+              <span *ngIf="!userEditForm.get('name').valid && userEditForm.get('name').touched" class="help-block">
+              The field is required
+              </span>
+            </div>
+            <!-- <br>
             <div class="form-floating">
                 <input
                 type="text"
@@ -47,7 +30,7 @@
                 <span *ngIf="!userEditForm.get('photoURL').valid && userEditForm.get('photoURL').touched" class="help-block">
                 The field is required
                 </span>
-            </div>
+            </div> -->
             
             <br>
             <div class="row">

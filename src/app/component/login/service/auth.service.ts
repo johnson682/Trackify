@@ -34,7 +34,7 @@ export class AuthService {
 
     login(email:string,password:string){
         return this.afAuth.signInWithEmailAndPassword(email,password).then(result=>{
-            if(result.user.uid === '6ad1QQTyggTGvO5g51H8NzjUS9e2'){
+            if(result.user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
                 this.router.navigate(['/admin'])
                 this.setAdminData(result.user)
             }else{

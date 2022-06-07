@@ -13,8 +13,8 @@ export class AdminProfileService {
     this.adminRef = this.db.collection(this.dbPath)
   }
 
-  getAdminData(){
-    return this.adminRef
+  getAdminData(uid){
+    return this.adminRef.doc(uid).valueChanges()
   }
 
   updateAdminData(uid:any,newData:any){

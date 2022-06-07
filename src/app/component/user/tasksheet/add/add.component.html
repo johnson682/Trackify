@@ -20,11 +20,7 @@
                 class="form-control"
                 placeholder="startedDate"
                 name="startedDate"
-                formControlName="startedDate"
-                #datepickerFull="bsDatepicker"
-                bsDatepicker
-                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD, hh:mm:ss'}"
-                (mouseenter)="datepickerFull.toggle()" [attr.aria-expanded]="datepickerFull.isOpen">
+                formControlName="startedDate">
                 <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
                 The field is required
                 </span>

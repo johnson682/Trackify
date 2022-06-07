@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/component/login/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
@@ -10,25 +9,24 @@ import { NgxSpinnerService } from 'ngx-spinner'
 })
 export class UserprofileComponent implements OnInit {
 users:any
+uid:any
   constructor(
     public userService: UserService ,
-    private router:Router, 
-    private spinnerService:NgxSpinnerService
+    private router:Router
     ) {}
   ngOnInit(): void {
     
     const user=JSON.parse(localStorage.getItem('user'))
     console.log(user);
-    
-    this.userService.users.subscribe(data=>{
-      data.forEach(ele=>{
-        if(user.uid === ele.uid){
-          this.users = ele
-        }
-      })
+    this.uid = user.uid
+    this.userService.userRef.doc(user.uid).valueChanges().subscribe(data=>{
+      console.log(data.uid);
+      this.users = data
     })
   }
-  onEdit(uid:any){
+  onEdit(uid){
+    console.log(uid);
+    
     this.router.navigate(['user/userprofile/'+uid])
     
   }

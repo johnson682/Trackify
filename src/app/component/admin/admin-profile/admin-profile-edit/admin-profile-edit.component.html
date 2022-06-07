@@ -5,49 +5,20 @@
         <div class="column" id="main">
           <h1>Edit Profile </h1>
           <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <div class="col">
-                    <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="firstname"
-                          placeholder="firstname"
-                          formControlName="firstname">
-                        <label>FirstName</label>
-                        <span *ngIf="!adminEditForm.get('firstname').valid && adminEditForm.get('firstname').touched" class="help-block">
-                          The field is required
-                        </span>
-                    </div>
-                </div>
-                <div class="col">
-                  <div class="form-floating">
-                      <input
-                      type="text"
-                      class="form-control"
-                      name="lastname"
-                      placeholder="lastname"
-                      formControlName="lastname">
-                      <label>Lastname</label>
-                      <span *ngIf="!adminEditForm.get('lastname').valid && adminEditForm.get('lastname').touched" class="help-block">
-                      The field is required
-                      </span>
-                  </div>
-                </div>
-              </div>
-            <br>
+          
             <div class="form-floating">
                 <input
-                type="text"
-                class="form-control"
-                placeholder="photoURL"
-                name="photoURL"
-                formControlName="photoURL">
-                <label>photoURL</label>
-                <span *ngIf="!adminEditForm.get('photoURL').valid && adminEditForm.get('photoURL').touched" class="help-block">
-                The field is required
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder="name"
+                  formControlName="name">
+                <label>name</label>
+                <span *ngIf="!adminEditForm.get('name').valid && adminEditForm.get('name').touched" class="help-block">
+                  The field is required
                 </span>
             </div>
+
             <br>
             <div class="row">
               <div class="col">

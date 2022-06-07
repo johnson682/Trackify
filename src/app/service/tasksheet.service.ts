@@ -15,6 +15,7 @@ export class TasksheetService {
     this.data = db.collection(this.dbpath)
   }
 
+
   add(uid,newTask){
     return this.data.doc(uid).collection('task').add(newTask)
   }
@@ -27,12 +28,8 @@ export class TasksheetService {
     return this.data.doc(uid).collection('task').doc(id).delete()
   }
 
-  getAllTask(uid){
-    return this.data.doc(uid).collection('task').snapshotChanges().pipe(
-      map(a=>a.map(c=>
-          ({uid:c.payload.doc.id,...c.payload.doc.data()})    
-      ))
-    )
+  getAllTask(){
+    return this.data
   }
 
   getMonth(){

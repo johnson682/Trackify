@@ -14,7 +14,19 @@
           <a routerLinkActive="active" routerLink="tasksheet"><i class="fa fa-list"></i> &nbsp; Task Sheet</a>
         </li>
         <li>
-          <a routerLink="timetracker" routerLinkActive="active"><i class="fa-solid fa-clock"></i> &nbsp; Time Tracker</a>
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <a class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                <i class="fa-solid fa-clock"></i> 
+                &nbsp;Time Tracker &nbsp;
+                <i class="fa fa-caret-down"></i>
+              </a>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <a routerLink="timetracker/loginActivity" routerLinkActive="active">Login Activity</a>
+                <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active">Table</a>
+              </div>
+            </div>
+          </div>
         </li>
         <li>
           <a><i class="fa-solid fa-info-circle"></i> &nbsp; About</a>

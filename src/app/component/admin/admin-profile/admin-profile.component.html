@@ -5,8 +5,8 @@
         <div class="card-body text-center">
           <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
             class="rounded-circle img-fluid" style="width: 150px;">
-          <h5 class="my-3">{{adminData?.firstname !=null ? adminData.firstname : 'Admin'}}{{adminData?.lastname}}</h5>
-          <p class="text-muted mb-1">Developer</p>
+          <h5 class="my-3">{{adminData?.name !=null ? adminData.name : 'Admin'}}</h5>
+          <p class="text-muted mb-1">Admin</p>
           <p class="text-muted mb-4">{{adminData?.state}}</p>
           <!-- <div class="d-flex justify-content-center mb-2">
             <button type="button" class="btn btn-primary">Follow</button>
@@ -43,14 +43,14 @@
     </div>
     <div class="col-lg-8">
       <div class="card mb-4">
-        <a (click)="onEdit(adminData.uid)" style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil"></i> Edit profile</a>
+        <a (click)="onEdit(adminData.uid)" data-backdrop="static" data-keyboard="false" style="float: right;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-pencil"></i> Edit profile</a>
         <div class="card-body">
           <div class="row">
             <div class="col-sm-3">
               <p class="mb-0">Full Name</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{adminData?.firstname !=null ? adminData.firstname : 'Admin'}}{{adminData?.lastname}}</p>
+              <p class="text-muted mb-0">{{adminData?.name !=null ? adminData.name : 'Admin'}}</p>
             </div>
           </div>
           <hr>

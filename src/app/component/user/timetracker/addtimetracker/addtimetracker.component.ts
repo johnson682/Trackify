@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
 
@@ -20,6 +21,7 @@ export class AddtimetrackerComponent implements OnInit {
     private router:Router,
     private spinnerService:NgxSpinnerService,
     private timetrackerService:TimeTrackerService,
+    private toastr:NotificationService,
     private tasksheetservice:TasksheetService) { }
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class AddtimetrackerComponent implements OnInit {
       }
     )
     this.onCancel()
+    this.toastr.showSuccess('Successfully Added','Well Done!!!')
   }
 
 

@@ -43,6 +43,8 @@ import { AddtimetrackerComponent } from './component/user/timetracker/addtimetra
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserloginActivityComponent } from './component/user/timetracker/userlogin-activity/userlogin-activity.component';
 import { TimetrackerTableComponent } from './component/user/timetracker/timetracker-table/timetracker-table.component';
+import { EmployeeLoginActivityComponent } from './component/admin/admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
+import { EmployeeTasksheetComponent } from './component/admin/admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -79,7 +81,9 @@ const firebaseConfig = {
     TimetrackerComponent,
     AddtimetrackerComponent,
     UserloginActivityComponent,
-    TimetrackerTableComponent
+    TimetrackerTableComponent,
+    EmployeeLoginActivityComponent,
+    EmployeeTasksheetComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminEmployeeListComponent } from './component/admin/admin-employee-list/admin-employee-list.component';
 import { EmployeeDetailsComponent } from './component/admin/admin-employee-list/employee-details/employee-details.component';
+import { EmployeeLoginActivityComponent } from './component/admin/admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
+import { EmployeeTasksheetComponent } from './component/admin/admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
 import { AdminProfileEditComponent } from './component/admin/admin-profile/admin-profile-edit/admin-profile-edit.component';
 import { AdminProfileComponent } from './component/admin/admin-profile/admin-profile.component';
 import { AdminComponent } from './component/admin/admin.component';
@@ -31,7 +33,11 @@ const routes: Routes = [
   {path:'admin',component:AdminComponent,canActivate:[AuthGuard],children:[
     {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent},
-    {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent},
+    {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
+      {path:'',redirectTo:'EmployeeLoginActivity',pathMatch:'full'},
+      {path:'EmployeeLoginActivity',component:EmployeeLoginActivityComponent},
+      {path:'EmployeeTasksheet',component:EmployeeTasksheetComponent}
+    ]},
     {path:'adminProfile',component:AdminProfileComponent},
     {path:':id',component:AdminProfileEditComponent},
   ]},
