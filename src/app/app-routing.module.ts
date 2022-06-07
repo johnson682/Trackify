@@ -13,7 +13,9 @@ import { AddComponent } from './component/user/tasksheet/add/add.component';
 import { EditComponent } from './component/user/tasksheet/edit/edit.component';
 import { TasksheetComponent } from './component/user/tasksheet/tasksheet.component';
 import { AddtimetrackerComponent } from './component/user/timetracker/addtimetracker/addtimetracker.component';
+import { TimetrackerTableComponent } from './component/user/timetracker/timetracker-table/timetracker-table.component';
 import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
+import { UserloginActivityComponent } from './component/user/timetracker/userlogin-activity/userlogin-activity.component';
 import { UserComponent } from './component/user/user.component';
 import { UserEditComponent } from './component/user/userprofile/user-edit/user-edit.component';
 import { UserprofileComponent } from './component/user/userprofile/userprofile.component';
@@ -35,15 +37,19 @@ const routes: Routes = [
   ]},
   
   {path:'user',component:UserComponent,canActivate: [AuthGuard] ,children:[
-    {path:'',redirectTo:'tasksheet',pathMatch:'full'},
+    {path:'',redirectTo:'timetracker',pathMatch:'full'},
     {path:'userprofile',component:UserprofileComponent,children:[
       {path:':id',component:UserEditComponent}
     ]},
     {path:'tasksheet',component:TasksheetComponent},
     {path:'tasksheet/addTotasksheet',component:AddComponent},
     {path:'tasksheet/:id',component:EditComponent},
-    {path:'timetracker',component:TimetrackerComponent},
-    {path:'timetracker/addTimeTracker',component:AddtimetrackerComponent}
+    {path:'timetracker',component:TimetrackerComponent,children:[
+      {path:'',redirectTo:'loginActivity',pathMatch:'full'},
+      {path:'loginActivity',component:UserloginActivityComponent},
+      {path:'timeTrackerTable',component:TimetrackerTableComponent},
+      {path:'timeTrackerTable/addTimeTracker',component:AddtimetrackerComponent},
+    ]},
   ]}
 
 ];

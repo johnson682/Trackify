@@ -40,6 +40,9 @@ import { SignupComponent } from './component/signup/signup.component';
 import { GravatarModule } from 'ngx-gravatar';
 import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
 import { AddtimetrackerComponent } from './component/user/timetracker/addtimetracker/addtimetracker.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { UserloginActivityComponent } from './component/user/timetracker/userlogin-activity/userlogin-activity.component';
+import { TimetrackerTableComponent } from './component/user/timetracker/timetracker-table/timetracker-table.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -74,7 +77,9 @@ const firebaseConfig = {
     EmployeeDetailsComponent,
     SignupComponent,
     TimetrackerComponent,
-    AddtimetrackerComponent
+    AddtimetrackerComponent,
+    UserloginActivityComponent,
+    TimetrackerTableComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +98,8 @@ const firebaseConfig = {
     NgxPaginationModule,
     GravatarModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],

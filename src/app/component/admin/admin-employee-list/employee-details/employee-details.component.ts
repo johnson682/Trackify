@@ -41,18 +41,12 @@ export class EmployeeDetailsComponent implements OnInit {
   }
 
   fetchData(){
-    this.employeeTaskSheetService.getId().doc(this.uid).collection('task').snapshotChanges().pipe(
-      map(document=>
-        document.map(c=>
-          ({id:c.payload.doc.id,...c.payload.doc.data()})  
-        )
-      )
-    ).subscribe(data=>{
+    this.employeeTaskSheetService.getAllTask(this.uid).subscribe(data=>{
       this.employeeDetails = data
       console.log(data);
     })
 
-    this.employeeTaskSheetService.getId().doc(this.uid).valueChanges().subscribe(data=>{
+    this.employeeTaskSheetService.data.doc(this.uid).valueChanges().subscribe(data=>{
       this.userEmail =  data.email
     })
   }

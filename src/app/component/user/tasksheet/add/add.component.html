@@ -20,23 +20,13 @@
                 class="form-control"
                 placeholder="startedDate"
                 name="startedDate"
-                formControlName="startedDate">
-                <label>startedDate</label>
+                formControlName="startedDate"
+                #datepickerFull="bsDatepicker"
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD, hh:mm:ss'}"
+                (mouseenter)="datepickerFull.toggle()" [attr.aria-expanded]="datepickerFull.isOpen">
                 <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
                 The field is required
-                </span>
-              </div>
-              <br>
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="day"
-                  placeholder="day"
-                  formControlName="day">
-                <label>Day</label>
-                <span *ngIf="!addtaskForm.get('day').valid && addtaskForm.get('day').touched" class="help-block">
-                  The field is required
                 </span>
               </div>
               <br>

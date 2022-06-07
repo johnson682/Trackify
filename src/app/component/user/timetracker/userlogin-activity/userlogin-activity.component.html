@@ -1,0 +1,61 @@
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-sm" (click)="onStart()" >Start the Day</button>
+            </div>
+            <div class="col">
+                <p>{{LocalTimeStart}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">  
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-sm" (click)="onStop()" >End of Day</button>
+            </div>
+            <div class="col">
+                <p>{{localTimeEnd}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">  
+        <button (click)="save()" class="btn btn-sm" [disabled]="!status">Save</button>
+    </div>
+</div>
+<br>
+<table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
+    <thead class="bg-light">
+      <tr>
+        <th>Date</th>
+        <th>Started Time</th>
+        <th>Ended Time</th>
+        <th>Total Working(HH:MM:SS)</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <!-- <tr *ngFor="let task of tasks | filterBy:task  | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };let i= index;"> -->
+        <tr *ngFor="let data of datas ">
+            <td>
+                <p class="text-muted mb-0">{{data.localDate}}</p>
+            </td>
+            <td>
+                <p class="text-muted mb-0">{{data.startTime}}</p>
+            </td>
+            <td>
+                <p class="text-muted mb-0">{{data.endTime}}</p>
+            </td>
+            <td><p class="text-muted mb-0">{{data.totalHours}}</p></td>
+            <td>
+                <button class="btn btn-sm" (click)="delete(data.uid)"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>
+      </tbody>
+    </table>

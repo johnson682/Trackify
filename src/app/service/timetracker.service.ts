@@ -14,10 +14,6 @@ export class TimeTrackerService{
     this.data = db.collection(this.dbpath)
   }
 
-  getId(){
-    return this.data
-  }
-
   add(uid,newTask){
     return this.data.doc(uid).collection('timetracker').add(newTask)
   }
@@ -31,7 +27,7 @@ export class TimeTrackerService{
   }
 
   getAllTimeTracker(uid){
-      return this.getId().doc(uid).collection('timetracker').snapshotChanges().pipe(
+      return this.data.doc(uid).collection('timetracker').snapshotChanges().pipe(
         map(a=>a.map(c=>
             ({id:c.payload.doc.id,...c.payload.doc.data()})    
         ))

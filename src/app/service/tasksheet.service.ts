@@ -15,10 +15,6 @@ export class TasksheetService {
     this.data = db.collection(this.dbpath)
   }
 
-  getId(){
-    return this.data
-  }
-
   add(uid,newTask){
     return this.data.doc(uid).collection('task').add(newTask)
   }
@@ -32,7 +28,7 @@ export class TasksheetService {
   }
 
   getAllTask(uid){
-    return this.getId().doc(uid).collection('task').snapshotChanges().pipe(
+    return this.data.doc(uid).collection('task').snapshotChanges().pipe(
       map(a=>a.map(c=>
           ({uid:c.payload.doc.id,...c.payload.doc.data()})    
       ))

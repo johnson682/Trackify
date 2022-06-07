@@ -22,9 +22,7 @@ export class UserService {
 
     updateUserData(uid:any,newData:any){
         console.log(newData);
-        
-        const update = this.db.collection('users')
-        update.doc(uid).update(newData)
+        return this.userRef.doc(uid).update(newData)
     }
 
     removeEmployee(uid,email,password){
