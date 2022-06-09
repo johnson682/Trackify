@@ -22,20 +22,20 @@
                 <i class="fa fa-caret-down"></i>
               </a>
               <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                <a routerLink="timetracker/loginActivity" routerLinkActive="active">Login Activity</a>
-                <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active">Table</a>
+                <a routerLink="timetracker/loginActivity" routerLinkActive="active">&nbsp;&nbsp;<i class="fa fa-history"></i>&nbsp; Login Activity</a>
+                <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active">&nbsp;&nbsp;<i class="fa fa-table"></i>&nbsp; Table</a>
               </div>
             </div>
           </div>
         </li>
         <li>
-          <a><i class="fa-solid fa-info-circle"></i> &nbsp; About</a>
+          <a routerLink="dashboard"><i class="fa fa-tachometer"></i> &nbsp; Dashboard</a>
         </li>
       </ul>
 
       <ul class="list-unstyled CTAs">
         <li>
-          <a class="download" (click)="authService.logout()">Logout</a>
+          <a class="download" (click)="logout()">Logout</a>
         </li>
       </ul>
   </nav>

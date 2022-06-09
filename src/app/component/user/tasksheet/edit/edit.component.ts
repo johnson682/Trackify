@@ -41,7 +41,6 @@ export class EditComponent implements OnInit {
       data.forEach(ele=>{
         if(ele.uid === this.id){
           this.task = ele
-          console.log(this.task.projectType);
           this.addtaskForm = new FormGroup({
             "projectType":new FormControl(this.task.projectType,Validators.required),
             'startedDate':new FormControl(this.task.startedDate,Validators.required),

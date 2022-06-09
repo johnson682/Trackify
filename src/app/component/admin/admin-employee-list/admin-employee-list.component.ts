@@ -14,7 +14,6 @@ export class AdminEmployeeListComponent implements OnInit {
   constructor(private userService:UserService,private router:Router) { }
   ngOnInit(): void {
     const user=JSON.parse(localStorage.getItem('user'))
-    console.log(user);
     this.userService.userRef.valueChanges().subscribe(data=>{
       this.users=data
     })

@@ -54,8 +54,6 @@ export class UserloginActivityComponent implements OnInit {
     }
 
     this.loginActivityService.getData(this.uid).subscribe(data=>{
-      console.log(data);
-      
       this.tasks = data
     })
   }
@@ -78,19 +76,20 @@ export class UserloginActivityComponent implements OnInit {
     }
   }
   save(){
+    let time = this.stopTime - this.startTime
+    let timehrs =this.convertMsToHM(time)
 
     let date=new Date().getDate()
     let localDate =new Date().toLocaleDateString()
-
-    let time = this.stopTime - this.startTime
-    let timehrs =this.convertMsToHM(time)
-    
     let month = this.tasksheetService.getMonth()
     let day= this.tasksheetService.getDay() 
     let year = new Date().getFullYear()
+
     if(date === new Date().getDate() ){
       this.status = false
     }
+
+
     this.loginActivityService.add(
       this.uid,
       {

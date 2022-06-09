@@ -1,10 +1,12 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { User } from "../../../model/user";
-import {NgxSpinnerService} from 'ngx-spinner'
+import { UserloginActivityService } from "src/app/service/userlogin-activity.service";
+import { TasksheetService } from "src/app/service/tasksheet.service";
+
 
 @Injectable({
     providedIn: 'root',
@@ -15,13 +17,10 @@ export class AuthService {
     constructor(
         private afs:AngularFirestore,
         private afAuth:AngularFireAuth,
-        private router:Router ,//to remove outside scope warning
-        private loadingService:NgxSpinnerService
-        ){
-            this.userRef =this.afs.collection('users')
+        private router:Router
+    ){
+        this.userRef =this.afs.collection('users')
         this.afAuth.authState.subscribe((user)=>{
-            console.log(user);
-            
             if(user){
                 localStorage.setItem('user',JSON.stringify(user))
                 JSON.parse(localStorage.getItem('user')!)
@@ -54,8 +53,6 @@ export class AuthService {
         return this.afAuth
           .createUserWithEmailAndPassword(email, password)
           .then((result) => {
-            /* Call the SendVerificaitonMail() function when new user sign 
-            up and returns promise */
             this.setUserData(result.user);
           })
           .catch((error) => {
@@ -73,27 +70,28 @@ export class AuthService {
 
         const admin:User={
             uid:adminData.uid,
-            email:adminData.email
+            email:adminData.email,
         }
         return adminRef.set(admin,{
             merge:true
         })
     }
 
-
-
-
     forgotPassword(passwordResetEmail:string){
         return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
         .then(()=>{
-            window.alert("Password reset email sent,check your box")
+            Swal.fire({
+                icon:'success',
+                title:'Successfully',
+                text:'Password reset email sent,check your box'
+            })
         })
         .catch((error)=>{
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.message,
-              })
+            })
         })
     }
 
@@ -107,6 +105,14 @@ export class AuthService {
             uid:user.uid,
             email:user.email
         }
+        // const timeMangement:any={
+        //     LoginTime:new Date().toLocaleTimeString(),
+        //     LoginDate:new Date().toLocaleDateString(),
+        //     startTimeInMS:new Date().getTime(),
+        //     month:this.tasksheetService.getMonth(),
+        //     year:new Date().getFullYear()
+        // }
+        // this.userLoginActivity.add(user.uid,timeMangement)
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }
 

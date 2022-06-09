@@ -35,7 +35,6 @@ export class TasksheetComponent implements OnInit {
     this.month= this.tasksheet.getMonth()
     
     this.task={month:this.month,year:new Date().getFullYear()}
-    console.log(this.task);
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }

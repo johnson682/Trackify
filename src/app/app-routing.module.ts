@@ -11,6 +11,7 @@ import { AdminComponent } from './component/admin/admin.component';
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
 import { LoginComponent } from './component/login/login.component';
 import { SignupComponent } from './component/signup/signup.component';
+import { DashboardComponent } from './component/user/dashboard/dashboard.component';
 import { AddComponent } from './component/user/tasksheet/add/add.component';
 import { EditComponent } from './component/user/tasksheet/edit/edit.component';
 import { TasksheetComponent } from './component/user/tasksheet/tasksheet.component';
@@ -21,6 +22,7 @@ import { UserloginActivityComponent } from './component/user/timetracker/userlog
 import { UserComponent } from './component/user/user.component';
 import { UserEditComponent } from './component/user/userprofile/user-edit/user-edit.component';
 import { UserprofileComponent } from './component/user/userprofile/userprofile.component';
+import { AdminGuard } from './guard/admin.guard';
 import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
@@ -30,7 +32,7 @@ const routes: Routes = [
   {path:'addEmployee',component:SignupComponent},
   
 
-  {path:'admin',component:AdminComponent,canActivate:[AuthGuard],children:[
+  {path:'admin',component:AdminComponent,canActivate:[AdminGuard],data: {uid: 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'},children:[
     {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
@@ -43,7 +45,7 @@ const routes: Routes = [
   ]},
   
   {path:'user',component:UserComponent,canActivate: [AuthGuard] ,children:[
-    {path:'',redirectTo:'timetracker',pathMatch:'full'},
+    {path:'',redirectTo:'tasksheet',pathMatch:'full'},
     {path:'userprofile',component:UserprofileComponent,children:[
       {path:':id',component:UserEditComponent}
     ]},
@@ -56,6 +58,7 @@ const routes: Routes = [
       {path:'timeTrackerTable',component:TimetrackerTableComponent},
       {path:'timeTrackerTable/addTimeTracker',component:AddtimetrackerComponent},
     ]},
+    {path:'dashboard',component:DashboardComponent}
   ]}
 
 ];

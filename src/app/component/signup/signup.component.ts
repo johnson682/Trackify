@@ -28,14 +28,11 @@ export class SignupComponent implements OnInit {
 
     let email = this.addEmployeeForm.value.email
     let password = this.addEmployeeForm.value.password
-
     this.authService.SignUp(email,password).catch(error=>{
       console.log(error);
-      
     })
     this.notificationService.showSuccess("Employee Added Successfully","Well Done")
     this.onCancel()
-    // Swal.fire('Thank you...', 'You submitted succesfully!', 'success')
   }
 
   onCancel(){

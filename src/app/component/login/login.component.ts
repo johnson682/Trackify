@@ -6,6 +6,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,7 @@ import { TimeTrackerService } from 'src/app/service/timetracker.service';
 export class LoginComponent implements OnInit{
   loginForm:FormGroup 
   uid:any
-  constructor(
-    public authService:AuthService,
-    private timtrackerService:TimeTrackerService,
-    private userloginActivity:UserloginActivityService){}
+  constructor(public authService:AuthService){}
   ngOnInit(): void {
       this.loginForm = new FormGroup({
         'email':new FormControl('',Validators.required),
@@ -28,8 +26,6 @@ export class LoginComponent implements OnInit{
   onSubmit(){
     let email = this.loginForm.value.email
     let password = this.loginForm.value.password
-
     this.authService.login(email,password)
-    // this.userloginActivity.add(this.uid,{started:this.timtrackerService.getCurrentTimeInTaskStartEndFormat()})
   }
 }

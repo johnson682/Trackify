@@ -21,15 +21,13 @@
             <!-- <br>
             <div class="form-floating">
                 <input
-                type="text"
+                type="file"
                 class="form-control"
+                accept="image/*"
                 placeholder="photoURL"
                 name="photoURL"
-                formControlName="photoURL">
+                (change)="processFile($event)">
                 <label>photoURL</label>
-                <span *ngIf="!userEditForm.get('photoURL').valid && userEditForm.get('photoURL').touched" class="help-block">
-                The field is required
-                </span>
             </div> -->
             
             <br>

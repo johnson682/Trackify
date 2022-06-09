@@ -10,8 +10,13 @@ export class UserlistComponent implements OnInit {
 
   constructor(public authService:AuthService) {}
 
-
+  uid:any
   ngOnInit(): void {
+    const data = JSON.parse(localStorage.getItem('user'))
+    this.uid = data.uid
   }
 
+  logout(){
+    this.authService.logout()
+  }
 }

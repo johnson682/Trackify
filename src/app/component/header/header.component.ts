@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
     }else {
       if(this.navbar !=null && this.brand != null){
         this.navbar.style.padding = "10px 10px";
-        this.brand.style.fontSize = "35px";
+        this.brand.style.fontSize = "30px";
       }
     }
   };

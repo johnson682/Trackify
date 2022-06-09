@@ -7,11 +7,10 @@
     <ul class="list-unstyled components">
       <li><a routerLink="adminProfile" routerLinkActive="active"> <i class="fa fa-user"></i> &nbsp; Profile</a></li>
       <li><a routerLinkActive="active" routerLink="adminEmployeeList"><i class="fa fa-list"></i> &nbsp; Employee List</a></li>
-      <li><a>Status</a></li>
-      <li><a>About</a></li>
+
     </ul>
     <ul class="list-unstyled CTAs">
-      <li><a class="download" (click)="authService.logout()" style="color: #7386D5;">Logout</a></li>
+      <li><a class="download" (click)="logout()" style="color: #7386D5;">Logout</a></li>
     </ul>
   </nav>
 </div>

@@ -31,8 +31,6 @@ export class TimetrackerTableComponent implements OnInit {
   }
 
   onChangeStatus(event,id){
-    console.log(event);
-    
     if(event ==='complete'){
       let ended = this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
       this.timetrackerService.updateTask(this.uid,id,{status:event,endedDate:ended})

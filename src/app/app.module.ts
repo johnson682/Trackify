@@ -45,16 +45,17 @@ import { UserloginActivityComponent } from './component/user/timetracker/userlog
 import { TimetrackerTableComponent } from './component/user/timetracker/timetracker-table/timetracker-table.component';
 import { EmployeeLoginActivityComponent } from './component/admin/admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
 import { EmployeeTasksheetComponent } from './component/admin/admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
+import { DashboardComponent } from './component/user/dashboard/dashboard.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
-  authDomain: "trackify-d3824.firebaseapp.com",
-  databaseURL:"https://trackify-d3824-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "trackify-d3824",
-  storageBucket: "trackify-d3824.appspot.com",
-  messagingSenderId: "1013604880702",
-  appId: "1:1013604880702:web:fb154e3f054b27b0c19c6f",
-  measurementId: "G-WRQXN2MXDN"
+    authDomain: "trackify-d3824.firebaseapp.com",
+    databaseURL: "https://trackify-d3824-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "trackify-d3824",
+    storageBucket: "trackify-d3824.appspot.com",
+    messagingSenderId: "1013604880702",
+    appId: "1:1013604880702:web:fb154e3f054b27b0c19c6f",
+    measurementId: "G-WRQXN2MXDN"
 };
 
 @NgModule({
@@ -83,7 +84,8 @@ const firebaseConfig = {
     UserloginActivityComponent,
     TimetrackerTableComponent,
     EmployeeLoginActivityComponent,
-    EmployeeTasksheetComponent
+    EmployeeTasksheetComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -29,8 +29,6 @@ export class EmployeeTasksheetComponent implements OnInit {
       this.years.push(i)
     }
     const data=JSON.parse(localStorage.getItem('Employee Uid'))
-    console.log(data);
-    
     this.uid = data
     this.fetchData()
   }

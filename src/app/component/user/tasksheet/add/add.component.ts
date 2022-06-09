@@ -33,19 +33,14 @@ export class AddComponent implements OnInit {
   ngOnInit(): void {
     this.spinnerService.hide()
     let data=JSON.parse(localStorage.getItem('user'))
-    console.log(data);
     this.uid = data.uid
-    
     this.upstartedDate =false
     let startedDate=this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
 
     this.year = new Date().getFullYear()
-    
     this.month=this.tasksheet.getMonth()
-    
     this.day=this.tasksheet.getDay()
 
-    
     this.addtaskForm = new FormGroup({
       'startedDate':new FormControl(startedDate,Validators.required),
       'day':new FormControl(this.day,Validators.required),

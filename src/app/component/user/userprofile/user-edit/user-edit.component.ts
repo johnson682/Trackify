@@ -5,7 +5,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from 'src/app/component/login/service/auth.service';
 import { UserService } from 'src/app/service/user.service';
 import { NgxSpinnerService } from 'ngx-spinner'
-
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -13,8 +15,10 @@ import { NgxSpinnerService } from 'ngx-spinner'
 })
 export class UserEditComponent implements OnInit {
 
+  selectedFile: ImageSnippet;
   userEditForm:FormGroup
   uid:any
+  imageFile:any
 
   constructor(
     private route:ActivatedRoute,

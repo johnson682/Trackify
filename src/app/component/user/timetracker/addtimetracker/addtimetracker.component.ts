@@ -26,8 +26,6 @@ export class AddtimetrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.spinnerService.hide()
-    console.log(this.type);
-    
     this.userData = JSON.parse(localStorage.getItem('user'))
 
     this.addTimeTrackerForm = new FormGroup({

@@ -27,7 +27,6 @@ export class AdminProfileEditComponent implements OnInit {
 
     this.adminEditForm = new FormGroup({
       'name':new FormControl(''),
-
       'dob':new FormControl(''),
       'state':new FormControl(''),
       'mobile':new FormControl('')

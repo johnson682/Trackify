@@ -26,7 +26,7 @@ export class TimeTrackerService{
     return this.data.doc(uid).collection('timetracker').doc(id).delete()
   }
 
-  getAllTimeTracker(){
+  getAllTimeTracker(  ){
       return this.data
   }
 
