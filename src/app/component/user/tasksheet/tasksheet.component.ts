@@ -16,7 +16,10 @@ export class TasksheetComponent implements OnInit {
 
   constructor(
     private tasksheet:TasksheetService,
-    private router:Router) { }
+    private router:Router) { 
+      this.maxDate.setDate(this.maxDate.getDate() + 7);
+      
+    }
 
   tasks:any
   id:any
@@ -38,6 +41,8 @@ export class TasksheetComponent implements OnInit {
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
+    
+    
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
     this.onFetchData()
@@ -94,6 +99,20 @@ export class TasksheetComponent implements OnInit {
 
     XLSX.writeFile(wb,this.fileName)
   }
+  bsValue = new Date();
+  bsRangeValue: Date[];
+  maxDate = new Date();
 
+  // change(event){
+  //   console.log(event[0]);
+  //   const Smonth = new Date(event[0]).getMonth()
+  //   const Emonth = new Date(event[1]).getMonth()
+  //   const startMonth = this.tasksheet.getMonths(Smonth)
+  //   const EndMonth = this.tasksheet.getMonths(Emonth)
+
+  //   console.log(startMonth,EndMonth);
+    
+    
+  // }
   
 }

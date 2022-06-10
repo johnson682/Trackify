@@ -22,9 +22,6 @@ imageFile:any
     this.uid = user.uid
     this.userService.userRef.doc(user.uid).valueChanges().subscribe(data=>{
       this.users = data
-      this.imageFile = data.image
-      const reader = new FileReader()
-      reader.readAsDataURL(this.imageFile)
     })
   }
   onEdit(uid){

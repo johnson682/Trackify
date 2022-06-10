@@ -1,12 +1,35 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col">
+            <ng-select
+            style="width: 100px;float:right;"
+            (change)="changeDay($event)" 
+            [items]="day" 
+            [(ngModel)]="task.day">
+          </ng-select>
+          <ng-select
+            style="width: 100px;float:right;" 
+            [items]="monthNames" 
+            [(ngModel)]="task.month"
+            (change)="changeMonth($event)"
+            >
+          </ng-select>
+          <ng-select
+            style="width: 100px;float:right;"
+            (change)="changeYear($event)" 
+            [items]="years" 
+            [(ngModel)]="task.year">
+          </ng-select>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col">
             <div class="card">
                 <div class="card-header">
                     Total Hours
                 </div>
                 <div class="card-body">
-                    00:00:00
+                    {{time}}
                 </div>
             </div>
         </div>
@@ -16,11 +39,11 @@
                     Total Task Completed
                 </div>
                 <div class="card-body">
-                    123
+                    {{totalTask}}
                 </div>
             </div>
         </div>
-        <div class="col">
+        <!-- <div class="col">
             <div class="card">
                 <div class="card-header">
                     Total Project
@@ -29,6 +52,6 @@
                     234
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

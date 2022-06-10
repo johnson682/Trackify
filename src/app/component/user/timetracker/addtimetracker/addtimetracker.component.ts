@@ -46,7 +46,7 @@ export class AddtimetrackerComponent implements OnInit {
     let month = this.tasksheetservice.getMonth()
     let year = new Date().getFullYear()
     let day= this.tasksheetservice.getDay()
-
+    let date=new Date().getDate()
     this.timetrackerService.add(
       this.userData.uid,
       {
@@ -58,7 +58,8 @@ export class AddtimetrackerComponent implements OnInit {
         endedDate:ended,
         month:month,
         year:year,
-        day:day
+        day:day,
+        date:date
         
       }
     )

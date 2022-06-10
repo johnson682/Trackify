@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
+import { TimeTrackerService } from 'src/app/service/timetracker.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -22,6 +24,7 @@ export class UserloginActivityComponent implements OnInit {
   tasks:any
 
   month:any;
+  date=[]
   task:any;
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
@@ -29,14 +32,18 @@ export class UserloginActivityComponent implements OnInit {
   constructor(
     private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService,
+    private timetrackerService:TimeTrackerService,
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
     this.month= this.tasksheetService.getMonth()
     
-    this.task={month:this.month,year:new Date().getFullYear()}
+    this.task={date:new Date().getDate(),month:this.month,year:new Date().getFullYear()}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
+    }
+    for(let i=1;i<=31;i++){
+      this.date.push(i)
     }
 
 
@@ -54,8 +61,20 @@ export class UserloginActivityComponent implements OnInit {
     }
 
     this.loginActivityService.getData(this.uid).subscribe(data=>{
-      this.tasks = data
+      this.datasFromLogin = data
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear() )
+      var finalData = this.file.map((obj)=>{
+        return obj.totalTime
+      })
+      
+      if(finalData.length === 0){
+        this.time = "00:00:00"
+      }else{
+        var time =finalData.reduce(this.add)
+        this.time = this.loginActivityService.convertMsToHM(time)
+      }
     })
+
   }
   
   onStart(){
@@ -63,7 +82,6 @@ export class UserloginActivityComponent implements OnInit {
     localStorage.setItem('LocalTimeStart',JSON.stringify(this.LocalTimeStart))
     this.startTime = new Date().getTime()
     localStorage.setItem('startTime',JSON.stringify(this.startTime))
-    
   }
 
   onStop(){
@@ -74,20 +92,15 @@ export class UserloginActivityComponent implements OnInit {
     if(this.LocalTimeStart != undefined && this.localTimeEnd != undefined){
       this.status = true
     }
-  }
-  save(){
-    let time = this.stopTime - this.startTime
-    let timehrs =this.convertMsToHM(time)
 
+    let time = this.stopTime - this.startTime
+    let timehrs =this.loginActivityService.convertMsToHM(time)
     let date=new Date().getDate()
     let localDate =new Date().toLocaleDateString()
     let month = this.tasksheetService.getMonth()
     let day= this.tasksheetService.getDay() 
     let year = new Date().getFullYear()
 
-    if(date === new Date().getDate() ){
-      this.status = false
-    }
 
 
     this.loginActivityService.add(
@@ -96,6 +109,7 @@ export class UserloginActivityComponent implements OnInit {
         localDate:localDate,
         startTime:this.LocalTimeStart,
         endTime:this.localTimeEnd,
+        totalTime:time,
         day:day,
         date:date,
         month:month,
@@ -104,7 +118,8 @@ export class UserloginActivityComponent implements OnInit {
       }
     )
     this.clear()
-  }  
+  }
+
   clear(){
     localStorage.removeItem('LocalTimeStart')
     localStorage.removeItem('localTimeEnd')
@@ -145,18 +160,97 @@ export class UserloginActivityComponent implements OnInit {
     
   }
 
-  padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
-  }
+  datasFromLogin:any
+  file:any
+  time:any;
+  totalHRS=0
+
+  changeDay(event){
   
-  convertMsToHM(milliseconds) {
-    let seconds = Math.floor(milliseconds / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
-    seconds = seconds % 60;
-    minutes = seconds >= 30 ? minutes + 1 : minutes;
-    minutes = minutes % 60;
-    hours = hours % 24;
-    return `${this.padTo2Digits(hours)}:${this.padTo2Digits(minutes)}:${this.padTo2Digits(seconds)}`;
+    if(event != undefined){
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin = data
+        this.file=this.datasFromLogin.filter(obj => obj.date === event)
+        var finalData = this.file.map((obj)=>{
+          return obj.totalTime
+        })
+        
+        if(finalData.length === 0){
+          this.time = "00:00:00"
+        }else{
+          var time =finalData.reduce(this.add)
+          this.time = this.loginActivityService.convertMsToHM(time)
+        }
+      })
+    }else{
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin=data
+        var finalData = this.datasFromLogin.map((obj)=>{
+          return obj.totalTime
+        })
+        var time = finalData.reduce(this.add)
+        this.time = this.loginActivityService.convertMsToHM(time)
+      })
+    }
   }
+  changeMonth(event){
+    if(event != undefined){
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin = data
+        this.file=this.datasFromLogin.filter(obj => obj.month === event)
+        var finalData = this.file.map((obj)=>{
+          return obj.totalTime
+        })
+        if(finalData.length === 0){
+          this.time = "00:00:00"
+        }else{
+          var time =finalData.reduce(this.add)
+          this.time = this.loginActivityService.convertMsToHM(time)
+        }
+      })
+    }else{
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin=data
+        var finalData = this.datasFromLogin.map((obj)=>{
+          return obj.totalTime
+        })
+        var time = finalData.reduce(this.add)
+        this.time = this.loginActivityService.convertMsToHM(time)
+      })
+    }
+  }
+
+
+
+  changeYear(event){
+    if(event != undefined){
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin = data
+        this.file=this.datasFromLogin.filter(obj => obj.year === event)
+        var finalData = this.file.map((obj)=>{
+          return obj.totalTime
+        })
+        if(finalData.length === 0){
+          this.time = "00:00:00"
+        }else{
+          var time =finalData.reduce(this.add)
+          this.time = this.loginActivityService.convertMsToHM(time)
+        }    
+      })
+    }else{
+      this.loginActivityService.getData(this.uid).subscribe(data=>{
+        this.datasFromLogin=data
+        var finalData = this.datasFromLogin.map((obj)=>{
+          return obj.totalTime
+        })
+        var time = finalData.reduce(this.add)
+        this.time = this.loginActivityService.convertMsToHM(time)
+      })
+    }
+  }
+  add(total,num){
+    return total + num
+  }
+
+  
 }

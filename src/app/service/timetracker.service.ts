@@ -26,8 +26,12 @@ export class TimeTrackerService{
     return this.data.doc(uid).collection('timetracker').doc(id).delete()
   }
 
-  getAllTimeTracker(  ){
-      return this.data
+  getAllTimeTracker(uid){
+      return this.data.doc(uid).collection('timetracker').snapshotChanges().pipe(
+        map(a=>a.map(c=>
+            ({id:c.payload.doc.id,...c.payload.doc.data()})    
+        ))
+      )
   }
 
   getCurrentTimeInTaskStartEndFormat() {

@@ -21,11 +21,7 @@ export class TimetrackerTableComponent implements OnInit {
   ngOnInit(): void {
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
-    this.timetrackerService.getAllTimeTracker().doc(this.uid).collection('timetracker').snapshotChanges().pipe(
-      map(a=>a.map(c=>
-          ({id:c.payload.doc.id,...c.payload.doc.data()})    
-      ))
-    ).subscribe(data=>{
+    this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
       this.projects = data
     })
   }

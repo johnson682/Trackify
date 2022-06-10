@@ -15,6 +15,9 @@ export class EditComponent implements OnInit {
   id:any
   uid:any
   update=false
+  date:any
+
+  isOpen=false
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   task:any
   constructor(
@@ -55,10 +58,11 @@ export class EditComponent implements OnInit {
 
 
   onSubmit(){
-    let startedDate = this.addtaskForm.value.startedDate
+    this.date = new Date(this.addtaskForm.value.startedDate).toLocaleDateString()
+ 
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
-    this.tasksheet.updateTask(this.uid,this.id,{startedDate:startedDate,description:description,projectType:projectType})
+    this.tasksheet.updateTask(this.uid,this.id,{startedDate:this.date,description:description,projectType:projectType})
     this.onCancel()
     this.toastr.showInfo("Successfully updated" , 'Well Done!!')
   }

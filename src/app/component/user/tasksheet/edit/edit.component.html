@@ -15,15 +15,20 @@
               </div>
               <br>
               <div class="form-floating">
-                <input
-                type="text"
-                class="form-control"
-                placeholder="startedDate"
-                name="startedDate"
-                formControlName="startedDate">
-                <label>startedDate</label>
+                <div class="input-group">
+                  <input type="text"
+                    placeholder="Datepicker"
+                    class="form-control"
+                    bsDatepicker
+                    formControlName="startedDate"
+                    [isOpen]="isOpen"
+                    [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                  <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </div>
                 <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
-                The field is required
+                  The field is required
                 </span>
               </div>
               <br>

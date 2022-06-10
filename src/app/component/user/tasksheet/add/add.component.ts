@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { NgxSpinnerService } from 'ngx-spinner'
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -17,10 +18,14 @@ export class AddComponent implements OnInit {
   uid:any
   upstartedDate=false
 
+  isOpen = false;
+
+  
   year:any;
   month:any;
   projectName:any
   day:any
+  date:any
 
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   constructor(
@@ -35,29 +40,22 @@ export class AddComponent implements OnInit {
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
     this.upstartedDate =false
-    let startedDate=this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
 
-    this.year = new Date().getFullYear()
-    this.month=this.tasksheet.getMonth()
-    this.day=this.tasksheet.getDay()
 
     this.addtaskForm = new FormGroup({
-      'startedDate':new FormControl(startedDate,Validators.required),
-      'day':new FormControl(this.day,Validators.required),
+      'startedDate':new FormControl('',Validators.required),
       'description':new FormControl('',Validators.required),
       "projectType":new FormControl(this.projectName,Validators.required)
     })
   }
 
   onSubmit(){
-    let startedDate = this.addtaskForm.value.startedDate
-    let date = new Date().toLocaleDateString()
-    let day = this.addtaskForm.value.day
+    let startedDate = this.date
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
     let month =this.month
     let year = this.year
-    this.tasksheet.add(this.uid,{startedDate,day,description,month,year,projectType,date})
+    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType})
     this.onCancel()
     this.toastr.showSuccess('Successfully Added','Well Done!!!')
   }
@@ -68,6 +66,21 @@ export class AddComponent implements OnInit {
     this.spinnerService.hide()
   }
 
+  change(event){
+    console.log(event);
+    const month=new Date(event).getMonth()
+    
+    const date=new Date(event).toLocaleDateString()
+    const givenmonth=this.tasksheet.getMonths(month)
+    const year=new Date(event).getFullYear()
+
+
+    this.date = `${date}`
+    this.month = `${givenmonth}`
+    this.year=`${year}`
+    
+    
+  }
  
 
   
