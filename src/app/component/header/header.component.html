@@ -2,4 +2,30 @@
     <div class="container">
         <a class="navbar-brand mx-auto" id="brand">Employee Management System</a>
     </div>
+    <div class="dropdown">
+        <a 
+        class=" dropdown-toggle" 
+        role="button" 
+        id="dropdownMenuLink" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false"
+        style="margin-right: 20px;">
+        <i>
+            <img
+            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+            class="rounded-circle "
+            height="35"
+            alt="Black and White Portrait of a Man"
+            loading="lazy"
+          />
+        </i>
+        </a>
+      
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li *ngIf="uid == 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'"><a class="dropdown-item" routerLink="adminProfile"><i class="fa fa-user"></i> &nbsp;Profile</a></li>
+          <li *ngIf="uid != 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'"><a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user"></i> &nbsp;Profile</a></li>
+
+          <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
 </nav>

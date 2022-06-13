@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
 
     this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
       this.datasFromTimetracker = data
-      const datas=this.datasFromTimetracker.filter(obj=>obj.status==='complete')
+      const datas=this.datasFromTimetracker.filter(obj=>obj.status==='complete' && obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear())
       this.totalTask = datas.length
     })
   }

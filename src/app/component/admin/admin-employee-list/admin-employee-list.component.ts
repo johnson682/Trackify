@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class AdminEmployeeListComponent implements OnInit {
   users:any
-
+  userLoginTime:any
   constructor(private userService:UserService,private router:Router) { }
   ngOnInit(): void {
     const user=JSON.parse(localStorage.getItem('user'))

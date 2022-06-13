@@ -1,5 +1,4 @@
 #navbar {
-  overflow: hidden;
   background-color: #7386D5;
   padding: 10px 10px; /* Large padding which will shrink on scroll (using JS) */
   transition: 0.4s; /* Adds a transition effect when the padding is decreased */
@@ -17,6 +16,12 @@
   padding: 12px;
   text-decoration: none;
   transition-duration: 0.4s;
+}
+#navbar div ul li a{
+  color: #7386D5;
+}
+.dropdown{
+  margin-right: 20px;
 }
   
 /* Style the logo */

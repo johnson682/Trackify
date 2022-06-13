@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { User } from "../../../model/user";
 import { UserloginActivityService } from "src/app/service/userlogin-activity.service";
+import { UserService } from "src/app/service/user.service";
 import { TasksheetService } from "src/app/service/tasksheet.service";
 
 
@@ -13,13 +14,26 @@ import { TasksheetService } from "src/app/service/tasksheet.service";
 })
 
 export class AuthService {
+
+    startTime:any
+    stopTime:any
+    LocalTimeStart:any
+    localTimeEnd:any
+    localDate:any;
+
     userRef:AngularFirestoreCollection<any>
+    adminRef:AngularFirestoreCollection<any>
+
     constructor(
         private afs:AngularFirestore,
         private afAuth:AngularFireAuth,
-        private router:Router
+        private router:Router,
+        private userloginActivityService:UserloginActivityService,
+        private userService:UserService,
+        private tasksheetService:TasksheetService
     ){
         this.userRef =this.afs.collection('users')
+        this.adminRef = this.afs.collection('admin')
         this.afAuth.authState.subscribe((user)=>{
             if(user){
                 localStorage.setItem('user',JSON.stringify(user))
@@ -29,6 +43,10 @@ export class AuthService {
                 JSON.parse(localStorage.getItem('user'))
             }
         })
+
+
+        this.startTime = JSON.parse(localStorage.getItem('startTime'))
+        this.localDate = JSON.parse(localStorage.getItem('date'))
     }
 
     login(email:string,password:string){
@@ -71,6 +89,7 @@ export class AuthService {
         const admin:User={
             uid:adminData.uid,
             email:adminData.email,
+            Status:true,
         }
         return adminRef.set(admin,{
             merge:true
@@ -103,23 +122,51 @@ export class AuthService {
     setUserData(user:any){
         const userData:User={
             uid:user.uid,
-            email:user.email
+            email:user.email,
+            Status:true,
         }
-        // const timeMangement:any={
-        //     LoginTime:new Date().toLocaleTimeString(),
-        //     LoginDate:new Date().toLocaleDateString(),
-        //     startTimeInMS:new Date().getTime(),
-        //     month:this.tasksheetService.getMonth(),
-        //     year:new Date().getFullYear()
-        // }
-        // this.userLoginActivity.add(user.uid,timeMangement)
+        this.LocalTimeStart= new Date().toLocaleTimeString()
+        this.startTime = new Date().getTime()
+        this.localDate =  new Date().toLocaleDateString()
+        localStorage.setItem('LocalTimeStart',JSON.stringify(this.LocalTimeStart))
+        localStorage.setItem('startTime',JSON.stringify(this.startTime))
+        localStorage.setItem('date',JSON.stringify(this.localDate))
+
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }
 
-    logout(){
+    logout(uid){
         return this.afAuth.signOut().then(()=>{
             localStorage.removeItem('user')
             this.router.navigate(['login'])
+            
+            if(uid !==  'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
+                this.userRef.doc(uid).update({Status:false})
+
+                this.localTimeEnd = new Date().toLocaleTimeString()
+                this.stopTime = new Date().getTime()
+    
+                let time = this.stopTime - this.startTime
+                let timehrs =this.userloginActivityService.convertMsToHM(time)
+                let date=new Date().getDate()
+                let localDate =new Date().toLocaleDateString()
+                let month = this.tasksheetService.getMonth()
+                let year = new Date().getFullYear()
+    
+                this.userloginActivityService.add(uid,{
+                    localDate:localDate,
+                    startTime:this.LocalTimeStart,
+                    endTime:this.localTimeEnd,
+                    totalTime:time,
+                    date:date,
+                    month:month,
+                    year:year,
+                    totalHours:timehrs
+                })
+            }else{
+                this.adminRef.doc(uid).update({Status:false})
+            }
+
         })
     }
 

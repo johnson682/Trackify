@@ -16,13 +16,14 @@
               </div>
               <div class="form-floating">
                 <div class="input-group">
-                  <input type="text"
+                  <input type="button"
                     placeholder="Datepicker"
                     class="form-control"
                     (bsValueChange)="change($event)"
                     bsDatepicker
                     formControlName="startedDate"
                     [isOpen]="isOpen"
+                    [maxDate]="today"
                     [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
                   <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
                     <i class="fa fa-calendar"></i>

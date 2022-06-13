@@ -12,7 +12,7 @@ import { TimeTrackerService } from 'src/app/service/timetracker.service';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-
+  today:any
   addtaskForm:FormGroup
   id:any
   uid:any
@@ -26,6 +26,7 @@ export class AddComponent implements OnInit {
   projectName:any
   day:any
   date:any
+  singleDate:any
 
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   constructor(
@@ -41,7 +42,7 @@ export class AddComponent implements OnInit {
     this.uid = data.uid
     this.upstartedDate =false
 
-
+    this.today = new Date()
     this.addtaskForm = new FormGroup({
       'startedDate':new FormControl('',Validators.required),
       'description':new FormControl('',Validators.required),
@@ -55,7 +56,8 @@ export class AddComponent implements OnInit {
     let projectType = this.addtaskForm.value.projectType
     let month =this.month
     let year = this.year
-    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType})
+    let date = this.singleDate
+    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType,date})
     this.onCancel()
     this.toastr.showSuccess('Successfully Added','Well Done!!!')
   }
@@ -73,9 +75,10 @@ export class AddComponent implements OnInit {
     const date=new Date(event).toLocaleDateString()
     const givenmonth=this.tasksheet.getMonths(month)
     const year=new Date(event).getFullYear()
-
+    const singleDate = new Date(event).getDate()
 
     this.date = `${date}`
+    this.singleDate = `${singleDate}`
     this.month = `${givenmonth}`
     this.year=`${year}`
     

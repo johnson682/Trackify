@@ -45,7 +45,7 @@ const routes: Routes = [
   ]},
   
   {path:'user',component:UserComponent,canActivate: [AuthGuard] ,children:[
-    {path:'',redirectTo:'tasksheet',pathMatch:'full'},
+    {path:'',redirectTo:'timetracker',pathMatch:'full'},
     {path:'userprofile',component:UserprofileComponent,children:[
       {path:':id',component:UserEditComponent}
     ]},

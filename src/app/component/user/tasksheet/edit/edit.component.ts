@@ -17,6 +17,7 @@ export class EditComponent implements OnInit {
   update=false
   date:any
 
+  today = new Date()
   isOpen=false
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   task:any

@@ -17,6 +17,6 @@ export class UserlistComponent implements OnInit {
   }
 
   logout(){
-    this.authService.logout()
+    this.authService.logout(this.uid)
   }
 }

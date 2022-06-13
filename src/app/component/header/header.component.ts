@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { empty } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+
 import { AuthService } from 'src/app/component/login/service/auth.service';
+import { UserService } from 'src/app/service/user.service';
+import { AdminProfileService } from '../admin/service/admin-profile.service';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,33 @@ import { AuthService } from 'src/app/component/login/service/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+uid:any
+users:any;
+user:any
 
   navbar = document.getElementById('navbar')
   brand = document.getElementById('brand')
-  constructor(private route:ActivatedRoute,private router:Router ,public authService:AuthService) { }
+  constructor(private userService:UserService ,public authService:AuthService,private adminProfileService:AdminProfileService) { }
 
   ngOnInit() {
+    const userData = JSON.parse(localStorage.getItem('user'))
+    this.uid = userData.uid
     window.addEventListener('scroll', this.scroll, true); //third parameter
+
+    if(this.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
+      this.adminProfileService.adminRef.valueChanges().subscribe(data=>{
+        this.users = data
+        const datas=this.users.filter(obj=>obj.uid === this.uid)
+        this.user = data[0] 
+      })
+    }else{
+      this.userService.userRef.valueChanges().subscribe(data=>{
+        this.users=data
+        const datas=this.users.filter(obj=>obj.uid === this.uid)
+        this.user = datas[0]
+      })
+
+    }
 
   } 
 
@@ -34,6 +54,9 @@ export class HeaderComponent implements OnInit {
     }
   };
 
+  logout(){
+    this.authService.logout(this.uid)
+  }
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }

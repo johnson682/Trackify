@@ -15,10 +15,10 @@ class ImageSnippet {
 })
 export class UserEditComponent implements OnInit {
 
-  selectedFile: ImageSnippet;
   userEditForm:FormGroup
   uid:any
   imageFile:any
+  data:any
 
   constructor(
     private route:ActivatedRoute,
@@ -31,13 +31,26 @@ export class UserEditComponent implements OnInit {
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })
-
-    this.userEditForm = new FormGroup({
-      "name":new FormControl('',Validators.required),
-      'dob':new FormControl(''),
-      'state':new FormControl(''),
-      'mobile':new FormControl('')
+    this.userService.userRef.doc(this.uid).valueChanges().subscribe(data=>{
+      console.log(data.name);
+      this.data=data
+      if(this.data.name === undefined && this.data.dob === undefined && this.data.state=== undefined && this.data.mobile === undefined){
+        this.userEditForm = new FormGroup({
+          "name":new FormControl('',Validators.required),
+          'dob':new FormControl(''),
+          'state':new FormControl(''),
+          'mobile':new FormControl('')
+        })
+      }else{
+        this.userEditForm = new FormGroup({
+          "name":new FormControl(this.data.name != undefined ? this.data.name : ''),
+          'dob':new FormControl(this.data.dob),
+          'state':new FormControl(this.data.state),
+          'mobile':new FormControl(this.data.mobile)
+        })
+      }
     })
+
     
   }
 

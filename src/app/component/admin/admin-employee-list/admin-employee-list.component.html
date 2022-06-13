@@ -4,7 +4,16 @@
   <div class="row d-flex h-100">
     <div class="col-md-12 col-xl-4" *ngFor="let user of users">
       <div class="card" style="border-radius: 15px;">
-        <a style="float: right;text-align: right;margin-right: 10px;" (click)="remove(user.uid,user.email,user.passowrd)">X</a>
+        <div class="row">
+          <div class="col">
+            <a data-toggle="tooltip" data-placement="top" title="Active">
+              <i class="fas fa-dot-circle" style="color: green;" *ngIf="user.Status === true"></i> 
+            </a>
+          </div>
+          <div class="col">
+            <a style="float: right;text-align: right;margin-right: 10px;" (click)="remove(user.uid,user.email,user.passowrd)">X</a>
+          </div>
+        </div>
         <div class="card-body text-center">
           <div class="mt-3 mb-4">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"

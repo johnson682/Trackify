@@ -16,10 +16,11 @@
               <br>
               <div class="form-floating">
                 <div class="input-group">
-                  <input type="text"
+                  <input type="button"
                     placeholder="Datepicker"
                     class="form-control"
                     bsDatepicker
+                    [maxDate]="today"
                     formControlName="startedDate"
                     [isOpen]="isOpen"
                     [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">

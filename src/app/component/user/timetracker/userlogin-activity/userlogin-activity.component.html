@@ -1,29 +1,5 @@
 <h4>LOGIN ACTIVITY</h4>
-<div class="row">
-    <div class="col-md-4">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-sm" (click)="onStart()" >Start the Day</button>
-            </div>
-            <div class="col">
-                <p>{{LocalTimeStart}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">  
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-sm" (click)="onStop()" >End of the Day</button>
-            </div>
-            <div class="col">
-                <p>{{localTimeEnd}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <button class="btn btn-sm" (click)="clear()" >clear</button>
-    </div>
-</div>
+<p>Login Time: {{LocalTimeStart}}</p>
 <hr>
 <div class="row">
     <div class="col-md-4" >
@@ -59,7 +35,6 @@
               <th>Started Time</th>
               <th>Ended Time</th>
               <th>Total Working(HH:MM:SS)</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody> 
@@ -74,9 +49,6 @@
                       <p class=" mb-0">{{task.endTime}}</p>
                   </td>
                   <td><p class=" mb-0">{{task.totalHours}}</p></td>
-                  <td>
-                      <button class="btn btn-sm" (click)="delete(task.uid)"><i class="fas fa-trash"></i></button>
-                  </td>
               </tr>
             </tbody>
     </table>

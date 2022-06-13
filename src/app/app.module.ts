@@ -17,6 +17,7 @@ import {NgxSpinnerModule} from 'ngx-spinner'
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown'
 
 import { UserprofileComponent } from './component/user/userprofile/userprofile.component';
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
@@ -46,6 +47,8 @@ import { TimetrackerTableComponent } from './component/user/timetracker/timetrac
 import { EmployeeLoginActivityComponent } from './component/admin/admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
 import { EmployeeTasksheetComponent } from './component/admin/admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
 import { DashboardComponent } from './component/user/dashboard/dashboard.component';
+import { OrderModule } from 'ngx-order-pipe';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -105,7 +108,9 @@ const firebaseConfig = {
     GravatarModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    MdbDropdownModule,
+    OrderModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],

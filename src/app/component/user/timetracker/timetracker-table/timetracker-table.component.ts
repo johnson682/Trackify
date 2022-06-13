@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
 import Swal from 'sweetalert2';
@@ -16,7 +17,10 @@ export class TimetrackerTableComponent implements OnInit {
 
   projectStatus=['complete','progress']
 
-  constructor(private timetrackerService:TimeTrackerService,private tasksheetservice:TasksheetService) { }
+  constructor(
+    private timetrackerService:TimeTrackerService,
+    private tasksheetservice:TasksheetService,
+    private tostr:NotificationService) { }
 
   ngOnInit(): void {
     const userData=JSON.parse(localStorage.getItem('user'))
@@ -66,6 +70,7 @@ export class TimetrackerTableComponent implements OnInit {
 
   add(task){
     this.tasksheetservice.add(this.uid,task)
+    this.tostr.showSuccess('well Done!!!','Successfully Added to Tasksheet')
   }
 
 }

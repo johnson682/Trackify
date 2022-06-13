@@ -17,6 +17,7 @@ export class TasksheetService {
 
 
   add(uid,newTask){
+    // return this.data.doc(uid).collection('task').add(newTask)
     return this.data.doc(uid).collection('task').add(newTask)
   }
 

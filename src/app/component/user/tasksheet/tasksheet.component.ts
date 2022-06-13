@@ -26,7 +26,8 @@ export class TasksheetComponent implements OnInit {
   uid:any
   data:any
 
-  
+  order:string
+
   fileName='ExcelSheet.xlsx'
   
   month:any;
@@ -55,6 +56,7 @@ export class TasksheetComponent implements OnInit {
       ))
     ).subscribe(data=>{
       this.tasks = data
+      this.order = 'date'
     }) 
   }
 

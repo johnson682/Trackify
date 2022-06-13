@@ -15,7 +15,7 @@ export class AdminSidenavComponent implements OnInit {
     this.uid = data.uid
   }
   logout(){
-    this.authService.logout()
+    this.authService.logout(this.uid)
   }
 
 }
