@@ -15,8 +15,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 
 
 const routes: Routes = [
-  {path:'',redirectTo:'user',pathMatch:'full'},
-  {path:'user',component:UserComponent,canActivate:[AuthGuard],children:[
+  {path:'',component:UserComponent,canActivate:[AuthGuard],children:[
     {path:'',redirectTo:'timetracker',pathMatch:'full'},
     {path:'userprofile',component:UserprofileComponent,children:[
       {path:':id',component:UserEditComponent}
