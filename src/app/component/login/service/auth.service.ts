@@ -45,26 +45,27 @@ export class AuthService {
         })
 
 
-        this.startTime = JSON.parse(localStorage.getItem('startTime'))
-        this.localDate = JSON.parse(localStorage.getItem('date'))
+       
     }
 
-    login(email:string,password:string){
-        return this.afAuth.signInWithEmailAndPassword(email,password).then(result=>{
-            if(result.user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
-                this.router.navigate(['/admin'])
-                this.setAdminData(result.user)
-            }else{
-                this.router.navigate(['/user'])
-                this.setUserData(result.user)
+    async login(email:string,password:string){
+        try {
+            const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+            if (result.user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
+                this.router.navigate(['/admin']);
+                this.setAdminData(result.user);
+            } else {
+                
+                this.router.navigate(['/user']);
+                this.setUserData(result.user);
             }
-        }).catch((error)=>{
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.message,
-              })
-        })
+            });
+        }
     }
 
     SignUp(email: string, password: string) {
@@ -90,7 +91,14 @@ export class AuthService {
             uid:adminData.uid,
             email:adminData.email,
             Status:true,
+            startTime:new Date().getTime(),
+            localDate:new Date().toLocaleDateString(),
+            month:this.tasksheetService.getMonth(),
+            year:new Date().getFullYear(),
+            date:new Date().getDate(),
+            localTimeStart:new Date().toLocaleTimeString()
         }
+        localStorage.setItem('localTimeStart',JSON.stringify(new Date().toLocaleTimeString()))
         return adminRef.set(admin,{
             merge:true
         })
@@ -124,14 +132,14 @@ export class AuthService {
             uid:user.uid,
             email:user.email,
             Status:true,
+            startTime:new Date().getTime(),
+            localDate:new Date().toLocaleDateString(),
+            month:this.tasksheetService.getMonth(),
+            year:new Date().getFullYear(),
+            date:new Date().getDate(),
+            localTimeStart:new Date().toLocaleTimeString()
         }
-        this.LocalTimeStart= new Date().toLocaleTimeString()
-        this.startTime = new Date().getTime()
-        this.localDate =  new Date().toLocaleDateString()
-        localStorage.setItem('LocalTimeStart',JSON.stringify(this.LocalTimeStart))
-        localStorage.setItem('startTime',JSON.stringify(this.startTime))
-        localStorage.setItem('date',JSON.stringify(this.localDate))
-
+        localStorage.setItem('localTimeStart',JSON.stringify(new Date().toLocaleTimeString()))
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }
 
@@ -139,30 +147,10 @@ export class AuthService {
         return this.afAuth.signOut().then(()=>{
             localStorage.removeItem('user')
             this.router.navigate(['login'])
-            
             if(uid !==  'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
                 this.userRef.doc(uid).update({Status:false})
 
-                this.localTimeEnd = new Date().toLocaleTimeString()
-                this.stopTime = new Date().getTime()
-    
-                let time = this.stopTime - this.startTime
-                let timehrs =this.userloginActivityService.convertMsToHM(time)
-                let date=new Date().getDate()
-                let localDate =new Date().toLocaleDateString()
-                let month = this.tasksheetService.getMonth()
-                let year = new Date().getFullYear()
-    
-                this.userloginActivityService.add(uid,{
-                    localDate:localDate,
-                    startTime:this.LocalTimeStart,
-                    endTime:this.localTimeEnd,
-                    totalTime:time,
-                    date:date,
-                    month:month,
-                    year:year,
-                    totalHours:timehrs
-                })
+                
             }else{
                 this.adminRef.doc(uid).update({Status:false})
             }

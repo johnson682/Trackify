@@ -6,7 +6,7 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-employee-tasksheet',
   templateUrl: './employee-tasksheet.component.html',
-  styleUrls: ['./employee-tasksheet.component.css']
+  styleUrls: ['./employee-tasksheet.component.scss']
 })
 export class EmployeeTasksheetComponent implements OnInit {
 

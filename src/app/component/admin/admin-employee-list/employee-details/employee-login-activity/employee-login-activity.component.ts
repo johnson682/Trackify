@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-employee-login-activity',
   templateUrl: './employee-login-activity.component.html',
-  styleUrls: ['./employee-login-activity.component.css']
+  styleUrls: ['./employee-login-activity.component.scss']
 })
 export class EmployeeLoginActivityComponent implements OnInit {
 

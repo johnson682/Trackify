@@ -9,7 +9,7 @@ import { TimeTrackerService } from 'src/app/service/timetracker.service';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
   today:any

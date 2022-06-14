@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { TimeTrackerService } from 'src/app/service/timetracker.service';
+import { UserService } from 'src/app/service/user.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-userlogin-activity',
   templateUrl: './userlogin-activity.component.html',
-  styleUrls: ['./userlogin-activity.component.css']
+  styleUrls: ['./userlogin-activity.component.scss']
 })
 export class UserloginActivityComponent implements OnInit {
   uid:any
@@ -17,10 +19,9 @@ export class UserloginActivityComponent implements OnInit {
   
   startTime:any
   stopTime:any
-  LocalTimeStart:any
+  localTimeStart:any
   localTimeEnd:any
 
-  status = false
   tasks:any
   dateFromlocal:any
   month:any;
@@ -29,15 +30,27 @@ export class UserloginActivityComponent implements OnInit {
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
   
+  datas:any
+  order:string 
   constructor(
     private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService,
-    private timetrackerService:TimeTrackerService,
-    private toastr:NotificationService) { }
+    private userService:UserService) { }
 
   ngOnInit(): void {
-    this.month= this.tasksheetService.getMonth()
+    const userData= JSON.parse(localStorage.getItem('user'))
+    this.uid = userData.uid
+
+    this.userService.userRef.doc(this.uid).get().subscribe(data=>{
+      const datas = data.data()
+
+      this.localTimeStart = datas.localTimeStart
+      console.log(this.localTimeStart);
+      
+    })
     
+    this.month= this.tasksheetService.getMonth()
+
     this.task={date:new Date().getDate(),month:this.month,year:new Date().getFullYear()}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
@@ -47,19 +60,14 @@ export class UserloginActivityComponent implements OnInit {
     }
 
 
-    const userData= JSON.parse(localStorage.getItem('user'))
-    this.uid = userData.uid
-
-    this.LocalTimeStart = JSON.parse(localStorage.getItem('LocalTimeStart'))
-
     
-    if(this.LocalTimeStart != undefined && this.localTimeEnd != undefined){
-      this.status = true
-    }
+
 
     this.loginActivityService.getData(this.uid).subscribe(data=>{
       this.datasFromLogin = data
+      this.order= 'startTime'
       this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear() )
+     
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -74,10 +82,44 @@ export class UserloginActivityComponent implements OnInit {
 
   }
 
+  stopTimer(){
+    this.userService.userRef.doc(this.uid).get().subscribe(data=>{
+
+      const datas= data.data()
+
+      this.localTimeEnd = new Date().toLocaleTimeString()
+      this.stopTime = new Date().getTime()
+      
+        const  totalTime = this.stopTime - datas.startTime
+        const time = this.loginActivityService.convertMsToHM(totalTime) 
+        
+        this.loginActivityService.add(this.uid,{
+          startTimeInMS:datas.startTime,
+          stopTimeInMs:this.stopTime,
+          startTime:datas.localTimeStart,
+          endTime:this.localTimeEnd,
+          month:this.tasksheetService.getMonth(),
+          year:new Date().getFullYear(),
+          date:new Date().getDate(),
+          totalHours:time,
+          totalTime:totalTime,
+          localDate:new Date().toLocaleDateString()
+  
+        })
+
+      }) 
+      
+  }
+  delete(uid){
+    this.loginActivityService.delete(this.uid,uid)
+  }
+
   datasFromLogin:any
   file:any
   time:any;
   totalHRS=0
+
+
 
   changeDay(event){
   

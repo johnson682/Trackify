@@ -18,10 +18,6 @@ export class UserService {
         this.userRef = db.collection(this.employeePath)
     }
 
-    getData(){
-        return this.userRef
-    }
-
     updateUserData(uid:any,newData:any){
         this.userRef.doc(uid).update(newData)
     }

@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-admin-employee-list',
   templateUrl: './admin-employee-list.component.html',
-  styleUrls: ['./admin-employee-list.component.css']
+  styleUrls: ['./admin-employee-list.component.scss']
 })
 export class AdminEmployeeListComponent implements OnInit {
   users:any

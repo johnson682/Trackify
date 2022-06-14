@@ -35,11 +35,11 @@
                 <div class="col">
                     <div class="form-floating">
                         <input
-                        type="date"
+                        placeholder="Datepicker"
                         class="form-control"
-                        placeholder="dob"
-                        name="dob"
-                        formControlName="dob">
+                        bsDatepicker
+                        formControlName="dob"
+                        [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
                         <label>DOB</label>
                         <!-- <span *ngIf="!userEditForm.get('dob').valid && userEditForm.get('dob').touched" class="help-block">
                         The field is required

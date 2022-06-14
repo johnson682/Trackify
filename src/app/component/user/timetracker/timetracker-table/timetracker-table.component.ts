@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-timetracker-table',
   templateUrl: './timetracker-table.component.html',
-  styleUrls: ['./timetracker-table.component.css']
+  styleUrls: ['./timetracker-table.component.scss']
 })
 export class TimetrackerTableComponent implements OnInit {
   uid:any

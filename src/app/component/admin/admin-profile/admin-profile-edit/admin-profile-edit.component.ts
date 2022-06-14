@@ -6,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
   selector: 'app-admin-profile-edit',
   templateUrl: './admin-profile-edit.component.html',
-  styleUrls: ['./admin-profile-edit.component.css']
+  styleUrls: ['./admin-profile-edit.component.scss']
 })
 export class AdminProfileEditComponent implements OnInit {
 

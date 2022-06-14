@@ -10,7 +10,7 @@ import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepick
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
-  styleUrls: ['./tasksheet.component.css']
+  styleUrls: ['./tasksheet.component.scss']
 })
 export class TasksheetComponent implements OnInit {
 
