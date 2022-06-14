@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
-import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { TimeTrackerService } from 'src/app/service/timetracker.service';
 import { UserService } from 'src/app/service/user.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import Swal from 'sweetalert2';
@@ -21,7 +18,7 @@ export class UserloginActivityComponent implements OnInit {
   stopTime:any
   localTimeStart:any
   localTimeEnd:any
-
+  dateTotal:any
   tasks:any
   dateFromlocal:any
   month:any;
@@ -29,7 +26,7 @@ export class UserloginActivityComponent implements OnInit {
   task:any;
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
-  
+  year:any
   datas:any
   order:string 
   constructor(
@@ -50,23 +47,23 @@ export class UserloginActivityComponent implements OnInit {
     })
     
     this.month= this.tasksheetService.getMonth()
+    this.year = new Date().getFullYear()
+    this.task={date:new Date().getDate(),month:this.month,year:this.year}
 
-    this.task={date:new Date().getDate(),month:this.month,year:new Date().getFullYear()}
+    const monthNum = new Date().getMonth()
+    this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+    
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-    for(let i=1;i<=31;i++){
+    for(let i=1;i<=this.dateTotal;i++){
       this.date.push(i)
     }
 
-
-    
-
-
-    this.loginActivityService.getData(this.uid).subscribe(data=>{
+    this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.datasFromLogin = data
       this.order= 'startTime'
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear() )
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.month && obj.year === this.year )
      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
@@ -81,6 +78,12 @@ export class UserloginActivityComponent implements OnInit {
     })
 
   }
+
+  getDaysInMonth(month,year) {
+    
+   return new Date(year, month, 0).getDate();
+
+  };
 
   stopTimer(){
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
@@ -110,8 +113,8 @@ export class UserloginActivityComponent implements OnInit {
       }) 
       
   }
-  delete(uid){
-    this.loginActivityService.delete(this.uid,uid)
+  delete(time){
+    this.loginActivityService.delete(this.uid,time.uid,time)
   }
 
   datasFromLogin:any
@@ -124,7 +127,7 @@ export class UserloginActivityComponent implements OnInit {
   changeDay(event){
   
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.date === event)
         var finalData = this.file.map((obj)=>{
@@ -139,7 +142,7 @@ export class UserloginActivityComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -150,8 +153,10 @@ export class UserloginActivityComponent implements OnInit {
     }
   }
   changeMonth(event){
+    this.month= event
+
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
         var finalData = this.file.map((obj)=>{
@@ -165,7 +170,7 @@ export class UserloginActivityComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -179,8 +184,9 @@ export class UserloginActivityComponent implements OnInit {
 
 
   changeYear(event){
+    this.year = event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)
         var finalData = this.file.map((obj)=>{
@@ -194,7 +200,7 @@ export class UserloginActivityComponent implements OnInit {
         }    
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime

@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { NgxSpinnerService } from 'ngx-spinner'
-import { TimeTrackerService } from 'src/app/service/timetracker.service';
 
 @Component({
   selector: 'app-add',
@@ -32,7 +31,6 @@ export class AddComponent implements OnInit {
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,
-    private timetrackerService:TimeTrackerService,
     private toastr:NotificationService,
     private spinnerService:NgxSpinnerService) { }
 

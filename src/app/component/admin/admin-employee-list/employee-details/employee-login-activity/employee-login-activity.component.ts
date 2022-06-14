@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
-import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-employee-login-activity',
   templateUrl: './employee-login-activity.component.html',
@@ -14,12 +14,12 @@ export class EmployeeLoginActivityComponent implements OnInit {
   fileName='ExcelSheet.xlsx'
   
   uid:any
-  tasks:any
 
   month:any;
   task:any;
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
+  year:any
   date=[]
   constructor(
     private loginActivityService:UserloginActivityService,
@@ -28,8 +28,8 @@ export class EmployeeLoginActivityComponent implements OnInit {
 
   ngOnInit(): void {
     this.month= this.tasksheetService.getMonth()
-    
-    this.task={date:new Date().getDate(),month:this.month,year:new Date().getFullYear()}
+    this.year=new Date().getFullYear()
+    this.task={date:new Date().getDate(),month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -38,9 +38,9 @@ export class EmployeeLoginActivityComponent implements OnInit {
     }
     const userData= JSON.parse(localStorage.getItem('Employee Uid'))
     this.uid = userData
-    this.loginActivityService.getData(this.uid).subscribe(data=>{
+    this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear() )
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === this.year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -67,12 +67,11 @@ export class EmployeeLoginActivityComponent implements OnInit {
   datasFromLogin:any
   file:any
   time:any;
-  totalHRS=0
 
   changeDay(event){
   
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.date === event)
         var finalData = this.file.map((obj)=>{
@@ -87,7 +86,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -98,8 +97,9 @@ export class EmployeeLoginActivityComponent implements OnInit {
     }
   }
   changeMonth(event){
+    this.month = event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
         var finalData = this.file.map((obj)=>{
@@ -113,7 +113,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -127,8 +127,9 @@ export class EmployeeLoginActivityComponent implements OnInit {
 
 
   changeYear(event){
+    this.year=event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)
         var finalData = this.file.map((obj)=>{
@@ -142,7 +143,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
         }    
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime

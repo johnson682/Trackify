@@ -51,7 +51,7 @@ const routes: Routes = [
     ]},
     {path:'tasksheet',component:TasksheetComponent},
     {path:'tasksheet/addTotasksheet',component:AddComponent},
-    {path:'tasksheet/:id',component:EditComponent},
+    {path:'tasksheet/:year/:month/:id',component:EditComponent},
     {path:'timetracker',component:TimetrackerComponent,children:[
       {path:'',redirectTo:'loginActivity',pathMatch:'full'},
       {path:'loginActivity',component:UserloginActivityComponent},

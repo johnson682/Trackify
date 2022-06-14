@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { TimeTrackerService } from 'src/app/service/timetracker.service';
+import { TaskTrackerService } from 'src/app/service/timetracker.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,31 +15,35 @@ export class TimetrackerTableComponent implements OnInit {
   projects:any
   task:any
 
+  month:any;
+  year:any;
   projectStatus=['complete','progress']
 
   constructor(
-    private timetrackerService:TimeTrackerService,
+    private timetrackerService:TaskTrackerService,
     private tasksheetservice:TasksheetService,
     private tostr:NotificationService) { }
 
   ngOnInit(): void {
+    this.month = this.tasksheetservice.getMonth()
+    this.year = new Date().getFullYear()
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
-    this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+    this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.projects = data
     })
   }
 
-  onChangeStatus(event,id){
+  onChangeStatus(event,task){
     if(event ==='complete'){
       let ended = this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
-      this.timetrackerService.updateTask(this.uid,id,{status:event,endedDate:ended})
+      this.timetrackerService.updateTask(this.uid,task.id,{status:event,endedDate:ended,month:task.month,year:task.year})
     }else{
-      this.timetrackerService.updateTask(this.uid,id,{status:event})
+      this.timetrackerService.updateTask(this.uid,task.id,{status:event,month:task.month,year:task.year})
     }
   }
 
-  delete(id){
+  delete(task){
     Swal.fire({
       title: 'Are you sure want to remove?',
       text: 'You will not be able to recover this file!',
@@ -54,7 +58,7 @@ export class TimetrackerTableComponent implements OnInit {
           'Your imaginary file has been deleted.',
           'success'
         )
-        this.timetrackerService.deleteTask(this.uid,id)
+        this.timetrackerService.deleteTask(this.uid,task.uid,{month:task.month,year:task.year})
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',

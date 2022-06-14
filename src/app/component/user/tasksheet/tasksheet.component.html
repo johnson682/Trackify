@@ -15,11 +15,13 @@
     <ng-select
       style="width: 100px;float:right;" 
       [items]="monthNames" 
+      (change)="changeMonth($event)"
       [(ngModel)]="task.month"
       >
     </ng-select>
     <ng-select
       style="width: 100px;float:right;" 
+      (change)="changeYear($event)" 
       [items]="years" 
       [(ngModel)]="task.year">
     </ng-select>
@@ -60,10 +62,10 @@
             data-target="#exampleModal" 
             data-backdrop="static" 
             data-keyboard="false"
-            (click)="onEditTask(task.uid)" >
+            (click)="onEditTask(task)" >
             <i class="fas fa-pencil"></i>
           </button>
-          <button type="button" class="btn btn-outline-danger btn-sm" style="border-radius: 100px;" (click)="onDelete(task.uid)">
+          <button type="button" class="btn btn-outline-danger btn-sm" style="border-radius: 100px;" (click)="onDelete(task)">
             <i class="fas fa-trash"></i>
           </button>
         </td>

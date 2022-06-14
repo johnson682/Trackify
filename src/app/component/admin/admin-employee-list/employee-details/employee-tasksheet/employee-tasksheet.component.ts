@@ -18,11 +18,12 @@ export class EmployeeTasksheetComponent implements OnInit {
   monthNames=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   task:any;
   years=[]
-
+  year:any
   month:any;
   constructor(private route:ActivatedRoute,private employeeTaskSheetService:TasksheetService) { }
 
   ngOnInit(): void {
+    this.year = new Date().getFullYear()
     this.month=this.employeeTaskSheetService.getMonth()
     this.task={month:this.month,year:new Date().getFullYear()}
     for(let i=2022;i<=2040;i++){
@@ -34,11 +35,7 @@ export class EmployeeTasksheetComponent implements OnInit {
   }
 
   fetchData(){
-    this.employeeTaskSheetService.getAllTask().doc(this.uid).collection('task').snapshotChanges().pipe(
-      map(a=>a.map(c=>
-          ({uid:c.payload.doc.id,...c.payload.doc.data()})    
-      ))
-    ).subscribe(data=>{
+    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.employeeDetails = data
       console.log(data);
     })
@@ -55,6 +52,20 @@ export class EmployeeTasksheetComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb,ws,'sheet1')
 
     XLSX.writeFile(wb,this.fileName)
+  }
+
+  changeMonth(event){
+    this.month = event
+    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.employeeDetails = data
+    })
+  }
+
+  changeYear(event){
+    this.year = event
+    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.employeeDetails = data
+    })
   }
 
   

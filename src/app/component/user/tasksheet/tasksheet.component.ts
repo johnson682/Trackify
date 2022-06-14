@@ -17,7 +17,7 @@ export class TasksheetComponent implements OnInit {
   constructor(
     private tasksheet:TasksheetService,
     private router:Router) { 
-      this.maxDate.setDate(this.maxDate.getDate() + 7);
+      
       
     }
 
@@ -32,13 +32,14 @@ export class TasksheetComponent implements OnInit {
   
   month:any;
   task:any;
+  year:any
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
 
   ngOnInit(): void {
     this.month= this.tasksheet.getMonth()
-    
-    this.task={month:this.month,year:new Date().getFullYear()}
+    this.year = new Date().getFullYear()
+    this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -50,21 +51,21 @@ export class TasksheetComponent implements OnInit {
   }
 
   onFetchData(){
-    this.tasksheet.getAllTask().doc(this.uid).collection('task').snapshotChanges().pipe(
-      map(a=>a.map(c=>
-          ({uid:c.payload.doc.id,...c.payload.doc.data()})    
-      ))
-    ).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.tasks = data
+
       this.order = 'date'
     }) 
   }
 
-  onEditTask(id){
-    this.router.navigate(['/user/tasksheet/'+id])
+  onEditTask(task){
+    this.router.navigate(['/user/tasksheet/'+task.year+'/'+task.month+'/'+task.uid])
+    this.tasksheet.taskSheet.next(task)
   }
 
-  onDelete(id){
+  onDelete(task){
+    console.log(task);
+    
     Swal.fire({
       title: 'Are you sure want to remove?',
       text: 'You will not be able to recover this file!',
@@ -79,7 +80,7 @@ export class TasksheetComponent implements OnInit {
           'Your imaginary file has been deleted.',
           'success'
         )
-        this.tasksheet.deleteTask(this.uid,id)
+        this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year})
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -101,20 +102,20 @@ export class TasksheetComponent implements OnInit {
 
     XLSX.writeFile(wb,this.fileName)
   }
-  bsValue = new Date();
-  bsRangeValue: Date[];
-  maxDate = new Date();
 
-  // change(event){
-  //   console.log(event[0]);
-  //   const Smonth = new Date(event[0]).getMonth()
-  //   const Emonth = new Date(event[1]).getMonth()
-  //   const startMonth = this.tasksheet.getMonths(Smonth)
-  //   const EndMonth = this.tasksheet.getMonths(Emonth)
 
-  //   console.log(startMonth,EndMonth);
-    
-    
-  // }
+  changeMonth(event){
+    this.month = event
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasks = data
+    })
+  }
+
+  changeYear(event){
+    this.year = event
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasks = data
+    })
+  }
   
 }

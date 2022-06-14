@@ -13,23 +13,23 @@ export class UserloginActivityService {
     this.data= this.db.collection(this.dbpath)
   }
 
-  getData(uid){
-    return this.data.doc(uid).collection('ActivityLog').snapshotChanges().pipe(
+  getData(uid,newTask){
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('ActivityLog').snapshotChanges().pipe(
       map(a=>a.map(c=>
           ({uid:c.payload.doc.id,...c.payload.doc.data()})    
       ))
     )
   }
 
-  add(uid,newDate){
-    return this.data.doc(uid).collection('ActivityLog').add(newDate)
+  add(uid,newTask){
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('ActivityLog').add(newTask)
   }
   update(uid,id,newTask){
-    return this.data.doc(uid).collection('ActivityLog').doc(id).update(newTask)
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('ActivityLog').doc(id).update(newTask)
   }
 
-  delete(uid,id){
-    return this.data.doc(uid).collection('ActivityLog').doc(id).delete()
+  delete(uid,id,newTask){
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('ActivityLog').doc(id).delete()
   }
 
   padTo2Digits(num) {

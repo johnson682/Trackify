@@ -6,7 +6,7 @@ import { map } from "rxjs";
     providedIn:'root'
 })
 
-export class TimeTrackerService{
+export class TaskTrackerService{
     private dbpath='users'
   data:AngularFirestoreCollection<any>;
 
@@ -15,19 +15,19 @@ export class TimeTrackerService{
   }
 
   add(uid,newTask){
-    return this.data.doc(uid).collection('timetracker').add(newTask)
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('taskTracker').add(newTask)
   }
 
   updateTask(uid,id,newTask){
-    return this.data.doc(uid).collection('timetracker').doc(id).update(newTask)
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('taskTracker').doc(id).update(newTask)
   }
 
-  deleteTask(uid,id){
-    return this.data.doc(uid).collection('timetracker').doc(id).delete()
+  deleteTask(uid,id,newTask){
+    return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('taskTracker').doc(id).delete()
   }
 
-  getAllTimeTracker(uid){
-      return this.data.doc(uid).collection('timetracker').snapshotChanges().pipe(
+  getAllTaskTracker(uid,newTask){
+      return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('taskTracker').snapshotChanges().pipe(
         map(a=>a.map(c=>
             ({id:c.payload.doc.id,...c.payload.doc.data()})    
         ))

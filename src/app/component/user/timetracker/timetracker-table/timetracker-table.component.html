@@ -61,12 +61,12 @@
             </td>
           
           <td>
-            <button class="btn btn-outline-danger btn-sm"style="border-radius: 100px;" (click)="delete(project.id)"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-outline-danger btn-sm"style="border-radius: 100px;" (click)="delete(project)"><i class="fas fa-trash"></i></button>
             <br>
             <button class="btn btn-sm" (click)="add(project)" style="border-radius: 100px;"><i class="fas fa-share"></i></button>
           </td>
           <td style="width: 150px;"> 
-            <ng-select [items]="projectStatus" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project.id)"></ng-select> 
+            <ng-select [items]="projectStatus" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project)"></ng-select> 
           </td>
         </tr>
       </tbody>

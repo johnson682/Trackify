@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { TimeTrackerService } from 'src/app/service/timetracker.service';
+import { TaskTrackerService } from 'src/app/service/timetracker.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import { threadId } from 'worker_threads';
 
@@ -21,17 +21,18 @@ export class DashboardComponent implements OnInit {
   task:any;
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[]
+  year:any
   day=[]
   constructor(
     private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService,
-    private timetrackerService:TimeTrackerService) { }
+    private timetrackerService:TaskTrackerService) { }
 
   ngOnInit(): void {
 
     this.month= this.tasksheetService.getMonth()
-
-    this.task={day:new Date().getDate(),month:this.month,year:new Date().getFullYear()}
+    this.year = new Date().getFullYear()
+    this.task={day:new Date().getDate(),month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -43,9 +44,9 @@ export class DashboardComponent implements OnInit {
     this.init()
   }
   init(){
-    this.loginActivityService.getData(this.uid).subscribe(data=>{
+    this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear() )
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === this.year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -58,7 +59,7 @@ export class DashboardComponent implements OnInit {
       }
     })
 
-    this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+    this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.datasFromTimetracker = data
       const datas=this.datasFromTimetracker.filter(obj=>obj.status==='complete' && obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === new Date().getFullYear())
       this.totalTask = datas.length
@@ -70,7 +71,7 @@ export class DashboardComponent implements OnInit {
   changeDay(event){
   
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.date === event)
         var finalData = this.file.map((obj)=>{
@@ -84,7 +85,7 @@ export class DashboardComponent implements OnInit {
           this.time = this.loginActivityService.convertMsToHM(time)
         }
       })
-      this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+      this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromTimetracker = data
         const datas = this.datasFromTimetracker.filter( obj => obj.date === event)
         console.log(datas);
@@ -98,7 +99,7 @@ export class DashboardComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -110,8 +111,9 @@ export class DashboardComponent implements OnInit {
     }
   }
   changeMonth(event){
+    this.month = event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
         var finalData = this.file.map((obj)=>{
@@ -124,7 +126,7 @@ export class DashboardComponent implements OnInit {
           this.time = this.loginActivityService.convertMsToHM(time)
         }
       })
-      this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+      this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromTimetracker = data
         const datas = this.datasFromTimetracker.filter( obj => obj.month === event)
         
@@ -137,7 +139,7 @@ export class DashboardComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -152,8 +154,9 @@ export class DashboardComponent implements OnInit {
 
 
   changeYear(event){
+    this.year= event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)
         var finalData = this.file.map((obj)=>{
@@ -166,7 +169,7 @@ export class DashboardComponent implements OnInit {
           this.time = this.loginActivityService.convertMsToHM(time)
         }    
       })
-      this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+      this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromTimetracker = data
         const datas = this.datasFromTimetracker.filter( obj => obj.year === event)
         
@@ -179,7 +182,7 @@ export class DashboardComponent implements OnInit {
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid).subscribe(data=>{
+      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -196,7 +199,7 @@ export class DashboardComponent implements OnInit {
 
 
   timetrackerserviceElse(){
-    this.timetrackerService.getAllTimeTracker(this.uid).subscribe(data=>{
+    this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.datasFromTimetracker = data
       const datas = this.datasFromTimetracker.filter(obj=>obj.status ==='complete')
       this.totalTask = datas.length
