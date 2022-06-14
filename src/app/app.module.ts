@@ -15,39 +15,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NgxSpinnerModule} from 'ngx-spinner'
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './component/header/header.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MdbDropdownModule } from 'mdb-angular-ui-kit/dropdown'
 
-import { UserprofileComponent } from './component/user/userprofile/userprofile.component';
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
 import { LoginComponent } from './component/login/login.component'
-import { UserlistComponent } from './component/user/userlist/userlist.component';
-import { UserComponent } from './component/user/user.component';
-import { UserEditComponent } from './component/user/userprofile/user-edit/user-edit.component';
-import { TasksheetComponent } from './component/user/tasksheet/tasksheet.component';
-import { AddComponent } from './component/user/tasksheet/add/add.component';
-import { EditComponent } from './component/user/tasksheet/edit/edit.component';
 
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
-import { AdminComponent } from './component/admin/admin.component';
-import { AdminProfileComponent } from './component/admin/admin-profile/admin-profile.component';
-import { AdminSidenavComponent } from './component/admin/admin-sidenav/admin-sidenav.component';
-import { AdminEmployeeListComponent } from './component/admin/admin-employee-list/admin-employee-list.component';
-import { AdminProfileEditComponent } from './component/admin/admin-profile/admin-profile-edit/admin-profile-edit.component';
-import { EmployeeDetailsComponent } from './component/admin/admin-employee-list/employee-details/employee-details.component';
-import { SignupComponent } from './component/signup/signup.component';
 import { GravatarModule } from 'ngx-gravatar';
-import { TimetrackerComponent } from './component/user/timetracker/timetracker.component';
-import { AddtimetrackerComponent } from './component/user/timetracker/addtimetracker/addtimetracker.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { UserloginActivityComponent } from './component/user/timetracker/userlogin-activity/userlogin-activity.component';
-import { TimetrackerTableComponent } from './component/user/timetracker/timetracker-table/timetracker-table.component';
-import { EmployeeLoginActivityComponent } from './component/admin/admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
-import { EmployeeTasksheetComponent } from './component/admin/admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
-import { DashboardComponent } from './component/user/dashboard/dashboard.component';
 import { OrderModule } from 'ngx-order-pipe';
+
+import { UserRoutingModule } from './component/user/user-routing.module';
+import { AdminRoutingModule } from './component/admin/admin-routing.module';
+
 
 
 const firebaseConfig = {
@@ -64,53 +45,27 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-
     LoginComponent,
     ForgotPasswordComponent,
-    AdminComponent,
-    UserprofileComponent,
-    UserlistComponent,
-    UserComponent,
-    UserEditComponent,
-    TasksheetComponent,
-    AddComponent,
-    EditComponent,
-    AdminProfileComponent,
-    AdminSidenavComponent,
-    AdminEmployeeListComponent,
-    AdminProfileEditComponent,
-    EmployeeDetailsComponent,
-    SignupComponent,
-    TimetrackerComponent,
-    AddtimetrackerComponent,
-    UserloginActivityComponent,
-    TimetrackerTableComponent,
-    EmployeeLoginActivityComponent,
-    EmployeeTasksheetComponent,
-    DashboardComponent
+
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    UserRoutingModule,
+    AdminRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     ToastrModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    FilterPipeModule,
-    NgSelectModule,
-    NgxPaginationModule,
-    GravatarModule,
     NgxSpinnerModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
-    MdbDropdownModule,
-    OrderModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],
