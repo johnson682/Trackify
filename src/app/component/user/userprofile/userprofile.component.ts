@@ -25,7 +25,7 @@ imageFile:any
     })
   }
   onEdit(uid){
-    this.router.navigate(['user/userprofile/'+uid])
+    this.router.navigate(['/user/userprofile/'+uid])
   }
   removeAccount(){
     Swal.fire({

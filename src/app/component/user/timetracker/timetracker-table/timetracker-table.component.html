@@ -17,7 +17,10 @@
       </ng-select> -->
     </div>
   </div>
-  <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="projects == null"></div>
+  </div>
+  <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet" *ngIf="projects != null">
     <thead class="bg-light">
       <tr>
         <th>Project Name</th>

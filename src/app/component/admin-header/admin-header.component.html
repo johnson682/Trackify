@@ -22,9 +22,7 @@
         </a>
       
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li *ngIf="uid == 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'"><a class="dropdown-item" routerLink="adminProfile"><i class="fa fa-user"></i> &nbsp;Profile</a></li>
-          <li *ngIf="uid != 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'"><a class="dropdown-item" routerLink="userprofile"><i class="fa fa-user"></i> &nbsp;Profile</a></li>
-
+          <li><a class="dropdown-item" routerLink="adminProfile"><i class="fa fa-user"></i> &nbsp;Profile</a></li>
           <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
         </ul>
       </div>

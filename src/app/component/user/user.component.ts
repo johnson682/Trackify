@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -8,8 +9,9 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private userData:UserService) { }
+  constructor(private userData:UserService,private loadingspinner:NgxSpinnerService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 }

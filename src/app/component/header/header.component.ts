@@ -23,20 +23,12 @@ user:any
     this.uid = userData.uid
     window.addEventListener('scroll', this.scroll, true); //third parameter
 
-    if(this.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
-      this.adminProfileService.adminRef.valueChanges().subscribe(data=>{
-        this.users = data
-        const datas=this.users.filter(obj=>obj.uid === this.uid)
-        this.user = data[0] 
-      })
-    }else{
+   
       this.userService.userRef.valueChanges().subscribe(data=>{
         this.users=data
         const datas=this.users.filter(obj=>obj.uid === this.uid)
         this.user = datas[0]
       })
-
-    }
 
   } 
 
