@@ -8,7 +8,7 @@
             <p>Login Time: {{localTimeStart}}</p>
         </div>
         <div class="col">
-            <button class="btn" (click)="stopTimer()">stop Time</button>
+            <button class="btn" (click)="stopTimer()" *ngIf="stopButton">stop Time</button>
         </div>
     </div>
     <hr>

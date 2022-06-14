@@ -13,14 +13,12 @@ export class UserloginActivityComponent implements OnInit {
   uid:any
   
   fileName:any
-  
-  startTime:any
+  stopButton=false
   stopTime:any
   localTimeStart:any
   localTimeEnd:any
   dateTotal:any
-  tasks:any
-  dateFromlocal:any
+
   month:any;
   date=[]
   task:any;
@@ -41,6 +39,9 @@ export class UserloginActivityComponent implements OnInit {
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
       const datas = data.data()
 
+      if(datas.StopStatus){
+        this.stopButton = true
+      }
       this.localTimeStart = datas.localTimeStart
       console.log(this.localTimeStart);
       
@@ -86,31 +87,58 @@ export class UserloginActivityComponent implements OnInit {
   };
 
   stopTimer(){
-    this.userService.userRef.doc(this.uid).get().subscribe(data=>{
+    Swal.fire({
+      title: 'Are you sure want to Stop?',
+      text: 'You will not be able to restart activity!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Stop it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Stoped!',
+          'Your Login TImw will be Ended.',
+          'success'
+        )
+        this.userService.updateUserData(this.uid,{StopStatus:false})
+        this.userService.userRef.doc(this.uid).get().subscribe(data=>{
 
-      const datas= data.data()
-
-      this.localTimeEnd = new Date().toLocaleTimeString()
-      this.stopTime = new Date().getTime()
+          const datas= data.data()
+          if(!datas.StopStatus){
+            this.stopButton = false
+          }
+          this.localTimeEnd = new Date().toLocaleTimeString()
+          this.stopTime = new Date().getTime()
+          
+            const  totalTime = this.stopTime - datas.startTime
+            const time = this.loginActivityService.convertMsToHM(totalTime) 
+            
+            this.loginActivityService.add(this.uid,{
+              startTimeInMS:datas.startTime,
+              stopTimeInMs:this.stopTime,
+              startTime:datas.localTimeStart,
+              endTime:this.localTimeEnd,
+              month:this.tasksheetService.getMonth(),
+              year:new Date().getFullYear(),
+              date:new Date().getDate(),
+              totalHours:time,
+              totalTime:totalTime,
+              localDate:new Date().toLocaleDateString()
       
-        const  totalTime = this.stopTime - datas.startTime
-        const time = this.loginActivityService.convertMsToHM(totalTime) 
-        
-        this.loginActivityService.add(this.uid,{
-          startTimeInMS:datas.startTime,
-          stopTimeInMs:this.stopTime,
-          startTime:datas.localTimeStart,
-          endTime:this.localTimeEnd,
-          month:this.tasksheetService.getMonth(),
-          year:new Date().getFullYear(),
-          date:new Date().getDate(),
-          totalHours:time,
-          totalTime:totalTime,
-          localDate:new Date().toLocaleDateString()
-  
-        })
-
-      }) 
+            })
+    
+          }) 
+          
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your Time will keep it safe :)',
+          'error'
+        )
+      }
+   })
+    
       
   }
   delete(time){
