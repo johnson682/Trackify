@@ -5,6 +5,8 @@
 	font-family: 'Poppins', sans-serif;
 }
 .wrapper {
+	animation:fadeIn;
+	animation-duration: 2s;
 	max-width: 350px;
 	min-height: 500px;
 	margin: 80px auto;

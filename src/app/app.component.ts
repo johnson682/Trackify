@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
@@ -6,11 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent{
-
-  constructor(private loadingspinner:NgxSpinnerService,private router:Router){
-
-  }
-
+export class AppComponent implements OnInit{
   
+  constructor(){}
+  ngOnInit(): void {}
 }
