@@ -43,12 +43,18 @@ export class AdminProfileComponent implements OnInit {
     if (file) {
       const reader = new FileReader()
       reader.onload = (e)=>{
-        Swal.fire({
-          title: 'Your uploaded picture',
-          imageAlt: 'The uploaded picture'
-        })
-        this.imageFile = e.target.result
-        this.adminProfileService.updateAdminData(this.uid,{imageFile:this.imageFile})
+        if(e.total <= 700000){
+          this.imageFile = e.target.result
+          this.adminProfileService.updateAdminData(this.uid,{imageFile:this.imageFile})
+        }else{
+          Swal.fire({
+            icon:'error',
+            title:'oops...',
+            text:'Image Size must less than 700kb'
+          }).then(
+            this.addprofile
+          )
+        }
       }
       reader.readAsDataURL(file)
     }
