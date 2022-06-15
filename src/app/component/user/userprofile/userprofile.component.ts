@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
-import { NgxSpinnerService } from 'ngx-spinner'
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-userprofile',
@@ -22,6 +21,7 @@ imageFile:any
     this.uid = user.uid
     this.userService.userRef.doc(user.uid).valueChanges().subscribe(data=>{
       this.users = data
+      this.imageFile = data.imageFile
     })
   }
   onEdit(uid){
@@ -32,6 +32,7 @@ imageFile:any
       title: 'Are you sure want to remove?',
       text: 'You will not be able to recover this file!',
       icon: 'warning',
+      iconColor:'red',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
       cancelButtonText: 'No, keep it'
@@ -51,5 +52,33 @@ imageFile:any
         )
       }
    })
+  }
+
+  async addprofile(){
+    const { value: file } = await Swal.fire({
+      title: 'Select image',
+      input: 'file',
+      inputAttributes: {
+        'accept': 'image/*',
+        'aria-label': 'Upload your profile picture'
+      }
+    })
+    
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e)=>{
+        Swal.fire({
+          title: 'Your uploaded picture',
+          imageAlt: 'The uploaded picture'
+        })
+        this.imageFile = e.target.result
+        this.userService.updateUserData(this.uid,{imageFile:this.imageFile})
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  removeImg(){
+    this.userService.updateUserData(this.uid,{imageFile:null})
   }
 }

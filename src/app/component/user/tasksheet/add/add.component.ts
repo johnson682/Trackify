@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { NgxSpinnerService } from 'ngx-spinner'
 
 @Component({
   selector: 'app-add',
@@ -31,11 +30,9 @@ export class AddComponent implements OnInit {
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,
-    private toastr:NotificationService,
-    private spinnerService:NgxSpinnerService) { }
+    private toastr:NotificationService) { }
 
   ngOnInit(): void {
-    this.spinnerService.hide()
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
     this.upstartedDate =false
@@ -57,13 +54,12 @@ export class AddComponent implements OnInit {
     let date = this.singleDate
     this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType,date})
     this.onCancel()
-    this.toastr.showSuccess('Successfully Added','Well Done!!!')
+    this.toastr.sweetalert2('success','Added Succesfully')
   }
 
   onCancel(){
     this.router.navigate(['/user/tasksheet'])
     document.getElementById("closeModalButton").click();
-    this.spinnerService.hide()
   }
 
   change(event){

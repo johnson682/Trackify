@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
  
 import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepicker';
+import { NotificationService } from 'src/app/service/notification.service';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -16,7 +17,8 @@ export class TasksheetComponent implements OnInit {
 
   constructor(
     private tasksheet:TasksheetService,
-    private router:Router) { 
+    private router:Router,
+    private notificationService:NotificationService) { 
       
       
     }
@@ -64,7 +66,6 @@ export class TasksheetComponent implements OnInit {
   }
 
   onDelete(task){
-    console.log(task);
     
     Swal.fire({
       title: 'Are you sure want to remove?',
@@ -81,6 +82,7 @@ export class TasksheetComponent implements OnInit {
           'success'
         )
         this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year})
+        this.notificationService.sweetalert2('error','Task Deleted!!')
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',

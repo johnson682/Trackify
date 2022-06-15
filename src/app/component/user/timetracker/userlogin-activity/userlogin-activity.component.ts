@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
 import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
@@ -30,7 +31,8 @@ export class UserloginActivityComponent implements OnInit {
   constructor(
     private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService,
-    private userService:UserService) { }
+    private userService:UserService,
+    private notificationService:NotificationService) { }
 
   ngOnInit(): void {
     const userData= JSON.parse(localStorage.getItem('user'))
@@ -129,6 +131,7 @@ export class UserloginActivityComponent implements OnInit {
             })
     
           }) 
+          this.notificationService.sweetalert2('warning','Timer Stopped!')
           
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(

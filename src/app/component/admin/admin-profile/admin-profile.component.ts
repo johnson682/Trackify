@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { AdminProfileService } from '../service/admin-profile.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class AdminProfileComponent implements OnInit {
 
   uid:any
   adminData:any
+  imageFile:any;
   constructor(
     private adminProfileService:AdminProfileService,
     private router:Router) { }
@@ -20,10 +22,39 @@ export class AdminProfileComponent implements OnInit {
     this.uid = data.uid
     this.adminProfileService.adminRef.doc(this.uid).valueChanges().subscribe(data=>{
       this.adminData = data
+      this.imageFile = data.imageFile
     })
   }
 
   onEdit(uid){
     this.router.navigate(['admin/'+uid])
+  }
+
+  async addprofile(){
+    const { value: file } = await Swal.fire({
+      title: 'Select image',
+      input: 'file',
+      inputAttributes: {
+        'accept': 'image/*',
+        'aria-label': 'Upload your profile picture'
+      }
+    })
+    
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e)=>{
+        Swal.fire({
+          title: 'Your uploaded picture',
+          imageAlt: 'The uploaded picture'
+        })
+        this.imageFile = e.target.result
+        this.adminProfileService.updateAdminData(this.uid,{imageFile:this.imageFile})
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  removeImg(){
+    this.adminProfileService.updateAdminData(this.uid,{imageFile:null})
   }
 }

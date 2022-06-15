@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdminProfileService } from '../../service/admin-profile.service';
-import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
   selector: 'app-admin-profile-edit',
   templateUrl: './admin-profile-edit.component.html',
@@ -15,11 +14,9 @@ export class AdminProfileEditComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private AdminProfileService:AdminProfileService,
-    private router:Router,
-    private spinnerService:NgxSpinnerService) { }
+    private router:Router) { }
 
   ngOnInit(): void {
-    this.spinnerService.hide()
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })
@@ -44,7 +41,6 @@ export class AdminProfileEditComponent implements OnInit {
   onCancel(){
     this.router.navigate(['/admin/adminProfile'])
     document.getElementById("closeModalButton").click();
-    this.spinnerService.hide()
   }
 
 }

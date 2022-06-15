@@ -19,7 +19,7 @@
         </div>
         <div class="card-body text-center">
           <div class="mt-3 mb-4">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+            <img src="{{user.imageFile != null ? user.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
               class="rounded-circle img-fluid" style="width: 100px;" />
           </div>
           <h4 class="mb-2">{{user?.firstname!=null ? user.firstname : 'User'}}{{user?.lastname}}</h4>

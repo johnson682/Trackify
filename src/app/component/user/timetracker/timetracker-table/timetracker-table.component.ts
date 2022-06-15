@@ -22,7 +22,7 @@ export class TimetrackerTableComponent implements OnInit {
   constructor(
     private timetrackerService:TaskTrackerService,
     private tasksheetservice:TasksheetService,
-    private tostr:NotificationService) { }
+    private notificationService:NotificationService) { }
 
   ngOnInit(): void {
     this.month = this.tasksheetservice.getMonth()
@@ -58,7 +58,8 @@ export class TimetrackerTableComponent implements OnInit {
           'Your imaginary file has been deleted.',
           'success'
         )
-        this.timetrackerService.deleteTask(this.uid,task.uid,{month:task.month,year:task.year})
+        this.timetrackerService.deleteTask(this.uid,task.id,{month:task.month,year:task.year})
+        this.notificationService.sweetalert2('error','Task Deleted!!')
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
           'Cancelled',
@@ -74,7 +75,7 @@ export class TimetrackerTableComponent implements OnInit {
 
   add(task){
     this.tasksheetservice.add(this.uid,task)
-    this.tostr.showSuccess('well Done!!!','Successfully Added to Tasksheet')
+    this.notificationService.sweetalert2('success','Task Added to Tasksheet Successfully')
   }
 
 }

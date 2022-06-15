@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
+import Scrollbar from 'smooth-scrollbar';
+import { Options } from 'smooth-scrollbar/options';
+
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
-import { AdminProfileService } from '../admin/service/admin-profile.service';
 import { AuthService } from '../login/service/auth.service';
 
 @Component({
@@ -16,12 +17,18 @@ export class UserComponent implements OnInit {
   users:any;
   user:any
 
+  imageFile:any
   constructor(private userService:UserService ,public authService:AuthService) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
+    
+    this.userService.userRef.doc(this.uid).valueChanges().subscribe(data=>{
+      this.imageFile = data.imageFile
+    })
   } 
+  
 
   logout(){
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{

@@ -2,8 +2,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
-import { NgxSpinnerService } from 'ngx-spinner'
+import Swal from 'sweetalert2';
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
@@ -23,10 +24,9 @@ export class UserEditComponent implements OnInit {
     private route:ActivatedRoute,
     private userService:UserService,
     private router:Router,
-    private spinnerService:NgxSpinnerService) { }
+    private notificationService:NotificationService) { }
 
   ngOnInit(): void {
-    this.spinnerService.hide()
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })
@@ -44,12 +44,13 @@ export class UserEditComponent implements OnInit {
     let state = this.userEditForm.value.state
     let mobile = this.userEditForm.value.mobile
     this.userService.updateUserData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})
+    
+    this.notificationService.sweetalert2('success','Updated Successfully')
     this.onCancel()
   }
   onCancel(){
     this.router.navigate(['/user/userprofile'])
     document.getElementById("closeModalButton").click();
-    this.spinnerService.hide()
   }
 
 }

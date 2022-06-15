@@ -47,7 +47,7 @@
             aria-expanded="false"
           >
             <img
-              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+              src="{{imageFile != null ? imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
               class="rounded-circle"
               height="22"
               alt="Avatar"
@@ -71,7 +71,7 @@
   </nav>
 </header>
 
-<main style="margin-top: 58px;">
+<main style="margin-top: 58px;" id="main" data-scrollbar>
   <div class="container-fluid pt-4">
     <router-outlet></router-outlet>
   </div>

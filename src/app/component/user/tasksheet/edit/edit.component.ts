@@ -4,7 +4,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { NgxSpinnerService } from 'ngx-spinner'
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -27,11 +26,9 @@ export class EditComponent implements OnInit {
     private router:Router,
     private tasksheet:TasksheetService,
     private route:ActivatedRoute,
-    private toastr:NotificationService,
-    private spinnerService:NgxSpinnerService) { }
+    private toastr:NotificationService) { }
 
   ngOnInit(): void {
-    this.spinnerService.hide()
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
 
@@ -59,25 +56,24 @@ export class EditComponent implements OnInit {
         }
       })
     }) 
-    
-
   }
 
 
   onSubmit(){
+    console.log(this.addtaskForm.value.startedDate);
+    
     this.date = new Date(this.addtaskForm.value.startedDate).toLocaleDateString()
  
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
     this.tasksheet.updateTask(this.uid,this.id,{startedDate:this.date,date:this.singleDate,description:description,projectType:projectType,year:this.year,month:this.month})
     this.onCancel()
-    this.toastr.showInfo("Successfully updated" , 'Well Done!!')
+    this.toastr.sweetalert2("info" , 'updated Successfully')
   }
 
   onCancel(){
     this.router.navigate(['/user/tasksheet'])
     document.getElementById("closeModalButton").click();
-    this.spinnerService.hide()
 
   }
   singleDate:any
