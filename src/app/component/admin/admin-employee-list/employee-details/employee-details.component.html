@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-sm" routerLink="/admin/adminEmployeeList" ><i class="fas fa-arrow-left"></i></button>
+    </div>
+    <div class="col">
+      <h5 style="text-align:right;">{{userEmail}}</h5>
+    </div>
+  </div>
+  <div style="margin-top: 10px;">
+    <ul class="list-group list-group-horizontal" style="text-decoration: none;list-style-type:none;">
+      <li ><a class="list-group-item" routerLinkActive="active" routerLink="EmployeeLoginActivity">LoginActivity</a></li>
+      <li ><a class="list-group-item" routerLinkActive="active" routerLink="EmployeeTasksheet">TaskSheet</a></li>
+    </ul>
+    <hr>
+    <router-outlet></router-outlet>
+  </div>
+</div>
