@@ -66,7 +66,7 @@ export class UserloginActivityComponent implements OnInit {
     this.order= 'startTime'
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === this.month && obj.year === this.year )
+      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === moment().format('MMM') && obj.year === this.year )
      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
