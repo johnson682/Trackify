@@ -37,6 +37,7 @@
     "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~7.5.0",
+    "smooth-scrollbar": "^8.7.4",
     "sweetalert2": "^11.4.17",
     "timetracker": "^0.1.1",
     "tslib": "^2.3.0",
