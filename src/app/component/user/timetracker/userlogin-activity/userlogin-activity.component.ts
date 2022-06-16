@@ -97,7 +97,7 @@ export class UserloginActivityComponent implements OnInit {
       if (result.value) {
         Swal.fire(
           'Stoped!',
-          'Your Login TImw will be Ended.',
+          'Your Login Time will be Ended.',
           'success'
         )
         this.userService.updateUserData(this.uid,{StopStatus:false})
@@ -142,7 +142,32 @@ export class UserloginActivityComponent implements OnInit {
       
   }
   delete(time){
-    this.loginActivityService.delete(this.uid,time.uid,time)
+    Swal.fire({
+      title: 'Are you sure want to Delete?',
+      text: 'You will not be able to Recovery!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your Login Time will be Deleted.',
+          'success'
+        )
+        this.loginActivityService.delete(this.uid,time.uid,time)
+        this.notificationService.sweetalert2('error','Login Activity removed!!')
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your Time will keep it safe :)',
+          'error'
+        )
+      }
+   })
+    
+    
   }
 
   datasFromLogin:any

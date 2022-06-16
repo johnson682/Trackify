@@ -35,7 +35,8 @@ imageFile:any
       iconColor:'red',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
+      cancelButtonText: 'No, keep it',
+      allowOutsideClick:false
     }).then((result) => {
       if (result.value) {
         Swal.fire(
@@ -74,7 +75,8 @@ imageFile:any
           Swal.fire({
             icon:'error',
             title:'oops...',
-            text:'Image Size must less than 700kb'
+            text:'Image Size must less than 700kb',
+            allowOutsideClick:false
           }).then(
             this.addprofile
           )

@@ -14,52 +14,37 @@
                 <div class="column" id="main">
                     <h1>Task</h1>
                     <form [formGroup]="addTimeTrackerForm" (ngSubmit)="onSubmit()">
-                        <div class="form-floating">
-                            <ng-select
-                                [items]="projectType" 
-                                [(ngModel)]="type"
-                                placeholder="Select Project Type"
-                                formControlName="projectType" >
-                            </ng-select>
-                        </div>
-                        <div class="form-floating">
-                            <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Project Name"
-                            name="projectName"
-                            formControlName="projectName" >
-                            <label>Project Name</label>
-                        </div>
+                        <ng-select
+                            [items]="projectType" 
+                            [(ngModel)]="type"
+                            placeholder="Select Project Type"
+                            formControlName="projectType" >
+                        </ng-select>
+                        <label>Project Name</label>
+                        <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Project Name"
+                        name="projectName"
+                        formControlName="projectName" >
                         <br>
-                        <div class="form-floating">
-                            <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Project Description"
-                            name="projectDescription"
-                            formControlName="projectDescription" >
-                            <label>Project Description</label>
-                        </div>
+                        <label>Project Description</label>
+                        <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder="Project Description"
+                        name="projectDescription"
+                        formControlName="projectDescription"></textarea>
                         <br>
                         <button
                             style="cursor: pointer;"
                             type="submit"
-                            class="btn btn-primary"
+                            class="btn primary"
                             [disabled]="!addTimeTrackerForm.valid">
                             Add Project
                         </button>
-                        <button class="btn btn-default" (click)="onCancel()">Cancel</button>
+                        <button class="btn" (click)="onCancel()">Cancel</button>
                     </form>
-                </div>
-                <div>
-                    <svg width="67px" height="578px" viewBox="0 0 67 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>Path</title>
-                        <desc>Created with Sketch.</desc>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <path  d="M11.3847656,-5.68434189e-14 C-7.44726562,36.7213542 5.14322917,126.757812 49.15625,270.109375 C70.9827986,341.199016 54.8877465,443.829224 0.87109375,578 L67,578 L67,-5.68434189e-14 L11.3847656,-5.68434189e-14 Z" id="Path" fill="#7386D5"></path>
-                        </g>
-                    </svg>
                 </div>
             </div>
         </div>

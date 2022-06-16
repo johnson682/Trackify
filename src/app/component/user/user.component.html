@@ -12,9 +12,9 @@
         <a routerLink="timetracker/loginActivity" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple"
           ><i class="fas fa-history fa-fw me-3"></i><span>Login Activity</span></a
         >
-        <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple"
-          ><i class="fas fa-chart-line fa-fw me-3"></i><span>TaskTimeTracker</span></a
-        >
+        <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fas fa-chart-line fa-fw me-3"></i><span>TaskTimeTracker</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -50,6 +50,7 @@
               src="{{imageFile != null ? imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
               class="rounded-circle"
               height="22"
+              width="22"
               alt="Avatar"
               loading="lazy"
             />
@@ -71,7 +72,7 @@
   </nav>
 </header>
 
-<main style="margin-top: 58px;" id="main" data-scrollbar>
+<main style="margin-top: 58px;" id="main">
   <div class="container-fluid pt-4">
     <router-outlet></router-outlet>
   </div>
