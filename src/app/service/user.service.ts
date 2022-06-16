@@ -17,6 +17,9 @@ export class UserService {
     constructor(private db: AngularFirestore,private afauth:AngularFireAuth,private router:Router) { 
         this.userRef = db.collection(this.employeePath)
     }
+    getData(uid){
+        return this.userRef.doc(uid).valueChanges()
+    }
 
     updateUserData(uid:any,newData:any){
         this.userRef.doc(uid).update(newData)

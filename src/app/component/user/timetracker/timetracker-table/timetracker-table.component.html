@@ -32,12 +32,6 @@
       </tr>
     </thead>
     <tbody> 
-      <!-- <tr *ngFor="let task of tasks | filterBy:task  | paginate
-      : {
-          itemsPerPage: tableSize,
-          currentPage: page,
-          totalItems: count
-        };let i= index;"> -->
         <tr *ngFor="let project of projects ">
             <td>
                 <p class="mb-0">{{project.projectName}}</p>

@@ -23,8 +23,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   date=[]
   constructor(
     private loginActivityService:UserloginActivityService,
-    private tasksheetService:TasksheetService,
-    private toastr:NotificationService) { }
+    private tasksheetService:TasksheetService) { }
 
   ngOnInit(): void {
     this.month= this.tasksheetService.getMonth()

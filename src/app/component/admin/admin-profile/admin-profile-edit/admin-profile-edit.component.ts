@@ -21,18 +21,20 @@ export class AdminProfileEditComponent implements OnInit {
       this.uid = params['id']
     })
 
-
-    this.adminEditForm = new FormGroup({
-      'name':new FormControl(''),
-      'dob':new FormControl(''),
-      'state':new FormControl(''),
-      'mobile':new FormControl('')
+    this.AdminProfileService.getAdminData(this.uid).subscribe(data=>{
+      this.adminEditForm = new FormGroup({
+        'name':new FormControl(data.name),
+        'dob':new FormControl(data.dob),
+        'state':new FormControl(data.state),
+        'mobile':new FormControl(data.mobile)
+      })
     })
+
   }
 
   onSubmit(){
     let name = this.adminEditForm.value.name
-    let dob = this.adminEditForm.value.dob
+    let dob = new Date(this.adminEditForm.value.dob).toLocaleDateString()
     let state = this.adminEditForm.value.state
     let mobile = this.adminEditForm.value.mobile
     this.AdminProfileService.updateAdminData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})

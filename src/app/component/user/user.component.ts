@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Scrollbar from 'smooth-scrollbar';
-import { Options } from 'smooth-scrollbar/options';
-
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../login/service/auth.service';
@@ -45,7 +42,7 @@ export class UserComponent implements OnInit {
           if (result.value) {
             Swal.fire(
               'Logout!',
-              'Your LoginTime has been Stoped.',
+              'Your LoginTime has been removed.',
               'success'
             )
             this.authService.logout(this.uid)

@@ -29,8 +29,6 @@ export class TasksheetService {
   }
 
   deleteTask(uid,id,newTask){
-    console.log(id);
-    
     return this.data.doc(uid).collection('Year').doc(`${newTask.year}`).collection(`Month`).doc(`${newTask.month}`).collection('task').doc(id).delete()
   }
 
@@ -125,8 +123,6 @@ export class TasksheetService {
 
 
   getMonthNum(month){
-    console.log(month);
-    
     switch(month){
       case 'Jan':
         this.MonthNum = 1;
@@ -164,13 +160,10 @@ export class TasksheetService {
       case 'Dec':
         this.MonthNum = 12;
     }
-    console.log(this.MonthNum);
-    
     return this.MonthNum
   }
 
   getDay(){
-
     switch (new Date().getDay()) {
       case 0:
         this.day = "Sunday";

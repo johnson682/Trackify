@@ -88,10 +88,8 @@ export class DashboardComponent implements OnInit {
       this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
         this.datasFromTimetracker = data
         const datas = this.datasFromTimetracker.filter( obj => obj.date === event)
-        console.log(datas);
         
         const totalTask=datas.filter(obj => obj.status === 'complete')
-        console.log(totalTask);
         if(totalTask.length === 0){
           this.totalTask =0
         }else{
@@ -131,7 +129,6 @@ export class DashboardComponent implements OnInit {
         const datas = this.datasFromTimetracker.filter( obj => obj.month === event)
         
         const totalTask=datas.filter(obj => obj.status === 'complete')
-        console.log(totalTask);
         if(totalTask.length ==0){
           this.totalTask =0
         }else{
@@ -174,7 +171,6 @@ export class DashboardComponent implements OnInit {
         const datas = this.datasFromTimetracker.filter( obj => obj.year === event)
         
         const totalTask=datas.filter(obj => obj.status === 'complete')
-        console.log(totalTask);
         if(totalTask.length ==0){
           this.totalTask =0
         }else{

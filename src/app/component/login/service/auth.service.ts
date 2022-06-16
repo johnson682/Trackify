@@ -143,7 +143,6 @@ export class AuthService {
             localTimeStart:new Date().toLocaleTimeString()
         }
         localStorage.setItem('user',JSON.stringify(userData))
-        localStorage.setItem('localTimeStart',JSON.stringify(new Date().toLocaleTimeString()))
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }
 

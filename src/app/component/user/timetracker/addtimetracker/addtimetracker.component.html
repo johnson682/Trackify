@@ -16,13 +16,12 @@
                     <form [formGroup]="addTimeTrackerForm" (ngSubmit)="onSubmit()">
                         <div class="form-floating">
                             <ng-select
-                            [items]="projectType" 
-                            [(ngModel)]="type"
-                            placeholder="Select Project Type"
-                            formControlName="projectType" >
+                                [items]="projectType" 
+                                [(ngModel)]="type"
+                                placeholder="Select Project Type"
+                                formControlName="projectType" >
                             </ng-select>
                         </div>
-
                         <div class="form-floating">
                             <input
                             type="text"
@@ -31,9 +30,6 @@
                             name="projectName"
                             formControlName="projectName" >
                             <label>Project Name</label>
-                            <!-- <span *ngIf="!addTimeTrackerForm.get('date').valid && addTimeTrackerForm.get('date').touched" class="help-block">
-                            The field is required
-                            </span> -->
                         </div>
                         <br>
                         <div class="form-floating">
@@ -58,7 +54,6 @@
                 </div>
                 <div>
                     <svg width="67px" height="578px" viewBox="0 0 67 578" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
                         <title>Path</title>
                         <desc>Created with Sketch.</desc>
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -66,7 +61,6 @@
                         </g>
                     </svg>
                 </div>
-            
             </div>
         </div>
     </div>

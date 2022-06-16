@@ -63,7 +63,6 @@ export class AddComponent implements OnInit {
   }
 
   change(event){
-    console.log(event);
     const month=new Date(event).getMonth()
     
     const date=new Date(event).toLocaleDateString()

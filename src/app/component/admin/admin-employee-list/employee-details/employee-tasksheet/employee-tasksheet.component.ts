@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { map } from 'rxjs';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import * as XLSX from 'xlsx';
 @Component({
@@ -37,7 +36,6 @@ export class EmployeeTasksheetComponent implements OnInit {
   fetchData(){
     this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
       this.employeeDetails = data
-      console.log(data);
     })
 
     

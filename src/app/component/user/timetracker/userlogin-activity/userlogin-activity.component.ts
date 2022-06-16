@@ -45,7 +45,6 @@ export class UserloginActivityComponent implements OnInit {
         this.stopButton = true
       }
       this.localTimeStart = datas.localTimeStart
-      console.log(this.localTimeStart);
       
     })
     
@@ -83,9 +82,7 @@ export class UserloginActivityComponent implements OnInit {
   }
 
   getDaysInMonth(month,year) {
-    
-   return new Date(year, month, 0).getDate();
-
+    return new Date(year, month, 0).getDate();
   };
 
   stopTimer(){

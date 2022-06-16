@@ -1,6 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

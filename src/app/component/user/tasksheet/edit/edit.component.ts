@@ -34,17 +34,11 @@ export class EditComponent implements OnInit {
 
     this.route.params.subscribe((params:Params)=>{
       this.id = params['id']
-      console.log(this.id);
       this.month = params['month']
-      this.year = params['year']
-      console.log(this.year);
-      
-      
+      this.year = params['year']    
     })
       
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
-      console.log(data);
-      
       data.forEach(ele=>{
         if(ele.uid === this.id){
           this.task = ele
@@ -59,9 +53,7 @@ export class EditComponent implements OnInit {
   }
 
 
-  onSubmit(){
-    console.log(this.addtaskForm.value.startedDate);
-    
+  onSubmit(){    
     this.date = new Date(this.addtaskForm.value.startedDate).toLocaleDateString()
  
     let description = this.addtaskForm.value.description
@@ -78,23 +70,7 @@ export class EditComponent implements OnInit {
   }
   singleDate:any
   change(event){
-    // console.log(event);
-    // const month=new Date(event).getMonth()
-    
-    // const date=new Date(event).toLocaleDateString()
-    // const givenmonth=this.tasksheet.getMonths(month)
-    // const year=new Date(event).getFullYear()
     const singleDate = new Date(event).getDate()
     this.singleDate = `${singleDate}`
-
-    // this.date = `${date}`
-    // console.log(this.date);
-    
-    // this.month = `${givenmonth}`
-    // console.log(this.month);
-    
-    // this.year=`${year}`
-    
-    
   }
 }

@@ -4,10 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
-class ImageSnippet {
-  constructor(public src: string, public file: File) {}
-}
+
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -30,17 +27,19 @@ export class UserEditComponent implements OnInit {
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })
-    this.userEditForm = new FormGroup({
-      "name":new FormControl('',Validators.required),
-      'dob':new FormControl('',Validators.required),
-      'state':new FormControl('',Validators.required),
-      'mobile':new FormControl('',Validators.required)
+    this.userService.getData(this.uid).subscribe(data=>{
+      this.userEditForm = new FormGroup({
+        "name":new FormControl(data.name,Validators.required),
+        "dob":new FormControl(data.dob,Validators.required),
+        "state":new FormControl(data.state,Validators.required),
+        "mobile":new FormControl(data.mobile,Validators.required)
+      })
     })
   }
 
   onSubmit(){
     let name = this.userEditForm.value.name
-    let dob = this.userEditForm.value.dob   
+    let dob = new Date(this.userEditForm.value.dob).toLocaleDateString()   
     let state = this.userEditForm.value.state
     let mobile = this.userEditForm.value.mobile
     this.userService.updateUserData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})

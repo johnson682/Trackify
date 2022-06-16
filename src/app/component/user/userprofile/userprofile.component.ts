@@ -64,7 +64,7 @@ imageFile:any
       }
     })
     
-   if (file) {
+    if (file) {
       const reader = new FileReader()
       reader.onload = (e)=>{
         if(e.total <= 700000){
