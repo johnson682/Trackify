@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { TaskTrackerService } from 'src/app/service/timetracker.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,26 +19,27 @@ export class TimetrackerTableComponent implements OnInit {
   projectStatus=['complete','progress']
 
   constructor(
-    private timetrackerService:TaskTrackerService,
     private tasksheetservice:TasksheetService,
     private notificationService:NotificationService) { }
 
   ngOnInit(): void {
-    this.month = this.tasksheetservice.getMonth()
-    this.year = new Date().getFullYear()
+    this.month = moment().format('MMM');
+    this.year = moment().format('YYYY')
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
-    this.timetrackerService.getAllTaskTracker(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheetservice.getAllTask(this.uid,{month:this.month,year:this.year},'taskTracker').subscribe(data=>{
       this.projects = data
     })
   }
 
   onChangeStatus(event,task){
     if(event ==='complete'){
-      let ended = this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
-      this.timetrackerService.updateTask(this.uid,task.id,{status:event,endedDate:ended,month:task.month,year:task.year})
+      let ended = moment().format('DD-MM-YYYY, h:mm:ss a') ;
+      console.log(ended);
+      
+      this.tasksheetservice.updateTask(this.uid,task.uid,{status:event,endedDate:ended,month:task.month,year:task.year},'taskTracker')
     }else{
-      this.timetrackerService.updateTask(this.uid,task.id,{status:event,month:task.month,year:task.year})
+      this.tasksheetservice.updateTask(this.uid,task.uid,{status:event,month:task.month,year:task.year},'taskTracker')
     }
   }
 
@@ -53,19 +53,8 @@ export class TimetrackerTableComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success'
-        )
-        this.timetrackerService.deleteTask(this.uid,task.id,{month:task.month,year:task.year})
+        this.tasksheetservice.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'taskTracker')
         this.notificationService.sweetalert2('error','Task Deleted!!')
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
       }
    })
     
@@ -74,7 +63,7 @@ export class TimetrackerTableComponent implements OnInit {
   
 
   add(task){
-    this.tasksheetservice.add(this.uid,task)
+    this.tasksheetservice.add(this.uid,task,'task')
     this.notificationService.sweetalert2('success','Task Added to Tasksheet Successfully')
   }
 

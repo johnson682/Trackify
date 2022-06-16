@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import * as XLSX from 'xlsx';
 @Component({
@@ -19,12 +20,12 @@ export class EmployeeTasksheetComponent implements OnInit {
   years=[]
   year:any
   month:any;
-  constructor(private route:ActivatedRoute,private employeeTaskSheetService:TasksheetService) { }
+  constructor(private route:ActivatedRoute,private tasksheetService:TasksheetService) { }
 
   ngOnInit(): void {
-    this.year = new Date().getFullYear()
-    this.month=this.employeeTaskSheetService.getMonth()
-    this.task={month:this.month,year:new Date().getFullYear()}
+    this.year = moment().format('YYYY')
+    this.month=moment().format('MMM')
+    this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -34,7 +35,7 @@ export class EmployeeTasksheetComponent implements OnInit {
   }
 
   fetchData(){
-    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
     })
 
@@ -54,14 +55,14 @@ export class EmployeeTasksheetComponent implements OnInit {
 
   changeMonth(event){
     this.month = event
-    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
     })
   }
 
   changeYear(event){
     this.year = event
-    this.employeeTaskSheetService.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
     })
   }

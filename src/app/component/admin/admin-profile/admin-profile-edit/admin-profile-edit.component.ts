@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as moment from 'moment';
 import { AdminProfileService } from '../../service/admin-profile.service';
 @Component({
   selector: 'app-admin-profile-edit',
@@ -11,6 +12,7 @@ export class AdminProfileEditComponent implements OnInit {
 
   adminEditForm:FormGroup
   uid:any
+  isOpen = false
   constructor(
     private route:ActivatedRoute,
     private AdminProfileService:AdminProfileService,
@@ -34,7 +36,7 @@ export class AdminProfileEditComponent implements OnInit {
 
   onSubmit(){
     let name = this.adminEditForm.value.name
-    let dob = new Date(this.adminEditForm.value.dob).toLocaleDateString()
+    let dob = moment(this.adminEditForm.value.dob).format('DD-MM-YYYY')
     let state = this.adminEditForm.value.state
     let mobile = this.adminEditForm.value.mobile
     this.AdminProfileService.updateAdminData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})

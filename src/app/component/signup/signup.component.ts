@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
     private notificationService:NotificationService){}
   ngOnInit(): void {
       this.addEmployeeForm = new FormGroup({
+        'userName':new FormControl('',Validators.required),
         'email':new FormControl('',Validators.required),
         'password':new FormControl('',Validators.required)
       })
@@ -25,7 +26,8 @@ export class SignupComponent implements OnInit {
 
     let email = this.addEmployeeForm.value.email
     let password = this.addEmployeeForm.value.password
-    this.authService.SignUp(email,password)
+    let userName = this.addEmployeeForm.value.userName
+    this.authService.SignUp(email,password,userName)
     this.notificationService.sweetalert2("success","Employee Added Successfully")
     this.onCancel()
   }

@@ -2,3 +2,13 @@
     animation:fadeIn;
     animation-duration: 2s;
 }
+
+
+
+#profile {
+    position: relative;
+    overflow: hidden; /* added */
+    img:hover {
+        opacity: 0.5;
+    }
+}

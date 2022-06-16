@@ -11,14 +11,14 @@ import { AdminProfileService } from './service/admin-profile.service';
 export class AdminComponent implements OnInit {
 
   uid:any
-  imageFile:any
+  user:any
   constructor(public authService:AuthService,private adminProfileService:AdminProfileService) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
-    this.adminProfileService.adminRef.doc(this.uid).valueChanges().subscribe(data=>{
-      this.imageFile = data.imageFile
+    this.adminProfileService.getAdminData(this.uid).subscribe(data=>{
+      this.user = data
     })
   } 
   

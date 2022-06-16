@@ -2,7 +2,7 @@
   <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="users == null"></div>
 </div>
 <div class="container" *ngIf="users != null">
-  <button class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#exampleModal2" routerLink="/addEmployee" >Add</button>
+  <button class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#exampleModal2" routerLink="/admin/addEmployee" >Add</button>
   <hr>
   <div class="row d-flex h-100">
     <div class="col-md-12 col-xl-4" *ngFor="let user of users">
@@ -22,7 +22,7 @@
             <img src="{{user.imageFile != null ? user.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
               class="rounded-circle img-fluid" style="width: 100px;" />
           </div>
-          <h4 class="mb-2">{{user?.firstname!=null ? user.firstname : 'User'}}{{user?.lastname}}</h4>
+          <h4 class="mb-2">{{user?.name!=null ? user.name : 'User'}}</h4>
           <p class="text-muted mb-4">@Programmer <span class="mx-2">|</span> <a>{{user.email}}</a></p>
           <button type="button" class="btn btn-primary btn-rounded btn-sm" (click)="onView(user.uid)">
             View Now

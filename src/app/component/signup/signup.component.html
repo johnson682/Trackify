@@ -6,25 +6,28 @@
           <div class="column" id="main">
             <h1>Add Employee</h1>
             <form [formGroup]="addEmployeeForm" (ngSubmit)="onSubmit()">
-              <label for="email">Email:</label>
-              <input type="text" name="email" class="form-control" id="email" placeholder="email" formControlName="email">
+              <input type="text" name="userName" class="form-control" id="userName" placeholder="userName" formControlName="userName">
+              <span *ngIf="!addEmployeeForm.get('userName').valid && addEmployeeForm.get('userName').touched" class="help-block" style="color: red;margin-right: 15px;">
+                Field is required
+              </span>
+              <br>
+              <input type="text" name="email" class="form-control" id="email" placeholder="Email" formControlName="email">
               <span *ngIf="!addEmployeeForm.get('email').valid && addEmployeeForm.get('email').touched" class="help-block" style="color: red;margin-right: 15px;">
                 Field is required
               </span>
               <br>
-              <label for="password">password</label>
               <input type="password" class="form-control" name="password" id="pwd" placeholder="Password" formControlName="password">
               <span *ngIf="!addEmployeeForm.get('password').valid && addEmployeeForm.get('password').touched" class="help-block" style="color: red;margin-right: 15px;">
                 Field is required
               </span>
               <br>
               <button 
-                class="btn primary"
+                class="btn primary btn-sm"
                 style="cursor: pointer;"
                 type="submit"
                 [disabled]="!addEmployeeForm.valid">Add Employee
               </button>
-              <button class="btn" (click)="onCancel()">Cancel</button>
+              <button class="btn btn-sm" (click)="onCancel()">Cancel</button>
             </form>
           </div>
           <button id="closeModalButton" [hidden]="true" data-toggle="modal"        

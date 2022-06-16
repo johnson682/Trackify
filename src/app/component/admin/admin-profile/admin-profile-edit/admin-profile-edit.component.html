@@ -5,7 +5,6 @@
         <div class="column" id="main">
           <h1>Edit Profile </h1>
           <form [formGroup]="adminEditForm" (ngSubmit)="onSubmit()">
-            <label>name</label>
             <input
               type="text"
               class="form-control"
@@ -18,16 +17,21 @@
             <br>
             <div class="row">
               <div class="col">
-                <label>DOB</label>
-                <input
-                type="date"
-                class="form-control"
-                placeholder="dob"
-                name="dob"
-                formControlName="dob">
+                <div class="input-group">
+                  <input
+                  placeholder="Datepicker"
+                  class="form-control"
+                  [readonly]="true"
+                  bsDatepicker
+                  [isOpen]="isOpen"
+                  formControlName="dob"
+                  [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                  <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </div>
               </div>
               <div class="col">
-                <label>State</label>
                 <input
                   type="text"
                   class="form-control"
@@ -37,7 +41,6 @@
               </div>
             </div>
             <br>
-            <label>Mobile</label>
             <input
             type="text"
             class="form-control"

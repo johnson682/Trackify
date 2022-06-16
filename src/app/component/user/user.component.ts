@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AnyMxRecord } from 'dns';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../login/service/auth.service';
@@ -11,7 +12,6 @@ import { AuthService } from '../login/service/auth.service';
 export class UserComponent implements OnInit {
 
   uid:any
-  users:any;
   user:any
 
   imageFile:any
@@ -21,8 +21,8 @@ export class UserComponent implements OnInit {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     
-    this.userService.userRef.doc(this.uid).valueChanges().subscribe(data=>{
-      this.imageFile = data.imageFile
+    this.userService.getData(this.uid).subscribe(data=>{
+      this.user = data
     })
   } 
   
@@ -40,19 +40,8 @@ export class UserComponent implements OnInit {
           cancelButtonText: 'No, keep Login'
         }).then((result) => {
           if (result.value) {
-            Swal.fire(
-              'Logout!',
-              'Your LoginTime has been removed.',
-              'success'
-            )
             this.authService.logout(this.uid)
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            Swal.fire(
-              'Cancelled',
-              'Your LoginTime is safe :)',
-              'error'
-            )
-          }
+          } 
        })
       }else{
         this.authService.logout(this.uid)

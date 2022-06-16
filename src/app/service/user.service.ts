@@ -25,19 +25,9 @@ export class UserService {
         this.userRef.doc(uid).update(newData)
     }
 
-    removeEmployee(uid,email,password){
+    removeEmployee(uid){
         this.userRef.doc(uid).delete()
-        this.userRef.doc(uid).collection('task').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
-        this.userRef.doc(uid).collection('timetracker').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
-        this.userRef.doc(uid).collection('ActivityLog').get().subscribe(data=>{
+        this.userRef.doc(uid).collection('year').get().subscribe(data=>{
             data.forEach(a=>{
                 a.ref.delete()
             })
@@ -46,17 +36,7 @@ export class UserService {
 
     async removeAccount(uid){
         this.userRef.doc(uid).delete()
-        this.userRef.doc(uid).collection('task').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
-        this.userRef.doc(uid).collection('timetracker').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
-        this.userRef.doc(uid).collection('ActivityLog').get().subscribe(data=>{
+        this.userRef.doc(uid).collection('Year').get().subscribe(data=>{
             data.forEach(a=>{
                 a.ref.delete()
             })

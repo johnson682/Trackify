@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
-import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,7 +29,6 @@ export class UserloginActivityComponent implements OnInit {
   datas:any
   order:string 
   constructor(
-    private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService,
     private userService:UserService,
     private notificationService:NotificationService) { }
@@ -47,12 +46,14 @@ export class UserloginActivityComponent implements OnInit {
       this.localTimeStart = datas.localTimeStart
       
     })
-    
-    this.month= this.tasksheetService.getMonth()
-    this.year = new Date().getFullYear()
-    this.task={date:new Date().getDate(),month:this.month,year:this.year}
 
-    const monthNum = new Date().getMonth()
+    
+    
+    this.month= moment().format('MMM');
+    this.year = moment().format('YYYY')
+    this.task={date:moment().format('DD'),month:this.month,year:this.year}
+
+    const monthNum = moment().format('M')
     this.dateTotal = this.getDaysInMonth(monthNum,this.year)
     
     for(let i=2022;i<=2040;i++){
@@ -62,10 +63,10 @@ export class UserloginActivityComponent implements OnInit {
       this.date.push(i)
     }
 
-    this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.order= 'startTime'
+    this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.order= 'startTime'
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.month && obj.year === this.year )
+      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === this.month && obj.year === this.year )
      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
@@ -75,7 +76,7 @@ export class UserloginActivityComponent implements OnInit {
         this.time = "00:00:00"
       }else{
         var time =finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       }
     })
 
@@ -95,11 +96,6 @@ export class UserloginActivityComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Stoped!',
-          'Your Login Time will be Ended.',
-          'success'
-        )
         this.userService.updateUserData(this.uid,{StopStatus:false})
         this.userService.userRef.doc(this.uid).get().subscribe(data=>{
 
@@ -107,35 +103,30 @@ export class UserloginActivityComponent implements OnInit {
           if(!datas.StopStatus){
             this.stopButton = false
           }
-          this.localTimeEnd = new Date().toLocaleTimeString()
+          this.localTimeEnd = moment().format('hh:mm a')
           this.stopTime = new Date().getTime()
           
             const  totalTime = this.stopTime - datas.startTime
-            const time = this.loginActivityService.convertMsToHM(totalTime) 
+             
+            const time = this.tasksheetService.convertMsToHM(totalTime) 
             
-            this.loginActivityService.add(this.uid,{
+            this.tasksheetService.add(this.uid,{
               startTimeInMS:datas.startTime,
               stopTimeInMs:this.stopTime,
               startTime:datas.localTimeStart,
               endTime:this.localTimeEnd,
-              month:this.tasksheetService.getMonth(),
-              year:new Date().getFullYear(),
-              date:new Date().getDate(),
+              month:moment().format('MMM'),
+              year:moment().format('YYYY'),
+              date:moment().format('DD'),
               totalHours:time,
               totalTime:totalTime,
-              localDate:new Date().toLocaleDateString()
+              localDate:moment().format('DD-MM-YYYY')
       
-            })
+            },'ActivityLog')
     
           }) 
           this.notificationService.sweetalert2('warning','Timer Stopped!')
           
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your Time will keep it safe :)',
-          'error'
-        )
       }
    })
     
@@ -156,7 +147,7 @@ export class UserloginActivityComponent implements OnInit {
           'Your Login Time will be Deleted.',
           'success'
         )
-        this.loginActivityService.delete(this.uid,time.uid,time)
+        this.tasksheetService.deleteTask(this.uid,time.uid,time,'ActivityLog')
         this.notificationService.sweetalert2('error','Login Activity removed!!')
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire(
@@ -180,7 +171,7 @@ export class UserloginActivityComponent implements OnInit {
   changeDay(event){
   
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.date === event)
         var finalData = this.file.map((obj)=>{
@@ -191,17 +182,18 @@ export class UserloginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
+        this.order ='date'
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }
@@ -209,7 +201,7 @@ export class UserloginActivityComponent implements OnInit {
     this.month= event
 
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
         var finalData = this.file.map((obj)=>{
@@ -219,17 +211,17 @@ export class UserloginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }
@@ -239,7 +231,7 @@ export class UserloginActivityComponent implements OnInit {
   changeYear(event){
     this.year = event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)
         var finalData = this.file.map((obj)=>{
@@ -249,17 +241,17 @@ export class UserloginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }    
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/service/notification.service';
+import * as moment from 'moment';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { UserloginActivityService } from 'src/app/service/userlogin-activity.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -22,13 +21,12 @@ export class EmployeeLoginActivityComponent implements OnInit {
   year:any
   date=[]
   constructor(
-    private loginActivityService:UserloginActivityService,
     private tasksheetService:TasksheetService) { }
 
   ngOnInit(): void {
-    this.month= this.tasksheetService.getMonth()
-    this.year=new Date().getFullYear()
-    this.task={date:new Date().getDate(),month:this.month,year:this.year}
+    this.month= moment().format('MMM')
+    this.year=moment().format('YYYY')
+    this.task={date:moment().format('DD'),month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -37,9 +35,9 @@ export class EmployeeLoginActivityComponent implements OnInit {
     }
     const userData= JSON.parse(localStorage.getItem('Employee Uid'))
     this.uid = userData
-    this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === this.tasksheetService.getMonth() && obj.year === this.year )
+      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === moment().format('MMM') && obj.year === this.year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -48,7 +46,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
         this.time = "00:00:00"
       }else{
         var time =finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       }
     })
   }
@@ -70,7 +68,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   changeDay(event){
   
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.date === event)
         var finalData = this.file.map((obj)=>{
@@ -81,24 +79,24 @@ export class EmployeeLoginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }
   changeMonth(event){
     this.month = event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
         var finalData = this.file.map((obj)=>{
@@ -108,17 +106,17 @@ export class EmployeeLoginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }
@@ -128,7 +126,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   changeYear(event){
     this.year=event
     if(event != undefined){
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)
         var finalData = this.file.map((obj)=>{
@@ -138,17 +136,17 @@ export class EmployeeLoginActivityComponent implements OnInit {
           this.time = "00:00:00"
         }else{
           var time =finalData.reduce(this.add)
-          this.time = this.loginActivityService.convertMsToHM(time)
+          this.time = this.tasksheetService.convertMsToHM(time)
         }    
       })
     }else{
-      this.loginActivityService.getData(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)
-        this.time = this.loginActivityService.convertMsToHM(time)
+        this.time = this.tasksheetService.convertMsToHM(time)
       })
     }
   }

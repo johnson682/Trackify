@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -16,7 +17,7 @@ export class UserEditComponent implements OnInit {
   uid:any
   imageFile:any
   data:any
-
+  isOpen = false;
   constructor(
     private route:ActivatedRoute,
     private userService:UserService,
@@ -39,7 +40,7 @@ export class UserEditComponent implements OnInit {
 
   onSubmit(){
     let name = this.userEditForm.value.name
-    let dob = new Date(this.userEditForm.value.dob).toLocaleDateString()   
+    let dob = moment(this.userEditForm.value.dob).format('DD-MM-YYYY')   
     let state = this.userEditForm.value.state
     let mobile = this.userEditForm.value.mobile
     this.userService.updateUserData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})

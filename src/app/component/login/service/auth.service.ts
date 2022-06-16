@@ -4,9 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { User } from "../../../model/user";
-import { UserloginActivityService } from "src/app/service/userlogin-activity.service";
-import { UserService } from "src/app/service/user.service";
-import { TasksheetService } from "src/app/service/tasksheet.service";
+import * as moment from "moment";
 
 
 @Injectable({
@@ -28,9 +26,6 @@ export class AuthService {
         private afs:AngularFirestore,
         private afAuth:AngularFireAuth,
         private router:Router,
-        private userloginActivityService:UserloginActivityService,
-        private userService:UserService,
-        private tasksheetService:TasksheetService
     ){
         this.userRef =this.afs.collection('users')
         this.adminRef = this.afs.collection('admin')
@@ -68,11 +63,11 @@ export class AuthService {
         }
     }
 
-    SignUp(email: string, password: string) {
+    SignUp(email: string, password: string , name:string) {
         return this.afAuth
           .createUserWithEmailAndPassword(email, password)
           .then((result) => {
-            this.setUserData(result.user);
+            this.setUserDataToRegister(result.user,name);
           })
           .catch((error) => {
             Swal.fire({
@@ -83,6 +78,14 @@ export class AuthService {
           });
       }
 
+    setUserDataToRegister(user:any,name:any){
+        const userData:any={
+            uid:user.uid,
+            email:user.email,
+            name:name
+        }
+        return this.userRef.doc(user.uid).set(userData,{merge:true})
+    }
       
     setAdminData(adminData:any){
         const adminRef:AngularFirestoreDocument<any>=this.afs.doc(`admin/${adminData.uid}`)
@@ -93,14 +96,13 @@ export class AuthService {
             Status:true,
             StopStatus:true,
             startTime:new Date().getTime(),
-            localDate:new Date().toLocaleDateString(),
-            month:this.tasksheetService.getMonth(),
-            year:new Date().getFullYear(),
-            date:new Date().getDate(),
-            localTimeStart:new Date().toLocaleTimeString()
+            localDate:moment().format('DD-MM-YYYY'),
+            month:moment().format('MMM'),
+            year:moment().format('YYYY'),
+            date:moment().format('DD'),
+            localTimeStart:moment().format('hh:mm a')
         }
         localStorage.setItem('user',JSON.stringify(admin))
-        localStorage.setItem('localTimeStart',JSON.stringify(new Date().toLocaleTimeString()))
         return adminRef.set(admin,{
             merge:true
         })
@@ -136,11 +138,11 @@ export class AuthService {
             Status:true,
             StopStatus:true,
             startTime:new Date().getTime(),
-            localDate:new Date().toLocaleDateString(),
-            month:this.tasksheetService.getMonth(),
-            year:new Date().getFullYear(),
-            date:new Date().getDate(),
-            localTimeStart:new Date().toLocaleTimeString()
+            localDate:moment().format('DD-MM-YYYY'),
+            month:moment().format('MMM'),
+            year:moment().format('YYYY'),
+            date:moment().format('DD'),
+            localTimeStart:moment().format('hh:mm a')
         }
         localStorage.setItem('user',JSON.stringify(userData))
         return this.userRef.doc(user.uid).set(userData,{merge:true})

@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFilterModule } from 'ngx-filter';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -37,7 +38,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxFilterModule,
     FilterPipeModule,
     NgSelectModule ,
-    AdminRoutingModule
+    AdminRoutingModule,
+    BsDatepickerModule.forRoot(),
 
   ]
 })

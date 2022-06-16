@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import { TaskTrackerService } from 'src/app/service/timetracker.service';
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-addtimetracker',
@@ -19,7 +19,6 @@ export class AddtimetrackerComponent implements OnInit {
   userData:any
   constructor(
     private router:Router,
-    private timetrackerService:TaskTrackerService,
     private toastr:NotificationService,
     private tasksheetservice:TasksheetService) { }
 
@@ -40,13 +39,13 @@ export class AddtimetrackerComponent implements OnInit {
     let projectName = this.addTimeTrackerForm.value.projectName
     let projectDescription = this.addTimeTrackerForm.value.projectDescription
     let status = "progress"
-    let started = this.timetrackerService.getCurrentTimeInTaskStartEndFormat()
+    let started = moment().format('DD-MM-YYYY, h:mm:ss a') 
     let ended = ""
-    let month = this.tasksheetservice.getMonth()
-    let year = new Date().getFullYear()
-    let day= this.tasksheetservice.getDay()
-    let date=new Date().getDate()
-    this.timetrackerService.add(
+    let month = moment().format('MMM')
+    let year = moment().format('YYYY');
+    let day= moment().format('dddd');
+    let date=moment().format("DD")
+    this.tasksheetservice.add(
       this.userData.uid,
       {
         projectType:projectType,
@@ -60,7 +59,8 @@ export class AddtimetrackerComponent implements OnInit {
         day:day,
         date:date
         
-      }
+      },
+      'taskTracker'
     )
     this.onCancel()
   }

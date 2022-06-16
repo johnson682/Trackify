@@ -5,66 +5,60 @@
         <div class="column" id="main">
           <h1>Edit Profile </h1>
           <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
-
-            <div class="form-floating">
-              <input
-              type="text"
-              class="form-control"
-              name="name"
-              placeholder="name"
-              formControlName="name">
-              <label>Name</label>
-            </div>
+            <input
+            type="text"
+            class="form-control"
+            name="name"
+            placeholder="name"
+            formControlName="name">
             <br>
             <div class="row">
-                <div class="col">
-                    <div class="form-floating">
-                        <input
-                        placeholder="Datepicker"
-                        class="form-control"
-                        bsDatepicker
-                        formControlName="dob"
-                        [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
-                        <label>DOB</label>
-                    </div>
+              <div class="col">
+                <div class="input-group">
+                  <input
+                  placeholder="Datepicker"
+                  class="form-control"
+                  [readonly]="true"
+                  bsDatepicker
+                  [isOpen]="isOpen"
+                  formControlName="dob"
+                  [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                  <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
+                    <i class="fa fa-calendar"></i>
+                  </a>
                 </div>
-                <div class="col">
-                    <div class="form-floating">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="state"
-                          placeholder="state"
-                          formControlName="state">
-                        <label>State</label>
-                    </div>
-                </div>
+              </div>
+              <div class="col">
+                <input
+                type="text"
+                class="form-control"
+                name="state"
+                placeholder="state"
+                formControlName="state">
+              </div>
             </div>
             <br>
-            <div class="form-floating">
-                <input
-                type="number"
-                class="form-control"
-                placeholder="mobile"
-                name="mobile"
-                formControlName="mobile">
-                <label>Mobile</label>
-            </div>
+              <input
+              type="number"
+              class="form-control"
+              placeholder="mobile"
+              name="mobile"
+              formControlName="mobile">
             <br>
             <button
-                style="cursor: pointer;"
-                type="submit"
-                class="btn primary"
-                [disabled]="!userEditForm.valid"
->
-                Save
+              style="cursor: pointer;"
+              type="submit"
+              class="btn primary"
+              [disabled]="!userEditForm.valid">
+              Save
             </button>
             <button class="btn" (click)="onCancel()">Cancel</button>
           </form>
         </div>
         <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
-        data-target="#myModal" class="btn btn-default"                          
-       data-dismiss="modal">Close</button>
+          data-target="#myModal" class="btn btn-default"                          
+          data-dismiss="modal">Close
+        </button>
       </div>
     </div>
   </div>

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { map } from 'rxjs';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
- 
-import { BsDatepickerConfig, BsDatepickerViewMode } from 'ngx-bootstrap/datepicker';
 import { NotificationService } from 'src/app/service/notification.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -39,8 +36,11 @@ export class TasksheetComponent implements OnInit {
   years=[]
 
   ngOnInit(): void {
-    this.month= this.tasksheet.getMonth()
-    this.year = new Date().getFullYear()
+    const dat=moment().format('YYYY')
+    console.log(dat);
+    
+    this.month= moment().format('MMM')
+    this.year =moment().format('YYYY')
     this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
@@ -53,7 +53,7 @@ export class TasksheetComponent implements OnInit {
   }
 
   onFetchData(){
-    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
 
       this.order = 'date'
@@ -76,19 +76,8 @@ export class TasksheetComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success'
-        )
-        this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year})
+        this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'task')
         this.notificationService.sweetalert2('error','Task Deleted!!')
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
       }
    })
     
@@ -108,14 +97,14 @@ export class TasksheetComponent implements OnInit {
 
   changeMonth(event){
     this.month = event
-    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
     })
   }
 
   changeYear(event){
     this.year = event
-    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year}).subscribe(data=>{
+    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
     })
   }

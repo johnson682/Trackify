@@ -34,18 +34,7 @@ export class AdminEmployeeListComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success'
-        )
-        this.userService.removeEmployee(uid,email,password)
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe :)',
-          'error'
-        )
+        this.userService.removeEmployee(uid)
       }
    })
   }

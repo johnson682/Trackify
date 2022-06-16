@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 
@@ -39,6 +40,7 @@ export class AddComponent implements OnInit {
 
     this.today = new Date()
     this.addtaskForm = new FormGroup({
+      'Name':new FormControl('',Validators.required),
       'startedDate':new FormControl('',Validators.required),
       'description':new FormControl('',Validators.required),
       "projectType":new FormControl(this.projectName,Validators.required)
@@ -49,10 +51,11 @@ export class AddComponent implements OnInit {
     let startedDate = this.date
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
+    let projectName = this.addtaskForm.value.Name
     let month =this.month
     let year = this.year
     let date = this.singleDate
-    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType,date})
+    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType,date,projectName:projectName},'task')
     this.onCancel()
     this.toastr.sweetalert2('success','Added Succesfully')
   }
@@ -63,16 +66,16 @@ export class AddComponent implements OnInit {
   }
 
   change(event){
-    const month=new Date(event).getMonth()
+    const month=moment(event).format('MMM')
+    console.log(month);
     
-    const date=new Date(event).toLocaleDateString()
-    const givenmonth=this.tasksheet.getMonths(month)
-    const year=new Date(event).getFullYear()
-    const singleDate = new Date(event).getDate()
+    const date=moment(event).format('DD-MM-YYYY')
+    const year=moment(event).format('YYYY')
+    const singleDate = moment(event).format('DD')
 
     this.date = `${date}`
     this.singleDate = `${singleDate}`
-    this.month = `${givenmonth}`
+    this.month = `${month}`
     this.year=`${year}`
     
     

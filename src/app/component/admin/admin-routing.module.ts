@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from 'src/app/guard/admin.guard';
+import { SignupComponent } from '../signup/signup.component';
 import { AdminEmployeeListComponent } from './admin-employee-list/admin-employee-list.component';
 import { EmployeeDetailsComponent } from './admin-employee-list/employee-details/employee-details.component';
 import { EmployeeLoginActivityComponent } from './admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
@@ -13,6 +14,7 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   {path:'',component:AdminComponent,canActivate:[AdminGuard],data: {uid: 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'},children:[
     {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
+    {path:'addEmployee',component:SignupComponent},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
       {path:'',redirectTo:'EmployeeLoginActivity',pathMatch:'full'},

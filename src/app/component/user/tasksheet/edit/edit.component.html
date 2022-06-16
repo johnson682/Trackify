@@ -6,33 +6,41 @@
           <div class="column" id="main">
             <h1>Task</h1>
             <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()">
-              <div class="form-floating">
-                <ng-select
-                  [items]="projectType" 
-                  [(ngModel)]="task.projectType"
-                  formControlName="projectType">
-                </ng-select>
+              <ng-select
+                [items]="projectType" 
+                [(ngModel)]="task.projectType"
+                placeholder="Select Project Type" 
+                formControlName="projectType">
+              </ng-select>
+              <div class="row">
+                <div class="col">
+                  <input type="text" formControlName="Name" placeholder="ProjectName" class="form-control" name="name">
+                  <span *ngIf="!addtaskForm.get('Name').valid && addtaskForm.get('Name').touched" class="help-block">
+                    The field is required
+                  </span>
+                </div>
+                <div class="col">
+                  <div class="input-group">
+                    <input type="text"
+                      [readonly]="true"
+                      placeholder="Date"
+                      class="form-control"
+                      bsDatepicker
+                      [maxDate]="today"
+                      formControlName="startedDate"
+                      (bsValueChange)="change($event)"
+                      [isOpen]="isOpen"
+                      [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                    <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
+                      <i class="fa fa-calendar"></i>
+                    </a>
+                  </div>
+                  <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
+                    The field is required
+                  </span>
+                </div>
               </div>
-              <label>Date</label>
-              <div class="input-group">
-                <input type="button"
-                  placeholder="Datepicker"
-                  class="form-control"
-                  bsDatepicker
-                  [maxDate]="today"
-                  formControlName="startedDate"
-                  (bsValueChange)="change($event)"
-                  [isOpen]="isOpen"
-                  [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
-                <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
-                  <i class="fa fa-calendar"></i>
-                </a>
-              </div>
-              <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
-                The field is required
-              </span>
               <br>
-              <label>Description</label>
               <textarea
                 type="text" 
                 class="form-control"

@@ -20,21 +20,26 @@
                             placeholder="Select Project Type"
                             formControlName="projectType" >
                         </ng-select>
-                        <label>Project Name</label>
                         <input
                         type="text"
                         class="form-control"
                         placeholder="Project Name"
                         name="projectName"
                         formControlName="projectName" >
+                        <span *ngIf="!addTimeTrackerForm.get('projectName').valid && addTimeTrackerForm.get('projectName').touched" class="help-block" style="color: red;margin-right: 15px;">
+                            Field is required
+                        </span>
                         <br>
-                        <label>Project Description</label>
                         <textarea
-                        type="text"
-                        class="form-control"
-                        placeholder="Project Description"
-                        name="projectDescription"
-                        formControlName="projectDescription"></textarea>
+                            type="text"
+                            class="form-control"
+                            placeholder="Project Description"
+                            name="projectDescription"
+                            formControlName="projectDescription">
+                        </textarea>
+                        <span *ngIf="!addTimeTrackerForm.get('projectDescription').valid && addTimeTrackerForm.get('projectDescription').touched" class="help-block" style="color: red;margin-right: 15px;">
+                            Field is required
+                        </span>
                         <br>
                         <button
                             style="cursor: pointer;"

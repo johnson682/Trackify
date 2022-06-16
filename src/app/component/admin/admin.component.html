@@ -37,13 +37,14 @@
               data-bs-toggle="dropdown"
               aria-expanded="false">
               <img
-                src="{{imageFile!= null ? imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                src="{{user?.imageFile!= null ? user?.imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
                 class="rounded-circle"
                 height="22"
                 width="22"
                 alt="Avatar"
                 loading="lazy"
               />
+              <span>{{user?.name}}</span>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-end"

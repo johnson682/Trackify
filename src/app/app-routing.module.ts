@@ -10,7 +10,6 @@ const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent },
-  {path:'addEmployee',component:SignupComponent},
 
   { path: 'user', loadChildren: () => import('./component/user/user.module').then(m => m.UserModule) },
   { path: 'admin', loadChildren: () => import('./component/admin/admin.module').then(m => m.AdminModule) }

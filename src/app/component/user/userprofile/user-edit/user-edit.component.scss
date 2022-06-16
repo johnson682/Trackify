@@ -29,6 +29,7 @@
 }
 form {
 	font-size: .8em;
+	padding: 30px;
 }
 .column {
 	flex: 25%;
@@ -36,7 +37,7 @@ form {
 }
 .column#main {
 	flex: 75%;
-	margin-top: 50px;
+	margin-top: 10px;
 }
 #main {
 	.form-control {

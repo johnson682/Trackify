@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
+import { UserService } from 'src/app/service/user.service';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -11,16 +12,16 @@ import * as XLSX from 'xlsx';
 })
 export class EmployeeDetailsComponent implements OnInit {
   uid:any
-  userEmail:any
-  constructor(private route:ActivatedRoute,private employeeTaskSheetService:TasksheetService) { }
+  user:any
+  constructor(private route:ActivatedRoute,private userService:UserService) { }
 
   
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{ 
       this.uid = params['uid']
     })
-    this.employeeTaskSheetService.data.doc(this.uid).valueChanges().subscribe(data=>{
-      this.userEmail =  data.email
+    this.userService.getData(this.uid).subscribe(data=>{
+        this.user = data
     })
   }
   
