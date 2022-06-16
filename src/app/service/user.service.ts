@@ -27,20 +27,12 @@ export class UserService {
 
     removeEmployee(uid){
         this.userRef.doc(uid).delete()
-        this.userRef.doc(uid).collection('year').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
+        this.userRef.doc(`${uid}/year`).delete()
     }
 
     async removeAccount(uid){
         this.userRef.doc(uid).delete()
-        this.userRef.doc(uid).collection('Year').get().subscribe(data=>{
-            data.forEach(a=>{
-                a.ref.delete()
-            })
-        })
+        this.userRef.doc(`${uid}/year`).delete()
         
         this.router.navigate(['/login']);
 
