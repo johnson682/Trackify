@@ -21,14 +21,16 @@ const routes: Routes = [
     {path:'userprofile',component:UserprofileComponent,children:[
       {path:':id',component:UserEditComponent}
     ]},
-    {path:'tasksheet',component:TasksheetComponent},
-    {path:'tasksheet/addTotasksheet',component:AddComponent},
-    {path:'tasksheet/:year/:month/:id',component:EditComponent},
+    {path:'tasksheet',component:TasksheetComponent,children:[
+      {path:'addTotasksheet',component:AddComponent},
+      {path:':year/:month/:id',component:EditComponent},
+    ]},
     {path:'timetracker',component:TimetrackerComponent,children:[
       {path:'',redirectTo:'loginActivity',pathMatch:'full'},
       {path:'loginActivity',component:UserloginActivityComponent},
-      {path:'timeTrackerTable',component:TimetrackerTableComponent},
-      {path:'timeTrackerTable/addTimeTracker',component:AddtimetrackerComponent},
+      {path:'timeTrackerTable',component:TimetrackerTableComponent,children:[
+        {path:'addTimeTracker',component:AddtimetrackerComponent},
+      ]},
     ]},
     {path:'dashboard',component:DashboardComponent}
   ]}

@@ -16,8 +16,9 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   {path:'',component:AdminComponent,canActivate:[AdminGuard],data: {uid: 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'},children:[
     {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
-    {path:'addEmployee',component:SignupComponent},
-    {path:'adminEmployeeList',component:AdminEmployeeListComponent},
+    {path:'adminEmployeeList',component:AdminEmployeeListComponent,children:[
+      {path:'addEmployee',component:SignupComponent},
+    ]},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
       {path:'',redirectTo:'EmployeeProfileDetails',pathMatch:'full'},
       {path:'EmployeeLoginActivity',component:EmployeeLoginActivityComponent},
