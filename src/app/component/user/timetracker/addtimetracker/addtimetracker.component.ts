@@ -42,9 +42,9 @@ export class AddtimetrackerComponent implements OnInit {
     let started = moment().format('DD-MM-YYYY, h:mm:ss a') 
     let ended = ""
     let month = moment().format('MMM')
-    let year = moment().format('YYYY');
+    let year = new Date().getFullYear()
     let day= moment().format('dddd');
-    let date=moment().format("DD")
+    let date=new Date().getDate();
     this.tasksheetservice.add(
       this.userData.uid,
       {

@@ -24,7 +24,7 @@ export class TimetrackerTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.month = moment().format('MMM');
-    this.year = moment().format('YYYY')
+    this.year = new Date().getFullYear()
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
     this.tasksheetservice.getAllTask(this.uid,{month:this.month,year:this.year},'taskTracker').subscribe(data=>{

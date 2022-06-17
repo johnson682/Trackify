@@ -91,15 +91,13 @@ export class EditComponent implements OnInit {
   singleDate:any
   change(event){
     const month=moment(event).format("MMM")
-    console.log(month);
-    
+
     const date=moment(event).format("DD-MM-YYYY")
-    const year=moment(event).format("YYYY")
-    const singleDate = moment(event).format("DD")
+    this.year=new Date(event).getFullYear()
+    this.singleDate =new Date(event).getDate()
 
     this.date = `${date}`
-    this.singleDate = `${singleDate}`
     this.month = `${month}`
-    this.year=`${year}`
+
   }
 }

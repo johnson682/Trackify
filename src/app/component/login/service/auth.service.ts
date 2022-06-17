@@ -104,8 +104,8 @@ export class AuthService {
             startTime:new Date().getTime(),
             localDate:moment().format('DD-MM-YYYY'),
             month:moment().format('MMM'),
-            year:moment().format('YYYY'),
-            date:moment().format('DD'),
+            year:new Date().getFullYear(),
+            date:new Date().getDate(),
             localTimeStart:moment().format('hh:mm a')
         }
         localStorage.setItem('user',JSON.stringify(userData))

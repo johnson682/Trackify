@@ -50,8 +50,8 @@ export class UserloginActivityComponent implements OnInit {
     
     
     this.month= moment().format('MMM');
-    this.year = moment().format('YYYY')
-    this.task={date:moment().format('DD'),month:this.month,year:this.year}
+    this.year = new Date().getFullYear()
+    this.task={date:new Date().getDate(),month:this.month,year:this.year}
 
     const monthNum = moment().format('M')
     this.dateTotal = this.getDaysInMonth(monthNum,this.year)
@@ -66,7 +66,8 @@ export class UserloginActivityComponent implements OnInit {
     this.order= 'startTime'
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === moment().format('MMM') && obj.year === this.year )
+      
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year )
      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
@@ -116,8 +117,8 @@ export class UserloginActivityComponent implements OnInit {
               startTime:datas.localTimeStart,
               endTime:this.localTimeEnd,
               month:moment().format('MMM'),
-              year:moment().format('YYYY'),
-              date:moment().format('DD'),
+              year:new Date().getFullYear(),
+              date:new Date().getDate(),
               totalHours:time,
               totalTime:totalTime,
               localDate:moment().format('DD-MM-YYYY')
@@ -198,9 +199,9 @@ export class UserloginActivityComponent implements OnInit {
     }
   }
   changeMonth(event){
-    this.month= event
-
+    
     if(event != undefined){
+      this.month= event
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
@@ -229,8 +230,8 @@ export class UserloginActivityComponent implements OnInit {
 
 
   changeYear(event){
-    this.year = event
     if(event != undefined){
+      this.year = event
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)

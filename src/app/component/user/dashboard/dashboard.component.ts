@@ -27,8 +27,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.month= moment().format('MMM')
-    this.year = moment().format('YYYY')
-    this.task={day: moment().format('DD'),month:this.month,year:this.year}
+    this.year =new Date().getFullYear()
+    this.task={day: new Date().getDate(),month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   init(){
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === moment().format('DD') && obj.month === moment().format('MMM') && obj.year === this.year )
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
 
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'taskTracker').subscribe(data=>{
       this.datasFromTimetracker = data
-      const datas=this.datasFromTimetracker.filter(obj=>obj.status==='complete' && obj.date ===moment().format('DD') && obj.month === moment().format('MMM') && obj.year === moment().format('YYYY'))
+      const datas=this.datasFromTimetracker.filter(obj=>obj.status==='complete' && obj.date ===new Date().getDate() && obj.month === moment().format('MMM') && obj.year === moment().format('YYYY'))
       this.totalTask = datas.length
     })
   }
@@ -105,8 +105,8 @@ export class DashboardComponent implements OnInit {
     }
   }
   changeMonth(event){
-    this.month = event
     if(event != undefined){
+      this.month = event
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.month === event)
@@ -147,8 +147,8 @@ export class DashboardComponent implements OnInit {
 
 
   changeYear(event){
-    this.year= event
     if(event != undefined){
+      this.year= event
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin = data
         this.file=this.datasFromLogin.filter(obj => obj.year === event)

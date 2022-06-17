@@ -36,11 +36,9 @@ export class TasksheetComponent implements OnInit {
   years=[]
 
   ngOnInit(): void {
-    const dat=moment().format('YYYY')
-    console.log(dat);
     
     this.month= moment().format('MMM')
-    this.year =moment().format('YYYY')
+    this.year =new Date().getFullYear()
     this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
