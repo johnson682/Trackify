@@ -21,13 +21,14 @@
         [items]="monthNames" 
         (change)="changeMonth($event)"
         [(ngModel)]="task.month"
-        >
+        [clearable]="false">
       </ng-select>
       <ng-select
         style="width: 100px;float:right;" 
         (change)="changeYear($event)" 
         [items]="years" 
-        [(ngModel)]="task.year">
+        [(ngModel)]="task.year"
+        [clearable]="false">
       </ng-select>
     </div>
   </div>

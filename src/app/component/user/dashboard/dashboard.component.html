@@ -5,24 +5,26 @@
     <div class="row">
         <div class="col">
             <ng-select
-            style="width: 100px;float:right;"
-            (change)="changeDay($event)" 
-            [items]="day" 
-            [(ngModel)]="task.day">
-          </ng-select>
-          <ng-select
-            style="width: 100px;float:right;" 
-            [items]="monthNames" 
-            [(ngModel)]="task.month"
-            (change)="changeMonth($event)"
-            >
-          </ng-select>
-          <ng-select
-            style="width: 100px;float:right;"
-            (change)="changeYear($event)" 
-            [items]="years" 
-            [(ngModel)]="task.year">
-          </ng-select>
+                style="width: 100px;float:right;"
+                (change)="changeDay($event)" 
+                [items]="day" 
+                [(ngModel)]="task.day"
+                [clearable]="false">
+            </ng-select>
+            <ng-select
+                style="width: 100px;float:right;" 
+                [items]="monthNames" 
+                [(ngModel)]="task.month"
+                (change)="changeMonth($event)"
+                [clearable]="false">
+            </ng-select>
+            <ng-select
+                style="width: 100px;float:right;"
+                (change)="changeYear($event)" 
+                [items]="years" 
+                [(ngModel)]="task.year"
+                [clearable]="false">
+            </ng-select>
         </div>
       </div>
     <div class="row">
