@@ -8,5 +8,5 @@ export interface User {
     date:any;
     year:any;
     localTimeStart:any;
-    localDate:any
+    localDate:any;
  }

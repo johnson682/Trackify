@@ -5,6 +5,8 @@ import { SignupComponent } from '../signup/signup.component';
 import { AdminEmployeeListComponent } from './admin-employee-list/admin-employee-list.component';
 import { EmployeeDetailsComponent } from './admin-employee-list/employee-details/employee-details.component';
 import { EmployeeLoginActivityComponent } from './admin-employee-list/employee-details/employee-login-activity/employee-login-activity.component';
+import { EmployeeProfileDetailsEditComponent } from './admin-employee-list/employee-details/employee-profile-details/employee-profile-details-edit/employee-profile-details-edit.component';
+import { EmployeeProfileDetailsComponent } from './admin-employee-list/employee-details/employee-profile-details/employee-profile-details.component';
 import { EmployeeTasksheetComponent } from './admin-employee-list/employee-details/employee-tasksheet/employee-tasksheet.component';
 import { AdminProfileEditComponent } from './admin-profile/admin-profile-edit/admin-profile-edit.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
@@ -17,9 +19,12 @@ const routes: Routes = [
     {path:'addEmployee',component:SignupComponent},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
-      {path:'',redirectTo:'EmployeeLoginActivity',pathMatch:'full'},
+      {path:'',redirectTo:'EmployeeProfileDetails',pathMatch:'full'},
       {path:'EmployeeLoginActivity',component:EmployeeLoginActivityComponent},
-      {path:'EmployeeTasksheet',component:EmployeeTasksheetComponent}
+      {path:'EmployeeTasksheet',component:EmployeeTasksheetComponent},
+      {path:'EmployeeProfileDetails',component:EmployeeProfileDetailsComponent,children:[
+        {path:'EmployeeProfileDetailsEdit',component:EmployeeProfileDetailsEditComponent}
+      ]},
     ]},
     {path:'adminProfile',component:AdminProfileComponent},
     {path:':id',component:AdminProfileEditComponent},

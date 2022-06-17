@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -22,28 +22,39 @@ export class UserEditComponent implements OnInit {
     private route:ActivatedRoute,
     private userService:UserService,
     private router:Router,
+    private formBuilder:FormBuilder,
     private notificationService:NotificationService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })
+
+    this.userEditForm = this.formBuilder.group({
+      name:['',Validators.required],
+      dob:['',Validators.required],
+      Address:['',Validators.required],
+      mobile:['',Validators.required]
+    })
     this.userService.getData(this.uid).subscribe(data=>{
-      this.userEditForm = new FormGroup({
-        "name":new FormControl(data.name,Validators.required),
-        "dob":new FormControl(data.dob,Validators.required),
-        "state":new FormControl(data.state,Validators.required),
-        "mobile":new FormControl(data.mobile,Validators.required)
-      })
+      this.init(data)
+    })
+  }
+  init(data){
+    this.userEditForm.patchValue({
+      name:data.name,
+      dob:data.dob,
+      Address:data.Address,
+      mobile:data.mobile
     })
   }
 
   onSubmit(){
     let name = this.userEditForm.value.name
     let dob = moment(this.userEditForm.value.dob).format('DD-MM-YYYY')   
-    let state = this.userEditForm.value.state
+    let Address = this.userEditForm.value.Address
     let mobile = this.userEditForm.value.mobile
-    this.userService.updateUserData(this.uid,{name:name,dob:dob,state:state,mobile:mobile})
+    this.userService.updateUserData(this.uid,{name:name,dob:dob,Address:Address,mobile:mobile})
     
     this.notificationService.sweetalert2('success','Updated Successfully')
     this.onCancel()

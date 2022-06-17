@@ -33,9 +33,7 @@ export class UserService {
     async removeAccount(uid){
         this.userRef.doc(uid).delete()
         this.userRef.doc(`${uid}/year`).delete()
-        
         this.router.navigate(['/login']);
-
         (await this.afauth.currentUser).delete()
     }
 

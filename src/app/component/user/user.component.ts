@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnyMxRecord } from 'dns';
+import * as moment from 'moment';
+import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../login/service/auth.service';
@@ -15,12 +17,11 @@ export class UserComponent implements OnInit {
   user:any
 
   imageFile:any
-  constructor(private userService:UserService ,public authService:AuthService) { }
+  constructor(private userService:UserService ,public authService:AuthService,private tasksheetService:TasksheetService) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
-    
     this.userService.getData(this.uid).subscribe(data=>{
       this.user = data
     })

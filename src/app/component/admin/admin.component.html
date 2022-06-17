@@ -1,6 +1,6 @@
 
 <header>
-    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
+    <!-- <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="margin-top: 30px;">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
             <a routerLinkActive="active" routerLink="adminEmployeeList" class="list-group-item list-group-item-action py-2 ripple">
@@ -8,7 +8,7 @@
             </a>
         </div>
       </div>
-    </nav>
+    </nav> -->
   
     <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
@@ -56,6 +56,9 @@
                 <a class="dropdown-item" routerLink="adminProfile">My profile</a>
               </li>
               <li>
+                <a  class="dropdown-item" routerLink="adminEmployeeList">Employee List</a>
+              </li>
+              <li>
                 <a class="dropdown-item" (click)="logout()">Logout</a>
               </li>
             </ul>
@@ -65,7 +68,7 @@
     </nav>
   </header>
   
-  <main style="margin-top: 58px;">
+  <main style="margin-top: 68px;">
     <div class="container-fluid pt-4">
       <router-outlet></router-outlet>
     </div>

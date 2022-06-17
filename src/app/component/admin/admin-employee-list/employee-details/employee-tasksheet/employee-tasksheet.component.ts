@@ -37,7 +37,10 @@ export class EmployeeTasksheetComponent implements OnInit {
   fetchData(){
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
+      console.log(this.employeeDetails);
     })
+
+    
 
     
   }

@@ -38,9 +38,6 @@ export class AuthService {
                 JSON.parse(localStorage.getItem('user'))
             }
         })
-
-
-       
     }
 
     async login(email:string,password:string){
@@ -50,7 +47,6 @@ export class AuthService {
                 this.router.navigate(['/admin']);
                 this.setAdminData(result.user);
             } else {
-                
                 this.router.navigate(['/user']);
                 this.setUserData(result.user);
             }
@@ -63,19 +59,18 @@ export class AuthService {
         }
     }
 
-    SignUp(email: string, password: string , name:string) {
-        return this.afAuth
-          .createUserWithEmailAndPassword(email, password)
-          .then((result) => {
-            this.setUserDataToRegister(result.user,name);
-          })
-          .catch((error) => {
+    async SignUp(email: string, password: string , name:string) {
+        try {
+            const result = await this.afAuth
+                .createUserWithEmailAndPassword(email, password);
+            this.setUserDataToRegister(result.user, name);
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.message,
-              })
-          });
+            });
+        }
       }
 
     setUserDataToRegister(user:any,name:any){
@@ -90,45 +85,14 @@ export class AuthService {
     setAdminData(adminData:any){
         const adminRef:AngularFirestoreDocument<any>=this.afs.doc(`admin/${adminData.uid}`)
 
-        const admin:User={
+        const admin:any={
             uid:adminData.uid,
             email:adminData.email,
-            Status:true,
-            StopStatus:true,
-            startTime:new Date().getTime(),
-            localDate:moment().format('DD-MM-YYYY'),
-            month:moment().format('MMM'),
-            year:moment().format('YYYY'),
-            date:moment().format('DD'),
-            localTimeStart:moment().format('hh:mm a')
         }
         localStorage.setItem('user',JSON.stringify(admin))
         return adminRef.set(admin,{
             merge:true
         })
-    }
-
-    forgotPassword(passwordResetEmail:string){
-        return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
-        .then(()=>{
-            Swal.fire({
-                icon:'success',
-                title:'Successfully',
-                text:'Password reset email sent,check your box'
-            })
-        })
-        .catch((error)=>{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.message,
-            })
-        })
-    }
-
-    get isLoggedIn():Boolean{
-        const user=JSON.parse(localStorage.getItem('user')!);
-        return user !== null  ? true :false
     }
 
     setUserData(user:any){
@@ -148,17 +112,37 @@ export class AuthService {
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }
 
-    logout(uid){
-        return this.afAuth.signOut().then(()=>{
-            localStorage.removeItem('user')
-            this.router.navigate(['login'])
-            if(uid !==  'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'){
-                this.userRef.doc(uid).update({Status:false})
-            }else{
-                this.adminRef.doc(uid).update({Status:false})
-            }
+    async forgotPassword(passwordResetEmail:string){
+        try {
+            await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
+            Swal.fire({
+                icon: 'success',
+                title: 'Successfully',
+                text: 'Password reset email sent,check your box'
+            });
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message,
+            });
+        }
+    }
 
-        })
+    get isLoggedIn():Boolean{
+        const user=JSON.parse(localStorage.getItem('user')!);
+        return user !== null  ? true :false
+    }
+
+    async logout(uid){
+        await this.afAuth.signOut();
+        localStorage.removeItem('user');
+        this.router.navigate(['login']);
+        if (uid !== 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
+            this.userRef.doc(uid).update({ Status: false });
+        } else {
+            this.adminRef.doc(uid).update({ Status: false });
+        }
     }
 
 }

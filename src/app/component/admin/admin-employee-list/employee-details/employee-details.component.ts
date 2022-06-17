@@ -19,10 +19,10 @@ export class EmployeeDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params:Params)=>{ 
       this.uid = params['uid']
+      console.log(this.uid);
+      
     })
-    this.userService.getData(this.uid).subscribe(data=>{
-        this.user = data
-    })
+    
   }
   
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { map } from 'rxjs';
@@ -27,6 +27,7 @@ export class EditComponent implements OnInit {
     private router:Router,
     private tasksheet:TasksheetService,
     private route:ActivatedRoute,
+    private formBUilder:FormBuilder,
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
@@ -38,20 +39,30 @@ export class EditComponent implements OnInit {
       this.month = params['month']
       this.year = params['year']    
     })
+
+    this.addtaskForm = this.formBUilder.group({
+      Name:['',Validators.required],
+      projectType:['',Validators.required],
+      startedDate:['',Validators.required],
+      description:['',Validators.required]
+    })
       
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       data.forEach(ele=>{
         if(ele.uid === this.id){
           this.task = ele
-          this.addtaskForm = new FormGroup({
-            "Name":new FormControl(this.task.projectName,Validators.required),
-            "projectType":new FormControl(this.task.projectType,Validators.required),
-            'startedDate':new FormControl(this.task.startedDate,Validators.required),
-            'description':new FormControl(this.task.description,Validators.required)
-          })
+          this.init(this.task)
         }
       })
     }) 
+  }
+  init(task){
+    this.addtaskForm.patchValue({
+      Name:task.projectName,
+      projectType:task.projectType,
+      startedDate:task.startedDate,
+      description:task.description
+    })
   }
 
 

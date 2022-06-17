@@ -15,8 +15,7 @@
               class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
           </a>
           <h5 class="my-3">{{users?.name != null ? users.name : 'User'}}</h5>
-          <p class="text-muted mb-1">Developer</p>
-          <p class="text-muted mb-4">{{users?.state}}</p>
+          <p class="text-muted mb-1">{{users?.role != null ? users?.role : 'No Data Found'}}</p>
           <div class="d-flex justify-content-center mb-2">
             <button type="button" class="btn btn-danger" (click)="removeAccount()">Remove Account</button>
           </div>
@@ -85,7 +84,7 @@
               <p class="mb-0">Address</p>
             </div>
             <div class="col-sm-9">
-              <p class="text-muted mb-0">{{users?.state}}</p>
+              <p class="text-muted mb-0">{{users?.Address}}</p>
             </div>
           </div>
         </div>
