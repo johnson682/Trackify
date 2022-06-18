@@ -64,7 +64,7 @@
             <button class="btn btn-sm" (click)="add(project)" style="border-radius: 100px;"><i class="fas fa-share"></i></button>
           </td>
           <td style="width: 150px;"> 
-            <ng-select [items]="projectStatus" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project)"></ng-select> 
+            <ng-select [items]="projectStatus" [clearable]="false" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project)"></ng-select> 
           </td>
         </tr>
       </tbody>
