@@ -1,18 +1,23 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 
 @Component({
+  // standalone:true,
+  // imports:[ReactiveFormsModule,CommonModule, BsDatepickerModule,NgSelectModule],
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
   today:any
-  addtaskForm:UntypedFormGroup
+  addtaskForm:FormGroup
   id:any
   uid:any
   upstartedDate=false
@@ -39,16 +44,15 @@ export class AddComponent implements OnInit {
     this.upstartedDate =false
 
     this.today = new Date()
-    this.addtaskForm = new UntypedFormGroup({
-      'Name':new UntypedFormControl('',Validators.required),
-      'startedDate':new UntypedFormControl('',Validators.required),
-      'description':new UntypedFormControl('',Validators.required),
-      "projectType":new UntypedFormControl(this.projectName,Validators.required)
+    this.addtaskForm = new FormGroup({
+      'Name':new FormControl('',Validators.required),
+      'startedDate':new FormControl('',Validators.required),
+      'description':new FormControl('',Validators.required),
+      "projectType":new FormControl(this.projectName,Validators.required)
     })
   }
 
   onSubmit(){
-    
     let startedDate = this.date
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType
