@@ -48,6 +48,7 @@ export class AddComponent implements OnInit {
   }
 
   onSubmit(){
+    
     let startedDate = this.date
     let description = this.addtaskForm.value.description
     let projectType = this.addtaskForm.value.projectType

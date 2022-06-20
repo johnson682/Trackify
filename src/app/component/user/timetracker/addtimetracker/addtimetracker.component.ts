@@ -40,6 +40,7 @@ export class AddtimetrackerComponent implements OnInit {
     let projectDescription = this.addTimeTrackerForm.value.projectDescription
     let status = "progress"
     let started = moment().format('DD-MM-YYYY, h:mm:ss a') 
+    let startedDate = moment().format('DD-MM-YYYY')
     let ended = ""
     let month = moment().format('MMM')
     let year = new Date().getFullYear()
@@ -52,7 +53,8 @@ export class AddtimetrackerComponent implements OnInit {
         projectName:projectName,
         description:projectDescription,
         status:status,
-        startedDate:started,
+        started:started,
+        startedDate:startedDate,
         endedDate:ended,
         month:month,
         year:year,

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { NotificationService } from 'src/app/service/notification.service';
 import * as moment from 'moment';
+import { map } from 'rxjs';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -74,6 +75,8 @@ export class TasksheetComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.value) {
+    console.log(task);
+
         this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'task')
         this.notificationService.sweetalert2('error','Task Deleted!!')
       }
@@ -94,10 +97,22 @@ export class TasksheetComponent implements OnInit {
 
 
   changeMonth(event){
-    this.month = event
-    this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
-      this.tasks = data
-    })
+    if(event != undefined){
+      this.month = event
+      this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
+        this.tasks = data
+      })
+    }else{
+      this.tasksheet.getAllMonthTask(this.uid,this.year).pipe(map(a=>
+        a.map(c=>
+          ({uid:c.payload.doc.id,...c.payload.doc.data()})
+        )  
+      )).subscribe(data=>{
+          this.tasksheet.getAllMonthData(this.uid,data,this.year,'task')
+        
+      })
+
+    }
   }
 
   changeYear(event){

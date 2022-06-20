@@ -29,6 +29,8 @@ export class TasksheetService {
   }
 
   deleteTask(uid,id,newTask,collectionName){
+    console.log(newTask,id);
+    
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).doc(id).delete()
   }
 
@@ -39,6 +41,21 @@ export class TasksheetService {
       )  
     ))
   }
+
+  getAllMonthTask(uid,year){
+    return this.data.doc(uid).collection('Year').doc(`${year}`).collection('Month').snapshotChanges()
+
+  }
+  
+  getAllMonthData(uid,data,year,collectionName){
+   return this.data.doc(uid).collection('Year').doc(`${year}`).collection('Month').ref.get().then(data=>{
+    console.log(data);
+    
+    
+   })
+    
+  }
+  
 
   fromFireBase(uid,month,year,varName){
     return this.data.doc(uid).collection('Year').doc(`${year}`).collection(`Month`).doc(`${month}`).collection(varName)
