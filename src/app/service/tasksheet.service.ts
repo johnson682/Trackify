@@ -29,7 +29,7 @@ export class TasksheetService {
   }
 
   deleteTask(uid,id,newTask,collectionName){
-    console.log(newTask,id);
+    console.log(newTask,);
     
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).doc(id).delete()
   }

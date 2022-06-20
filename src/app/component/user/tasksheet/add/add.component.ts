@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -12,7 +12,7 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 })
 export class AddComponent implements OnInit {
   today:any
-  addtaskForm:FormGroup
+  addtaskForm:UntypedFormGroup
   id:any
   uid:any
   upstartedDate=false
@@ -39,11 +39,11 @@ export class AddComponent implements OnInit {
     this.upstartedDate =false
 
     this.today = new Date()
-    this.addtaskForm = new FormGroup({
-      'Name':new FormControl('',Validators.required),
-      'startedDate':new FormControl('',Validators.required),
-      'description':new FormControl('',Validators.required),
-      "projectType":new FormControl(this.projectName,Validators.required)
+    this.addtaskForm = new UntypedFormGroup({
+      'Name':new UntypedFormControl('',Validators.required),
+      'startedDate':new UntypedFormControl('',Validators.required),
+      'description':new UntypedFormControl('',Validators.required),
+      "projectType":new UntypedFormControl(this.projectName,Validators.required)
     })
   }
 

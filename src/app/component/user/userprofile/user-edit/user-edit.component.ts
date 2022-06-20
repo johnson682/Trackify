@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserEditComponent implements OnInit {
 
-  userEditForm:FormGroup
+  userEditForm:UntypedFormGroup
   uid:any
   imageFile:any
   data:any
@@ -22,7 +22,7 @@ export class UserEditComponent implements OnInit {
     private route:ActivatedRoute,
     private userService:UserService,
     private router:Router,
-    private formBuilder:FormBuilder,
+    private formBuilder:UntypedFormBuilder,
     private notificationService:NotificationService) { }
 
   ngOnInit(): void {

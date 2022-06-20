@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/component/login/service/auth.service';
@@ -10,13 +10,13 @@ import { AuthService } from 'src/app/component/login/service/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit{
-  loginForm:FormGroup 
+  loginForm:UntypedFormGroup 
   uid:any
   constructor(public authService:AuthService,private router:Router){}
   ngOnInit(): void {
-      this.loginForm = new FormGroup({
-        'email':new FormControl('',Validators.required),
-        'password':new FormControl('',Validators.required)
+      this.loginForm = new UntypedFormGroup({
+        'email':new UntypedFormControl('',Validators.required),
+        'password':new UntypedFormControl('',Validators.required)
       })
   }
   onSubmit(){

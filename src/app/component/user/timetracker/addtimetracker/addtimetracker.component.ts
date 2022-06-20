@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -13,7 +13,7 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 })
 export class AddtimetrackerComponent implements OnInit {
 
-  addTimeTrackerForm:FormGroup;
+  addTimeTrackerForm:UntypedFormGroup;
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   type:any
   userData:any
@@ -25,10 +25,10 @@ export class AddtimetrackerComponent implements OnInit {
   ngOnInit(): void {
     this.userData = JSON.parse(localStorage.getItem('user'))
 
-    this.addTimeTrackerForm = new FormGroup({
-      "projectType":new FormControl(this.type,Validators.required),
-      "projectName":new FormControl('',Validators.required),
-      "projectDescription":new FormControl('',Validators.required)
+    this.addTimeTrackerForm = new UntypedFormGroup({
+      "projectType":new UntypedFormControl(this.type,Validators.required),
+      "projectName":new UntypedFormControl('',Validators.required),
+      "projectDescription":new UntypedFormControl('',Validators.required)
     })
   }
 

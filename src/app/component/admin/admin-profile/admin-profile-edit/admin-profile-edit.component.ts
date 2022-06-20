@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { AdminProfileService } from '../../service/admin-profile.service';
@@ -10,13 +10,13 @@ import { AdminProfileService } from '../../service/admin-profile.service';
 })
 export class AdminProfileEditComponent implements OnInit {
 
-  adminEditForm:FormGroup
+  adminEditForm:UntypedFormGroup
   uid:any
   isOpen = false
   constructor(
     private route:ActivatedRoute,
     private AdminProfileService:AdminProfileService,
-    private formBuilder:FormBuilder,
+    private formBuilder:UntypedFormBuilder,
     private router:Router) { }
 
   ngOnInit(): void {

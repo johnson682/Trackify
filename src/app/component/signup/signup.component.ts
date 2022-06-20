@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/component/login/service/auth.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -10,16 +10,16 @@ import { NotificationService } from 'src/app/service/notification.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  addEmployeeForm:FormGroup
+  addEmployeeForm:UntypedFormGroup
   constructor(
     public authService:AuthService,
     private router:Router,
     private notificationService:NotificationService){}
   ngOnInit(): void {
-      this.addEmployeeForm = new FormGroup({
-        'userName':new FormControl('',Validators.required),
-        'email':new FormControl('',Validators.required),
-        'password':new FormControl('',Validators.required)
+      this.addEmployeeForm = new UntypedFormGroup({
+        'userName':new UntypedFormControl('',Validators.required),
+        'email':new UntypedFormControl('',Validators.required),
+        'password':new UntypedFormControl('',Validators.required)
       })
   }
   onSubmit(){

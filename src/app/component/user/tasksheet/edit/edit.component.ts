@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { map } from 'rxjs';
@@ -11,7 +11,7 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
-  addtaskForm:FormGroup
+  addtaskForm:UntypedFormGroup
   id:any
   uid:any
   update=false
@@ -27,7 +27,7 @@ export class EditComponent implements OnInit {
     private router:Router,
     private tasksheet:TasksheetService,
     private route:ActivatedRoute,
-    private formBUilder:FormBuilder,
+    private formBUilder:UntypedFormBuilder,
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
