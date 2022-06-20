@@ -20,7 +20,8 @@
         style="width: 100px;float:right;" 
         [items]="monthNames" 
         (change)="changeMonth($event)"
-        [(ngModel)]="task.month">
+        [(ngModel)]="task.month"
+        [clearable]="false">
       </ng-select>
       <ng-select
         style="width: 100px;float:right;" 

@@ -12,14 +12,12 @@ export class EmployeeLoginActivityComponent implements OnInit {
 
   fileName='ExcelSheet.xlsx'
   
-  uid:any
+  uid:any;
 
-  month:any;
-  task:any;
+  month:any;task:any;year:any
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-  years=[]
-  year:any
-  date=[]
+  years=[];date=[]
+
   constructor(
     private tasksheetService:TasksheetService) { }
 
@@ -54,10 +52,8 @@ export class EmployeeLoginActivityComponent implements OnInit {
   exportExcel(){
     let element = document.getElementById('table-sheet')
     const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
-
     const wb:XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,'sheet1')
-
     XLSX.writeFile(wb,this.fileName)
   }
 
@@ -68,20 +64,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   changeDay(event){
   
     if(event != undefined){
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.date === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
@@ -96,64 +79,37 @@ export class EmployeeLoginActivityComponent implements OnInit {
   changeMonth(event){
     this.month = event
     if(event != undefined){
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.month === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }
-      })
-    }else{
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
-          return obj.totalTime
-        })
-        var time = finalData.reduce(this.add)
-        this.time = this.tasksheetService.convertMsToHM(time)
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
-
-
 
   changeYear(event){
     this.year=event
     if(event != undefined){
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.year === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }    
-      })
-    }else{
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
-          return obj.totalTime
-        })
-        var time = finalData.reduce(this.add)
-        this.time = this.tasksheetService.convertMsToHM(time)
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
+  
   add(total,num){
     return total + num
   }
 
+  dataFronChangeEvent(event,uid,month,year){
+    this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
+      this.datasFromLogin = data
+      this.file=this.datasFromLogin.filter(obj => obj.date === event)
+      var finalData = this.file.map((obj)=>{
+        return obj.totalTime
+      })
+      
+      if(finalData.length === 0){
+        this.time = "00:00:00"
+      }else{
+        var time =finalData.reduce(this.add)
+        this.time = this.tasksheetService.convertMsToHM(time)
+      }
+    })
+  }
 
   
 }

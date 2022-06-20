@@ -13,10 +13,8 @@ import * as moment from "moment";
 
 export class AuthService {
 
-    startTime:any
-    stopTime:any
-    LocalTimeStart:any
-    localTimeEnd:any
+    startTime:any;stopTime:any;
+    LocalTimeStart:any;localTimeEnd:any;
     localDate:any;
 
     userRef:AngularFirestoreCollection<any>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { map, Observable, Subject } from 'rxjs';
+import { combineLatest, from, map, Observable, Subject, switchMap, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,6 @@ export class TasksheetService {
   constructor(private db:AngularFirestore) {
     this.data = db.collection(this.dbpath)
   }
-
-
 
   add(uid,newTask,collectionName){
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).add(newTask)
@@ -42,24 +40,10 @@ export class TasksheetService {
     ))
   }
 
-  getAllMonthTask(uid,year){
-    return this.data.doc(uid).collection('Year').doc(`${year}`).collection('Month').snapshotChanges()
-
-  }
-  
-  getAllMonthData(uid,data,year,collectionName){
-   return this.data.doc(uid).collection('Year').doc(`${year}`).collection('Month').ref.get().then(data=>{
-    console.log(data);
-    
-    
-   })
-    
-  }
-  
-
   fromFireBase(uid,month,year,varName){
     return this.data.doc(uid).collection('Year').doc(`${year}`).collection(`Month`).doc(`${month}`).collection(varName)
   }
+
   padTo2Digits(num) {
     return num.toString().padStart(2, '0');
   }
@@ -74,5 +58,7 @@ export class TasksheetService {
     hours = hours % 24;
     return `${this.padTo2Digits(hours)}:${this.padTo2Digits(minutes)}:${this.padTo2Digits(seconds)}`;
   }
+
+  
 
 }

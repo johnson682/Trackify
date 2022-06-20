@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import * as XLSX from 'xlsx';
@@ -10,17 +9,14 @@ import * as XLSX from 'xlsx';
 })
 export class EmployeeTasksheetComponent implements OnInit {
 
-  uid:any
-  employeeDetails:any
+  uid:any;employeeDetails:any
 
   fileName='ExcelSheet.xlsx'
 
   monthNames=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-  task:any;
-  years=[]
-  year:any
-  month:any;
-  constructor(private route:ActivatedRoute,private tasksheetService:TasksheetService) { }
+  task:any;year:any;month:any;years=[]
+
+  constructor(private tasksheetService:TasksheetService) { }
 
   ngOnInit(): void {
     this.year = moment().format('YYYY')
@@ -39,20 +35,13 @@ export class EmployeeTasksheetComponent implements OnInit {
       this.employeeDetails = data
       console.log(this.employeeDetails);
     })
-
-    
-
-    
   }
-
 
   exportExcel(){
     let element = document.getElementById('table-sheet')
     const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
-
     const wb:XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,'sheet1')
-
     XLSX.writeFile(wb,this.fileName)
   }
 

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { NotificationService } from 'src/app/service/notification.service';
 import * as moment from 'moment';
-import { map } from 'rxjs';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -16,10 +14,7 @@ export class TasksheetComponent implements OnInit {
   constructor(
     private tasksheet:TasksheetService,
     private router:Router,
-    private notificationService:NotificationService) { 
-      
-      
-    }
+    private notificationService:NotificationService) { }
 
   tasks:any
   id:any
@@ -44,8 +39,7 @@ export class TasksheetComponent implements OnInit {
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-    
-    
+
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
     this.onFetchData()
@@ -54,7 +48,6 @@ export class TasksheetComponent implements OnInit {
   onFetchData(){
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
-
       this.order = 'date'
     }) 
   }
@@ -65,18 +58,13 @@ export class TasksheetComponent implements OnInit {
   }
 
   onDelete(task){
-    
-    Swal.fire({
-      title: 'Are you sure want to remove?',
-      text: 'You will not be able to recover this file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
+    this.notificationService.sweetalert2Modal(
+      'Are you sure want to remove?',
+      'You will not be able to recover this file!',
+      'warning',true,
+      'Yes, delete it!',
+      'No, keep it').then((result) => {
       if (result.value) {
-    console.log(task);
-
         this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'task')
         this.notificationService.sweetalert2('error','Task Deleted!!')
       }
@@ -88,33 +76,22 @@ export class TasksheetComponent implements OnInit {
   exportExcel(){
     let element = document.getElementById('table-sheet')
     const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
-
     const wb:XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb,ws,'sheet1')
-
     XLSX.writeFile(wb,this.fileName)
   }
 
-
+  dataOfmonth:any
+  arr:any
+  obj={}
   changeMonth(event){
     if(event != undefined){
       this.month = event
       this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
         this.tasks = data
       })
-    }else{
-      this.tasksheet.getAllMonthTask(this.uid,this.year).pipe(map(a=>
-        a.map(c=>
-          ({uid:c.payload.doc.id,...c.payload.doc.data()})
-        )  
-      )).subscribe(data=>{
-          this.tasksheet.getAllMonthData(this.uid,data,this.year,'task')
-        
-      })
-
     }
   }
-
   changeYear(event){
     this.year = event
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{

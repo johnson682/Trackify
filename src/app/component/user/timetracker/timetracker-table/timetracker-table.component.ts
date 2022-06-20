@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-timetracker-table',
@@ -35,8 +34,6 @@ export class TimetrackerTableComponent implements OnInit {
   onChangeStatus(event,task){
     if(event ==='complete'){
       let ended = moment().format('DD-MM-YYYY, h:mm:ss a') ;
-      console.log(ended);
-      
       this.tasksheetservice.updateTask(this.uid,task.uid,{status:event,endedDate:ended,month:task.month,year:task.year},'taskTracker')
     }else{
       this.tasksheetservice.updateTask(this.uid,task.uid,{status:event,month:task.month,year:task.year},'taskTracker')
@@ -44,14 +41,14 @@ export class TimetrackerTableComponent implements OnInit {
   }
 
   delete(task){
-    Swal.fire({
-      title: 'Are you sure want to remove?',
-      text: 'You will not be able to recover this file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
+    this.notificationService.sweetalert2Modal(
+      'Are you sure want to remove?',
+      'You will not be able to recover this file!',
+      'warning',
+      true,
+      'Yes, delete it!',
+      'No, keep it'
+    ).then((result) => {
       if (result.value) {
         this.tasksheetservice.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'taskTracker')
         this.notificationService.sweetalert2('error','Task Deleted!!')

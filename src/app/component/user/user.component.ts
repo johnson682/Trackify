@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AnyMxRecord } from 'dns';
-import * as moment from 'moment';
-import { TasksheetService } from 'src/app/service/tasksheet.service';
+import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
 import { AuthService } from '../login/service/auth.service';
 
 @Component({
@@ -17,7 +14,10 @@ export class UserComponent implements OnInit {
   user:any
 
   imageFile:any
-  constructor(private userService:UserService ,public authService:AuthService,private tasksheetService:TasksheetService) { }
+  constructor(
+    private userService:UserService ,
+    public authService:AuthService,
+    private notificationService:NotificationService) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
@@ -32,14 +32,14 @@ export class UserComponent implements OnInit {
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
       const datas = data.data()
       if(datas.StopStatus){
-        Swal.fire({
-          title: 'Are you sure want to Logout?',
-          text: 'You will not be able to recover this LoginTime!',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Yes, Logout !',
-          cancelButtonText: 'No, keep Login'
-        }).then((result) => {
+        this.notificationService.sweetalert2Modal(
+          'Are you sure want to Logout?',
+          'You will not be able to recover this LoginTime!',
+          'warning',
+          true,
+          'Yes, Logout !',
+          'No, keep Login'
+        ).then((result) => {
           if (result.value) {
             this.authService.logout(this.uid)
           } 

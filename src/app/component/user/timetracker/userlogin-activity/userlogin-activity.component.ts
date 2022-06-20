@@ -27,7 +27,7 @@ export class UserloginActivityComponent implements OnInit {
   years=[]
   year:any
   datas:any
-  order:string 
+  order:any 
   constructor(
     private tasksheetService:TasksheetService,
     private userService:UserService,
@@ -39,15 +39,12 @@ export class UserloginActivityComponent implements OnInit {
 
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
       const datas = data.data()
-
       if(datas.StopStatus){
         this.stopButton = true
       }
       this.localTimeStart = datas.localTimeStart
       
     })
-
-    
     
     this.month= moment().format('MMM');
     this.year = new Date().getFullYear()
@@ -66,9 +63,7 @@ export class UserloginActivityComponent implements OnInit {
     this.order= 'startTime'
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year )
-     
+      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year )   
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -134,32 +129,19 @@ export class UserloginActivityComponent implements OnInit {
       
   }
   delete(time){
-    Swal.fire({
-      title: 'Are you sure want to Delete?',
-      text: 'You will not be able to Recovery!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, Delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
+    this.notificationService.sweetalert2Modal(
+      'Are you sure want to Delete?',
+      'You will not be able to Recovery!',
+      'warning',
+      true,
+      'Yes, Delete it!',
+      'No, keep it'
+    ).then((result) => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your Login Time will be Deleted.',
-          'success'
-        )
         this.tasksheetService.deleteTask(this.uid,time.uid,time,'ActivityLog')
         this.notificationService.sweetalert2('error','Login Activity removed!!')
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your Time will keep it safe :)',
-          'error'
-        )
-      }
-   })
-    
-    
+      } else if (result.dismiss === Swal.DismissReason.cancel) {}
+    }) 
   }
 
   datasFromLogin:any
@@ -170,25 +152,11 @@ export class UserloginActivityComponent implements OnInit {
 
 
   changeDay(event){
-  
     if(event != undefined){
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.date === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.order ='date'
+        this.order =['date','startTime']
         this.datasFromLogin=data
         var finalData = this.datasFromLogin.map((obj)=>{
           return obj.totalTime
@@ -199,66 +167,37 @@ export class UserloginActivityComponent implements OnInit {
     }
   }
   changeMonth(event){
-    
     if(event != undefined){
       this.month= event
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.month === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }
-      })
-    }else{
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
-          return obj.totalTime
-        })
-        var time = finalData.reduce(this.add)
-        this.time = this.tasksheetService.convertMsToHM(time)
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
-
-
 
   changeYear(event){
     if(event != undefined){
       this.year = event
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.year === event)
-        var finalData = this.file.map((obj)=>{
-          return obj.totalTime
-        })
-        if(finalData.length === 0){
-          this.time = "00:00:00"
-        }else{
-          var time =finalData.reduce(this.add)
-          this.time = this.tasksheetService.convertMsToHM(time)
-        }    
-      })
-    }else{
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
-          return obj.totalTime
-        })
-        var time = finalData.reduce(this.add)
-        this.time = this.tasksheetService.convertMsToHM(time)
-      })
+      this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
   add(total,num){
     return total + num
   }
 
+  dataFronChangeEvent(event,uid,month,year){
+    this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
+      this.datasFromLogin = data
+      this.file=this.datasFromLogin.filter(obj => obj.date === event)
+      var finalData = this.file.map((obj)=>{
+        return obj.totalTime
+      })
+      
+      if(finalData.length === 0){
+        this.time = "00:00:00"
+      }else{
+        var time =finalData.reduce(this.add)
+        this.time = this.tasksheetService.convertMsToHM(time)
+      }
+    })
+  }
   
 }

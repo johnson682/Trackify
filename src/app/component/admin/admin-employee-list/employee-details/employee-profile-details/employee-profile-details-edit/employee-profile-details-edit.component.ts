@@ -14,7 +14,11 @@ export class EmployeeProfileDetailsEditComponent implements OnInit {
   uid:any
   EmployeeEditForm:UntypedFormGroup
   isOpen=false
-  constructor(private router:Router,private userService:UserService,private formBuilder:UntypedFormBuilder,private notificationService:NotificationService) { }
+  constructor(
+    private router:Router,
+    private userService:UserService,
+    private formBuilder:UntypedFormBuilder,
+    private notificationService:NotificationService) { }
 
   ngOnInit(): void {
     const data=JSON.parse(localStorage.getItem('Employee Uid'))

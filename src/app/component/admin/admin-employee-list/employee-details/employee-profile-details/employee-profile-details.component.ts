@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { UserService } from 'src/app/service/user.service';
 export class EmployeeProfileDetailsComponent implements OnInit {
   user:any
   uid:any
-  constructor(private userService:UserService,private route:ActivatedRoute,private router:Router) { }
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
     const data=JSON.parse(localStorage.getItem('Employee Uid'))

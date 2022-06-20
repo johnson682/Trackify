@@ -41,4 +41,15 @@ export class NotificationService {
       title: title
     })
   }
+
+  sweetalert2Modal(title,text,icon,showCancelButton,confirmButtonText,cancelButtonText){
+    return Swal.fire({
+      title:title,
+      text: text,
+      icon: icon,
+      showCancelButton: showCancelButton,
+      confirmButtonText: confirmButtonText,
+      cancelButtonText: cancelButtonText
+    })
+  }
 }

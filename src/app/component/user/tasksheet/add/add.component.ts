@@ -18,21 +18,14 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 export class AddComponent implements OnInit {
   today:any
   addtaskForm:FormGroup
-  id:any
   uid:any
   upstartedDate=false
 
   isOpen = false;
 
-  
-  year:any;
-  month:any;
-  projectName:any
-  day:any
-  date:any
-  singleDate:any
-
+  year:any;month:any;projectName:any;date:any;singleDate:any;
   projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,

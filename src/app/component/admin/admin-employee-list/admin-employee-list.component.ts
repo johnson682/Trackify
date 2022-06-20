@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-employee-list',
@@ -11,7 +11,10 @@ import Swal from 'sweetalert2';
 export class AdminEmployeeListComponent implements OnInit {
   users:any
   userLoginTime:any
-  constructor(private userService:UserService,private router:Router) { }
+  constructor(
+    private userService:UserService,
+    private router:Router,
+    private notificationService:NotificationService) { }
   ngOnInit(): void {
     const user=JSON.parse(localStorage.getItem('user'))
     this.userService.userRef.valueChanges().subscribe(data=>{
@@ -25,14 +28,13 @@ export class AdminEmployeeListComponent implements OnInit {
   }
 
   remove(uid,email,password){
-    Swal.fire({
-      title: 'Are you sure want to remove?',
-      text: 'You will not be able to recover this file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
+    this.notificationService.sweetalert2Modal(
+      'Are you sure want to remove?',
+      'You will not be able to recover this file!',
+      'warning',
+      true,
+      'Yes, delete it!',
+      'No, keep it').then((result) => {
       if (result.value) {
         this.userService.removeEmployee(uid)
       }
