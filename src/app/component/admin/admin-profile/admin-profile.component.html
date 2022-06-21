@@ -7,8 +7,14 @@
         </div>
         <div class="card-body text-center">
           <a (click)="addprofile()" data-bs-toggle="tooltip" title="Edit Profile" id="profile">
-            <img src="{{imageFile!= null ? imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;height: 150px;">
+            <div class="profilepic d-flex">
+                <img src="{{imageFile!= null ? imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="avatar"
+                class="profilepic__image " width="220" height="220">
+                <div class="profilepic__content">
+                  <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+                  <span class="profilepic__text">Edit Profile</span>
+                </div>
+              </div>
           </a>
           <h5 class="my-3">{{adminData?.name !=null ? adminData.name : 'Admin'}}</h5>
           <p class="text-muted mb-1">Admin</p>
