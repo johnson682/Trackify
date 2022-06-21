@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
 import { LoginComponent } from './component/login/login.component';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { SignupComponent } from './component/signup/signup.component';
 
 
@@ -12,8 +13,8 @@ const routes: Routes = [
   {path: 'forgot-password', component: ForgotPasswordComponent },
 
   { path: 'user', loadChildren: () => import('./component/user/user.module').then(m => m.UserModule) },
-  { path: 'admin', loadChildren: () => import('./component/admin/admin.module').then(m => m.AdminModule) }
-
+  { path: 'admin', loadChildren: () => import('./component/admin/admin.module').then(m => m.AdminModule) },
+  {path:'**',component:PageNotFoundComponent}
 ];
 
 @NgModule({

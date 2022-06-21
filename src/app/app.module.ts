@@ -22,6 +22,7 @@ import { LoginComponent } from './component/login/login.component'
 
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -38,7 +39,8 @@ const firebaseConfig = {
   declarations: [
     AppComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

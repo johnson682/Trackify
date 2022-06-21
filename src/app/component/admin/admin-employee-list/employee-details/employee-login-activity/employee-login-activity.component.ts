@@ -97,7 +97,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   dataFronChangeEvent(event,uid,month,year){
     this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === event)
+      this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event || obj.year === event)
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
