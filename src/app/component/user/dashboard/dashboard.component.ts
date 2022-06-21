@@ -35,9 +35,12 @@ export class DashboardComponent implements OnInit {
     this.init()
   }
   init(){
+    let date = new Date().getDate()
+    let month = moment().format('MMM')
+    let year = new Date().getFullYear()
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year )
+      this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === month && obj.year === year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -52,7 +55,7 @@ export class DashboardComponent implements OnInit {
 
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.datasFromTimetracker = data
-      const datas=this.datasFromTimetracker.filter(obj=>obj.date ===new Date().getDate() && obj.month === moment().format('MMM') && obj.year === this.year)
+      const datas=this.datasFromTimetracker.filter(obj=>obj.date === date && obj.month === month && obj.year === year)
       this.totalTask = datas.length
     })
   }
@@ -103,7 +106,7 @@ export class DashboardComponent implements OnInit {
     if(collectionName == 'ActivityLog'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.date === event)
+        this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event || obj.year === event)
         var finalData = this.file.map((obj)=>{
           return obj.totalTime
         })
@@ -118,7 +121,7 @@ export class DashboardComponent implements OnInit {
     }else if(collectionName == 'task'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromTimetracker = data
-        const datas = this.datasFromTimetracker.filter( obj => obj.date === event)
+        const datas = this.datasFromTimetracker.filter( obj => obj.date === event || obj.month === event || obj.year === event)
         if(datas.length === 0){
           this.totalTask =0
         }else{
