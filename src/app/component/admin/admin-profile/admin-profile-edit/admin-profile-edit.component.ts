@@ -20,6 +20,8 @@ export class AdminProfileEditComponent implements OnInit {
     private router:Router) { }
 
   ngOnInit(): void {
+    console.log('hit');
+    
     this.route.params.subscribe((params:Params)=>{
       this.uid = params['id']
     })

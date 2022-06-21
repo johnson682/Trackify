@@ -27,7 +27,7 @@ export class AdminProfileComponent implements OnInit {
   }
 
   onEdit(uid){
-    this.router.navigate(['admin/'+uid])
+    this.router.navigate(['/admin/adminProfile/'+uid])
   }
 
   async addprofile(){

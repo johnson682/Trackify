@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guard/auth.guard';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './tasksheet/add/add.component';
 import { EditComponent } from './tasksheet/edit/edit.component';
@@ -32,8 +33,9 @@ const routes: Routes = [
         {path:'addTimeTracker',component:AddtimetrackerComponent},
       ]},
     ]},
-    {path:'dashboard',component:DashboardComponent}
-  ]}
+    {path:'dashboard',component:DashboardComponent},
+    {path:'**',component:PageNotFoundComponent,pathMatch: 'full' }
+  ]},
 ];
 
 @NgModule({

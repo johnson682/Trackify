@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from 'src/app/guard/admin.guard';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { SignupComponent } from '../signup/signup.component';
 import { AdminEmployeeListComponent } from './admin-employee-list/admin-employee-list.component';
 import { EmployeeDetailsComponent } from './admin-employee-list/employee-details/employee-details.component';
@@ -28,7 +29,8 @@ const routes: Routes = [
       ]},
     ]},
     {path:'adminProfile',component:AdminProfileComponent},
-    {path:':id',component:AdminProfileEditComponent},
+    {path:'adminProfile/:id',component:AdminProfileEditComponent},
+    {path:'**',component:PageNotFoundComponent,pathMatch: 'full'},
   ]},
 ];
 
