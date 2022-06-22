@@ -1,73 +1,81 @@
-
-    <div class="container-fluid">
-  
-          <div class="" id="chat2" style="margin-bottom: 35px;">
-            <div class="d-flex justify-content-between align-items-center p-3">
-                <h5 class="mb-0">Chat</h5>
-                <ul class="navbar-nav ms-auto d-flex flex-row">
-                    <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle  d-flex align-items-center"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    menu &nbsp; <i class="fas fa-bars"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <!-- <li><a class="dropdown-item" routerLink="userprofile">My profile</a></li> -->
-                        <li><a class="dropdown-item" (click)="deleteAll()">Delete all</a></li>
-                    </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="divider d-flex align-items-center mb-4">
-                <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
-            </div>
-            <div data-mdb-perfect-scrollbar="true" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" >
-                  
-                <div class="d-flex flex-row justify-content-start"  *ngIf="Recivemsg.status == 'Reciving'">
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                    alt="avatar 1" style="width: 45px; height: 100%;">
-                  <div>
-                    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">{{Recivemsg.message}}</p>
-                    <p class="small ms-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
-                  </div>
-                </div>
-    
-                <div class="d-flex flex-row justify-content-end mb-4 pt-1" *ngIf="Recivemsg.status == 'Sending'">
-                  <div (click)="disableContextMenu()" oncontextmenu="return false;">
-                    <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
-                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{Recivemsg.message}}</p>
-                    </a>
-                    <div *ngIf="contextmenu">
-                        <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
-                           <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
-                        </div>
-                    </div>
-                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{Recivemsg.sendingDate}}</p>
-                  </div>
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
-                    alt="avatar 1" style="width: 45px; height: 100%;">
-                </div>
-  
-            </div>
-        </div>
-        <div class="text-muted d-flex" style="position: fixed;bottom:0;">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-            alt="avatar 3" style="width: 40px; height: 100%;">
-            <div class="input-group" id="input">
-                <input 
-                type="text" 
-                class="form-control form-control-lg" 
-                style="border-color: rgb(194, 135, 194);" 
-                id="exampleFormControlInput1"
-                [(ngModel)]="userMessage"
-                placeholder="Type message">
-                <a class="input-group-text" id="input" (click)="sendMessage()"><i class="fas fa-paper-plane"></i></a>
-            </div>
-            <!-- <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
-            <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a> -->
-        </div>
-  
+<div style="height: auto;">
+    <div class="d-flex justify-content-between align-items-center pt-3 ">
+        <img
+            src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+            class="rounded-circle"
+            height="30"
+            width="30"
+            alt="Avatar"
+            loading="lazy"
+        />
+        <span>&nbsp;{{selectedUser?.name}}</span>
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+            <li class="nav-item dropdown">
+            <a
+                class="nav-link dropdown-toggle  d-flex align-items-center"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            menu &nbsp; <i class="fas fa-bars"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <!-- <li><a class="dropdown-item" routerLink="userprofile">My profile</a></li> -->
+                <li><a class="dropdown-item" (click)="deleteAll()">Delete all</a></li>
+            </ul>
+            </li>
+        </ul>
     </div>
+    <div style="overflow: auto; height: 440px;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        <div class="divider d-flex align-items-center mb-4">
+            <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
+        </div>
+        <div data-mdb-perfect-scrollbar="true" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" >
+                
+            <div class="d-flex flex-row justify-content-start"  *ngIf="Recivemsg.status == 'Reciving'">
+                <img src="{{selectedUser.imageFile != null ? selectedUser.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                alt="avatar 1"  
+                class="rounded-circle"
+                height="30"
+                width="30">
+                <div>
+                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">{{Recivemsg.message}}</p>
+                <p class="small ms-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                </div>
+            </div>
+    
+            <div class="d-flex flex-row justify-content-end mb-4 pt-1" *ngIf="Recivemsg.status == 'Sending'">
+                <div (click)="disableContextMenu()" oncontextmenu="return false;">
+                <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
+                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{Recivemsg.message}}</p>
+                </a>
+                <div *ngIf="contextmenu">
+                    <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
+                        <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
+                    </div>
+                </div>
+                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{Recivemsg.sendingDate}}</p>
+                </div>
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
+                alt="avatar 1" style="width: 45px; height: 100%;">
+            </div>
+    
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center"  >
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+        alt="avatar 3" style="width: 40px; height: 100%;">
+        <div class="input-group" id="input">
+            <input 
+            type="text" 
+            class="form-control form-control-lg" 
+            style="border-color: rgb(194, 135, 194);" 
+            id="exampleFormControlInput1"
+            [(ngModel)]="userMessage"
+            placeholder="Type message">
+            <a class="input-group-text" id="input" (click)="sendMessage()"><i class="fas fa-paper-plane"></i></a>
+        </div>
+        <!-- <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
+        <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a> -->
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
@@ -14,21 +14,15 @@ import Swal from 'sweetalert2';
 })
 export class ChatwithOthersComponent implements OnInit {
 
-  users:any
-  localUser:any
-  selectedUser =false;
-  userMessage:any;
-  dataOfuser:any;
-  dataofSenderMessage:any;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  users:any;
+  selectedUser:any;
 
-  arr:any
-  order:any
-  dataofReciverMessage:any;
-  localeDate:any
+  userMessage:any;
+  dataofSenderMessage:any;
   senderUid:any
   reciverUid:any;
-  currentDate= new Date().toLocaleString()
-  userAllMessage:any
+  order:any
 
   contextmenu = false;
   contextmenuX = 0;
@@ -71,27 +65,29 @@ export class ChatwithOthersComponent implements OnInit {
      
 
   ngOnInit(): void {
-
-      document.body.addEventListener('click',()=>{
-        this.disableContextMenu()
-      })
-
-      const trigger=document.getElementById('input')
-      if(trigger != null){
-        trigger.addEventListener('keydown',(e)=>{
-          if(e.code == 'Enter'){
-            this.sendMessage()
-          }
-        })
-      }
-
-      this.route.params.subscribe((params:Params)=>{
-      this.reciverUid = params['id']
-      console.log(this.reciverUid);
-      
+    this.scrollToBottom()
+    document.body.addEventListener('click',()=>{
+      this.disableContextMenu()
     })
-    this.senderUid= JSON.parse(localStorage.getItem('currentUser'))
 
+    const trigger=document.getElementById('input')
+    if(trigger != null){
+      trigger.addEventListener('keydown',(e)=>{
+        if(e.code == 'Enter'){
+          this.sendMessage()
+        }
+      })
+    }
+
+    this.route.params.subscribe((params:Params)=>{
+      this.reciverUid = params['id']
+    })
+
+    this.userService.getData(this.reciverUid).subscribe(data=>{
+      this.selectedUser = data
+    })
+
+    this.senderUid= JSON.parse(localStorage.getItem('currentUser'))
     this.init()
   }
 
@@ -115,6 +111,7 @@ export class ChatwithOthersComponent implements OnInit {
 
   }
   sendMessage(){
+
     let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
 
     this.message.add(this.senderUid,this.reciverUid,{
@@ -126,6 +123,7 @@ export class ChatwithOthersComponent implements OnInit {
       sendingDate:moment().format('MMM-DD hh:mm:ss a')
     })
 
+    this.scrollToBottom()
     this.userMessage =""
   }
 
@@ -147,5 +145,12 @@ export class ChatwithOthersComponent implements OnInit {
 
   deleteAll(){
     this.message.deleteAllMsg(this.senderUid,this.reciverUid)
+  }
+
+
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
   }
 }
