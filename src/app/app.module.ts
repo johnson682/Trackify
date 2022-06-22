@@ -23,6 +23,8 @@ import { LoginComponent } from './component/login/login.component'
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
+import { ChatwithOthersComponent } from './component/user/chatwith-others/chatwith-others.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -40,7 +42,8 @@ const firebaseConfig = {
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ChatwithOthersComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ const firebaseConfig = {
     NgxSpinnerModule,
     BrowserAnimationsModule,
     FormsModule,
+    OrderModule,
     ReactiveFormsModule
   ],
   providers: [AuthService,UserService],

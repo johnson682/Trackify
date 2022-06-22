@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 import { AuthService } from '../login/service/auth.service';
@@ -14,16 +16,21 @@ export class UserComponent implements OnInit {
   user:any
 
   imageFile:any
+  users:any
   constructor(
     private userService:UserService ,
     public authService:AuthService,
-    private notificationService:NotificationService) { }
+    private notificationService:NotificationService,
+    private router:Router) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.userService.getData(this.uid).subscribe(data=>{
       this.user = data
+    })
+    this.userService.userRef.valueChanges().subscribe(data=>{
+      this.users = data
     })
   } 
   
@@ -42,6 +49,7 @@ export class UserComponent implements OnInit {
         ).then((result) => {
           if (result.value) {
             this.authService.logout(this.uid)
+            
           } 
        })
       }else{
@@ -50,4 +58,8 @@ export class UserComponent implements OnInit {
     })
   }
 
+  select(user){
+    localStorage.setItem('currentUser',JSON.stringify(this.uid))
+    this.router.navigate(['user/Chat/'+user.uid])
+  }
 }

@@ -12,9 +12,21 @@
         <a routerLink="timetracker/loginActivity" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple"
           ><i class="fas fa-history fa-fw me-3"></i><span>Login Activity</span></a
         >
-        <!-- <a routerLink="timetracker/timeTrackerTable" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-line fa-fw me-3"></i><span>TaskTimeTracker</span>
-        </a> -->
+        <a class="list-group-item list-group-item-action py-2 ripple" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" >
+          <i class="fa-solid fa-clock"></i> 
+          &nbsp;&nbsp;&nbsp;&nbsp;Employees &nbsp;
+          <i class="fas fa-caret-down"></i>
+        </a>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+          <div *ngFor="let user of users">
+            <a (click)="select(user)" *ngIf="user.uid !== uid">
+              <div class="" style="margin-left:30px;margin-bottom: 10px;border:1px solid white"> 
+                <img src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="sunil" height="23" width="23"> 
+                <span>{{user?.name}}</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -69,6 +81,7 @@
             <li>
               <a class="dropdown-item" (click)="logout()">Logout</a>
             </li>
+
           </ul>
         </li>
       </ul>
