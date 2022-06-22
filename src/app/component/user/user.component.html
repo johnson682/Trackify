@@ -19,8 +19,8 @@
         </a>
         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
           <div *ngFor="let user of users">
-            <a (click)="select(user)" *ngIf="user.uid !== uid">
-              <div class="" style="margin-left:30px;margin-bottom: 10px;border:1px solid white"> 
+            <a (click)="select(user)" *ngIf="user.uid !== uid" style="margin: 5px;" routerLinkActive="active">
+              <div class="" style="margin-left:30px;margin-bottom: 10px;"> 
                 <img src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="sunil" height="23" width="23"> 
                 <span>{{user?.name}}</span>
               </div>

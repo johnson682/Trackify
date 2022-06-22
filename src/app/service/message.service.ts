@@ -15,17 +15,43 @@ export class MessageService{
         this.data = db.collection(this.dbpath)
     }
 
-    add(uid,id,newMessage){
-        return this.data.doc(uid).collection('Message').doc(id).collection('newMessage').add(newMessage)
-    }
-
-    update(uid,id,newMessage){
-
+    add(senderUid,reciverUid,newMessage){
+        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').add(newMessage)
+        this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').add(newMessage)
     }
 
 
-    getAllMessage(uid,id){
-        return this.data.doc(uid).collection('Message').doc(id).collection('newMessage').snapshotChanges().pipe(map(a=>a.map(c=>
+    delete(senderUid,reciverUid,msgId){
+        console.log(msgId);
+        
+        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').doc(msgId.uid).delete()
+        
+        this.getAllReciverMessage(senderUid,reciverUid).subscribe(data=>{
+            data.forEach(ele=>{
+                if(ele["id"] == msgId.id){
+                    this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').doc(ele.uid).delete()
+                }
+            })
+        })
+
+    }
+
+    deleteAllMsg(senderUid,reciverUid){
+        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').ref.onSnapshot(ele=>{
+            ele.docs.forEach(e=>{
+                e.ref.delete()
+            })
+        })
+    }
+
+    getAllReciverMessage(senderUid,reciverUid){
+        return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').snapshotChanges().pipe(map(a=>a.map(c=>
+            ({uid:c.payload.doc.id,...c.payload.doc.data()})
+        )))
+    }
+
+    getAllSenderMessage(senderUid,reciverUid){
+        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').snapshotChanges().pipe(map(a=>a.map(c=>
             ({uid:c.payload.doc.id,...c.payload.doc.data()})    
         )))
     }

@@ -16,34 +16,41 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                         <!-- <li><a class="dropdown-item" routerLink="userprofile">My profile</a></li> -->
-                        <li><a class="dropdown-item">Delete all</a></li>
+                        <li><a class="dropdown-item" (click)="deleteAll()">Delete all</a></li>
                     </ul>
                     </li>
                 </ul>
             </div>
-            <div data-mdb-perfect-scrollbar="true" *ngFor="let Recivemsg of userAllMessage | orderBy:order" >
-  
-              <div class="d-flex flex-row justify-content-start"  *ngIf="Recivemsg.status == 'Sending'">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-                  alt="avatar 1" style="width: 45px; height: 100%;">
-                <div>
-                  <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">{{Recivemsg.message}}</p>
-                  <p class="small ms-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
-                </div>
-              </div>
-            <!--   
-              <div class="divider d-flex align-items-center mb-4">
+            <div class="divider d-flex align-items-center mb-4">
                 <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
-              </div> -->
-  
-              <div class="d-flex flex-row justify-content-end mb-4 pt-1" *ngIf="Recivemsg.status == 'Reciving'">
-                <div>
-                  <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{Recivemsg.message}}</p>
-                  <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{Recivemsg.sendingDate}}</p>
+            </div>
+            <div data-mdb-perfect-scrollbar="true" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" >
+                  
+                <div class="d-flex flex-row justify-content-start"  *ngIf="Recivemsg.status == 'Reciving'">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
+                    alt="avatar 1" style="width: 45px; height: 100%;">
+                  <div>
+                    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">{{Recivemsg.message}}</p>
+                    <p class="small ms-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                  </div>
                 </div>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
-                  alt="avatar 1" style="width: 45px; height: 100%;">
-              </div>
+    
+                <div class="d-flex flex-row justify-content-end mb-4 pt-1" *ngIf="Recivemsg.status == 'Sending'">
+                  <div (click)="disableContextMenu()" oncontextmenu="return false;">
+                    <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
+                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{Recivemsg.message}}</p>
+                    </a>
+                    <div *ngIf="contextmenu">
+                        <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
+                           <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
+                        </div>
+                    </div>
+                    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{Recivemsg.sendingDate}}</p>
+                  </div>
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
+                    alt="avatar 1" style="width: 45px; height: 100%;">
+                </div>
+  
             </div>
         </div>
         <div class="text-muted d-flex" style="position: fixed;bottom:0;">

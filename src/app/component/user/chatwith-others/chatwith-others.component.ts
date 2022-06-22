@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
 import { map } from 'rxjs';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-chatwith-others',
   templateUrl: './chatwith-others.component.html',
-  styleUrls: ['./chatwith-others.component.css']
+  styleUrls: ['./chatwith-others.component.scss']
 })
 export class ChatwithOthersComponent implements OnInit {
 
@@ -17,43 +19,78 @@ export class ChatwithOthersComponent implements OnInit {
   selectedUser =false;
   userMessage:any;
   dataOfuser:any;
-  dataofMessage:any;
+  dataofSenderMessage:any;
 
   arr:any
   order:any
-  dataofReciveMessage:any;
+  dataofReciverMessage:any;
   localeDate:any
-  uid:any
-  id:any
+  senderUid:any
+  reciverUid:any;
+  currentDate= new Date().toLocaleString()
   userAllMessage:any
+
+  contextmenu = false;
+  contextmenuX = 0;
+  contextmenuY = 0;
+  msgUid:any
+
+  onrightClick(event,Recivemsg){
+    this.contextmenuX=event.clientX
+    this.contextmenuY=event.clientY
+    this.contextmenu=true;
+    this.msgUid = Recivemsg
+    console.log(this.msgUid);
+
+    const deleteMsg = document.getElementById('deleteMsg')
+    if(deleteMsg != null){
+      deleteMsg.addEventListener('click',()=>{
+        this.delete()
+      })
+    }
+    setTimeout(()=>{
+      this.contextmenu= false;
+    },2000)
+  }
+  disableContextMenu(){
+    this.contextmenu= false;
+ }
   constructor(
     private userService:UserService,
     private message:MessageService,
-    private route:ActivatedRoute,
-    private afauth:AngularFireAuth) {
+    private route:ActivatedRoute) {
       this.route.params.subscribe((params:Params)=>{
-        this.id = params['id']
-        console.log(this.id);
-        if(this.id){
+        this.reciverUid = params['id']
+        console.log(this.reciverUid);
+        if(this.reciverUid){
           this.ngOnInit()
         }
       })
      }
 
+     
+
   ngOnInit(): void {
-      const trigger=document.getElementById('input')
-      trigger.addEventListener('keydown',(e)=>{
-        if(e.code == 'Enter'){
-          this.sendMessage()
-        }
+
+      document.body.addEventListener('click',()=>{
+        this.disableContextMenu()
       })
 
+      const trigger=document.getElementById('input')
+      if(trigger != null){
+        trigger.addEventListener('keydown',(e)=>{
+          if(e.code == 'Enter'){
+            this.sendMessage()
+          }
+        })
+      }
+
       this.route.params.subscribe((params:Params)=>{
-      this.id = params['id']
-      console.log(this.id);
+      this.reciverUid = params['id']
+      console.log(this.reciverUid);
       
     })
-    this.uid= JSON.parse(localStorage.getItem('currentUser'))
+    this.senderUid= JSON.parse(localStorage.getItem('currentUser'))
 
     this.init()
   }
@@ -63,47 +100,52 @@ export class ChatwithOthersComponent implements OnInit {
       this.users = data
       this.order ='sendingDate'
     })
-    if(this.id){
+    this.message.getAllSenderMessage(this.senderUid,this.reciverUid).subscribe(data=>{
+      this.dataofSenderMessage = data
+      this.dataofSenderMessage.forEach(ele=>{
 
-      this.message.getAllMessage(this.uid,this.id).subscribe(data=>{
-        this.dataofMessage = data
-        console.log(data);
-        this.fetchData()
+        if(ele.senderUid == this.senderUid){
+          ele.status = 'Sending'
+        }else {
+          ele.status = 'Reciving'
+        }
       })
-      this.message.getAllMessage(this.id,this.uid).subscribe(data=>{
-        this.dataofReciveMessage = data 
-        console.log(data);
-        
-        this.fetchData()
-      })
-    }
-  }
+      
+    })
 
-
-  fetchData(){
-   const data=this.dataofMessage.concat(this.dataofReciveMessage)
-    this.userAllMessage = data
-    console.log(data);
-    
-    this.userAllMessage.forEach(element => {
-      console.log(element);
-
-      if(element.uid === this.uid){
-        element.status = 'Sending'
-      }else{
-        element.status = 'Reciving'
-      }
-    });
-    
   }
   sendMessage(){
-    this.message.add(this.uid,this.id,{
-      uid:this.id,
+    let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
+
+    this.message.add(this.senderUid,this.reciverUid,{
+      senderUid:this.senderUid,
       status:'Sending',
+      id:nums,
+      sendingTime:+new Date(),
       message:this.userMessage,
-      sendingDate:new Date().toLocaleString()
+      sendingDate:moment().format('MMM-DD hh:mm:ss a')
     })
+
     this.userMessage =""
   }
 
+  delete(){
+    const totalTime = Math.abs(+new Date() - this.msgUid.sendingTime)
+
+    if(totalTime > 300000){
+      Swal.fire({
+        icon:'error',
+        title:'oops...',
+        text:'You  cannot delete Msg because it takes more than 5 mins'
+      })
+    }else{
+      this.message.delete(this.senderUid,this.reciverUid,this.msgUid)
+    }
+    
+    
+  }
+
+  deleteAll(){
+    this.message.deleteAllMsg(this.senderUid,this.reciverUid)
+  }
 }
