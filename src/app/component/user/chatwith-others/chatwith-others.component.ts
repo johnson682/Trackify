@@ -41,9 +41,14 @@ export class ChatwithOthersComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    console.log('hit');
-    
-    this.route.params.subscribe((params:Params)=>{
+      const trigger=document.getElementById('input')
+      trigger.addEventListener('keydown',(e)=>{
+        if(e.code == 'Enter'){
+          this.sendMessage()
+        }
+      })
+
+      this.route.params.subscribe((params:Params)=>{
       this.id = params['id']
       console.log(this.id);
       
