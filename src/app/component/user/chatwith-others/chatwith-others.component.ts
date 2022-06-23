@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
@@ -17,6 +17,7 @@ export class ChatwithOthersComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   users:any;
   selectedUser:any;
+  currentUser:any;
 
   userMessage:any;
   dataofSenderMessage:any;
@@ -34,7 +35,6 @@ export class ChatwithOthersComponent implements OnInit {
     this.contextmenuY=event.clientY
     this.contextmenu=true;
     this.msgUid = Recivemsg
-    console.log(this.msgUid);
 
     const deleteMsg = document.getElementById('deleteMsg')
     if(deleteMsg != null){
@@ -69,6 +69,7 @@ export class ChatwithOthersComponent implements OnInit {
     document.body.addEventListener('click',()=>{
       this.disableContextMenu()
     })
+    
 
     const trigger=document.getElementById('input')
     if(trigger != null){
@@ -89,6 +90,10 @@ export class ChatwithOthersComponent implements OnInit {
 
     this.senderUid= JSON.parse(localStorage.getItem('currentUser'))
     this.init()
+
+    this.userService.getData(this.senderUid).subscribe(data=>{
+      this.currentUser = data
+    })
   }
 
   init(){
@@ -99,6 +104,15 @@ export class ChatwithOthersComponent implements OnInit {
     this.message.getAllSenderMessage(this.senderUid,this.reciverUid).subscribe(data=>{
       this.dataofSenderMessage = data
       this.dataofSenderMessage.forEach(ele=>{
+
+        console.log(new Date().getDate())
+        if(ele.sendingSingleDate == new Date().getDate()){
+          ele.dateStatus = 'today'
+        }else if(new Date().getDate() - ele.sendingSingleDate == 1){
+          ele.dateStatus = 'yesterday'
+        }else{
+          ele.dateStatus = 'fewDays'
+        }
 
         if(ele.senderUid == this.senderUid){
           ele.status = 'Sending'
@@ -115,11 +129,13 @@ export class ChatwithOthersComponent implements OnInit {
     let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
 
     this.message.add(this.senderUid,this.reciverUid,{
+      message:this.userMessage,
       senderUid:this.senderUid,
       status:'Sending',
       id:nums,
       sendingTime:+new Date(),
-      message:this.userMessage,
+      sendingSingleDate:new Date().getDate(),
+      dateStatus:'today',
       sendingDate:moment().format('MMM-DD hh:mm:ss a')
     })
 

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { ChatwithOthersComponent } from './chatwith-others/chatwith-others.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './tasksheet/add/add.component';
 import { EditComponent } from './tasksheet/edit/edit.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
         {path:'addTimeTracker',component:AddtimetrackerComponent},
       ]},
     ]},
+    {path:'contact',component:ContactUsComponent},
     {path:'Chat/:id',component:ChatwithOthersComponent},
     {path:'dashboard',component:DashboardComponent},
     {path:'**',component:PageNotFoundComponent,pathMatch: 'full' }

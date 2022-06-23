@@ -1,15 +1,6 @@
-<div style="height: auto;">
-    <div class="d-flex justify-content-between align-items-center pt-3 ">
-        <img
-            src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-            class="rounded-circle"
-            height="30"
-            width="30"
-            alt="Avatar"
-            loading="lazy"
-        />
-        <span>&nbsp;{{selectedUser?.name}}</span>
-        <ul class="navbar-nav ms-auto d-flex flex-row">
+
+    <div class="d-flex justify-content-between align-items-center pt-3"  id="head">
+        <ul class="navbar-nav">
             <li class="nav-item dropdown">
             <a
                 class="nav-link dropdown-toggle  d-flex align-items-center"
@@ -17,21 +8,29 @@
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-            menu &nbsp; <i class="fas fa-bars"></i>
+                &nbsp;&nbsp;<img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                alt="avatar 1" class="rounded-circle"
+                height="30"
+                width="30">
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
                 <!-- <li><a class="dropdown-item" routerLink="userprofile">My profile</a></li> -->
                 <li><a class="dropdown-item" (click)="deleteAll()">Delete all</a></li>
             </ul>
             </li>
         </ul>
+        <span>{{selectedUser?.name}}&nbsp;&nbsp;</span>
     </div>
-    <div style="overflow: auto; height: 440px;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-        <div class="divider d-flex align-items-center mb-4">
-            <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
-        </div>
-        <div data-mdb-perfect-scrollbar="true" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" >
-                
+    <div style="overflow: auto; height: 435px;" class="fixed-center" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+        
+
+        <div *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" >
+            <!-- <div class="divider d-flex align-items-center mb-4" *ngIf="Recivemsg.dateStatus == 'today'">
+                <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>
+            </div>
+            <div class="divider d-flex align-items-center mb-4" *ngIf="Recivemsg.dateStatus == 'yesterday'">
+                <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Yesterday</p>
+            </div> -->
             <div class="d-flex flex-row justify-content-start"  *ngIf="Recivemsg.status == 'Reciving'">
                 <img src="{{selectedUser.imageFile != null ? selectedUser.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
                 alt="avatar 1"  
@@ -56,15 +55,18 @@
                 </div>
                 <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">{{Recivemsg.sendingDate}}</p>
                 </div>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
-                alt="avatar 1" style="width: 45px; height: 100%;">
+                <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                alt="avatar 1" class="rounded-circle"
+                height="30"
+                width="30">
             </div>
-    
         </div>
     </div>
     <div class="d-flex justify-content-between align-items-center"  >
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
-        alt="avatar 3" style="width: 40px; height: 100%;">
+        <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+        alt="avatar 3" class="rounded-circle"
+        height="40"
+        width="40">
         <div class="input-group" id="input">
             <input 
             type="text" 
@@ -78,4 +80,3 @@
         <!-- <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
         <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a> -->
     </div>
-</div>

@@ -15,21 +15,20 @@ export class MessageService{
         this.data = db.collection(this.dbpath)
     }
 
+    
     add(senderUid,reciverUid,newMessage){
-        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').add(newMessage)
-        this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').add(newMessage)
+       this.sender(senderUid,reciverUid).add(newMessage)
+       this.reciver(senderUid,reciverUid).add(newMessage)
     }
 
 
     delete(senderUid,reciverUid,msgId){
-        console.log(msgId);
-        
-        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').doc(msgId.uid).delete()
+        this.sender(senderUid,reciverUid).doc(msgId.uid).delete()
         
         this.getAllReciverMessage(senderUid,reciverUid).subscribe(data=>{
             data.forEach(ele=>{
                 if(ele["id"] == msgId.id){
-                    this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').doc(ele.uid).delete()
+                    this.reciver(senderUid,reciverUid).doc(ele.uid).delete()
                 }
             })
         })
@@ -37,7 +36,7 @@ export class MessageService{
     }
 
     deleteAllMsg(senderUid,reciverUid){
-        this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').ref.onSnapshot(ele=>{
+        this.sender(senderUid,reciverUid).ref.onSnapshot(ele=>{
             ele.docs.forEach(e=>{
                 e.ref.delete()
             })
@@ -45,17 +44,23 @@ export class MessageService{
     }
 
     getAllReciverMessage(senderUid,reciverUid){
-        return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage').snapshotChanges().pipe(map(a=>a.map(c=>
+        return this.reciver(senderUid,reciverUid).snapshotChanges().pipe(map(a=>a.map(c=>
             ({uid:c.payload.doc.id,...c.payload.doc.data()})
         )))
     }
 
     getAllSenderMessage(senderUid,reciverUid){
-        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage').snapshotChanges().pipe(map(a=>a.map(c=>
+        return this.sender(senderUid,reciverUid) .snapshotChanges().pipe(map(a=>a.map(c=>
             ({uid:c.payload.doc.id,...c.payload.doc.data()})    
         )))
     }
 
+    sender(senderUid,reciverUid){
+        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage')
+    }
+    reciver(senderUid,reciverUid){
+        return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage')
+    }
     
 
 }

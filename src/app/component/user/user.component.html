@@ -21,12 +21,15 @@
           <div *ngFor="let user of users">
             <a (click)="select(user)" *ngIf="user.uid !== uid" style="margin: 5px;" routerLinkActive="active">
               <div class="" style="margin-left:30px;margin-bottom: 10px;"> 
-                <img src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="sunil" height="23" width="23"> 
-                <span>{{user?.name}}</span>
+                <img  class="rounded-circle" src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="sunil" height="23" width="23"> 
+                <span>&nbsp;{{user?.name}}</span>
               </div>
             </a>
           </div>
         </div>
+        <!-- <a routerLink="contact" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fas fa-history fa-fw me-3"></i><span>Contact Us</span></a
+        > -->
       </div>
     </div>
   </nav>
@@ -34,6 +37,7 @@
   <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
       <button
+        id="nav"
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
@@ -90,7 +94,7 @@
 </header>
 
 <main style="margin-top: 68px;" id="main">
-  <div class="container-fluid pt-4">
+  <div class=" pt-4">
     <router-outlet></router-outlet>
   </div>
 </main>

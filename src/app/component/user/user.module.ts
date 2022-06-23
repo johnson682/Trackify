@@ -18,6 +18,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { OrderModule } from 'ngx-order-pipe';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserComponent } from './user.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 
 
@@ -33,7 +34,8 @@ import { UserComponent } from './user.component';
     AddComponent,
     EditComponent,
     DashboardComponent,
-    UserComponent
+    UserComponent,
+    ContactUsComponent
   ],
   imports: [
     CommonModule,
