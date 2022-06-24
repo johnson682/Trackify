@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { combineLatest, from, map, Observable, Subject, switchMap, tap } from 'rxjs';
@@ -14,7 +15,7 @@ export class TasksheetService {
 
   public taskSheet=new Subject()
 
-  constructor(private db:AngularFirestore) {
+  constructor(private db:AngularFirestore,private http:HttpClient) {
     this.data = db.collection(this.dbpath)
   }
 
@@ -59,6 +60,8 @@ export class TasksheetService {
     return `${this.padTo2Digits(hours)}:${this.padTo2Digits(minutes)}:${this.padTo2Digits(seconds)}`;
   }
 
-  
+  sendMessage(body){
+    return this.http.post('http://localhost:3000/sendmail',body)
+  }
 
 }

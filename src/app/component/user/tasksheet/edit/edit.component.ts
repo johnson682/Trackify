@@ -83,7 +83,7 @@ export class EditComponent implements OnInit {
   }
 
   onCancel(){
-    this.router.navigate(['/user/tasksheet'])
+    this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
 
   }

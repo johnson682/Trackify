@@ -60,7 +60,7 @@ export class UserEditComponent implements OnInit {
     this.onCancel()
   }
   onCancel(){
-    this.router.navigate(['/user/userprofile'])
+    this.router.navigate(['/user/user-main/userprofile'])
     document.getElementById("closeModalButton").click();
   }
 

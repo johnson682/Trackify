@@ -19,6 +19,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { UserComponent } from './user.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { UserSidenavComponent } from './user-sidenav/user-sidenav.component';
+import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component';
 
 
 
@@ -35,7 +37,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     EditComponent,
     DashboardComponent,
     UserComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    UserSidenavComponent,
+    ChatBoxComponent
   ],
   imports: [
     CommonModule,

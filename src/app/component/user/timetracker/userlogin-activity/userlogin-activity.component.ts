@@ -64,9 +64,9 @@ export class UserloginActivityComponent implements OnInit {
     this.order= 'startTime'
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      console.log(this.datasFromLogin);
-      
       this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === this.month && obj.year === this.year )   
+      console.log(this.file);
+      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -159,9 +159,12 @@ export class UserloginActivityComponent implements OnInit {
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.order =['date','startTime']
         this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
+        console.log(this.datasFromLogin);
+        this.order =['date','startTime']
+        this.file = this.datasFromLogin
+        
+        var finalData =this.file.map((obj)=>{
           return obj.totalTime
         })
         var time = finalData.reduce(this.add)

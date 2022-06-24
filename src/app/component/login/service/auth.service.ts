@@ -112,6 +112,7 @@ export class AuthService {
 
     async forgotPassword(passwordResetEmail:string){
         try {
+            
             await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
             Swal.fire({
                 icon: 'success',

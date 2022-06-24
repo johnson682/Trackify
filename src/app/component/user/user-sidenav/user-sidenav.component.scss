@@ -1,16 +1,4 @@
-
-  
-  .badge-dot {
-  border-radius: 50%;
-  height: 10px;
-  width: 10px;
-  margin-left: 2.9rem;
-  margin-top: -.75rem;
-  }
-
-  
-
-  .close-navbar-toggler{
+.close-navbar-toggler{
     position:absolute;
     top:0;
     left:0;
@@ -24,7 +12,7 @@
   }
 #navbar {
   // overflow: hidden;
-  background-color: #f1f1f1;// Large padding which will shrink on scroll (using JS) */
+  background-color:#7386D5;// Large padding which will shrink on scroll (using JS) */
   transition: 0.4s; /* Adds a transition effect when the padding is decreased */
   position: fixed; /* Sticky/fixed navbar */
   width: 100%;
@@ -37,7 +25,7 @@
 /* Style the navbar links */
 #navbar a {
   float: left;
-  color: black;
+//   color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -50,7 +38,9 @@
 #navbar #brand {
   font-size: 35px;
   transition: 0.4s;
+  color: white;
 }
+
 
 /* Links on mouse-over */
 #navbar a:hover {
@@ -66,19 +56,24 @@
   
 @media (min-width: 991.98px) {
 	main {
-	  padding-left: 400px;
+	  padding-left: 300px;
 	}
 }
   
   /* Sidebar */
 .sidebar {
   position: fixed;
+  background-color:#7386D5;
   top: 0;
   bottom: 0;
   left: 0;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
-  width: 400px;
+  width: 300px;
   z-index: 600;
+  a{
+    background-color:#7386D5;
+    color: white;
+  }
 }
 
 
@@ -88,11 +83,13 @@
     .sidebar {
         width: 100%;
         height: fit-content;
-        background: white;
+        background-color:#7386D5;
         margin-top: 50px;
     }
 }
 .sidebar .active {
+    background-color:#ffffff;
+    color:black;
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
@@ -106,3 +103,6 @@
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
+.accordion{
+    background:#7386D5;
+}

@@ -69,7 +69,7 @@ export class AddtimetrackerComponent implements OnInit {
 
 
   onCancel(){
-    this.router.navigate(['/user/timetracker/timeTrackerTable'])
+    this.router.navigate(['/user/user-main/timetracker/timeTrackerTable'])
     document.getElementById("closeModalButton").click();
   }
 

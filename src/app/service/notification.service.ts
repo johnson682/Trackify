@@ -47,9 +47,14 @@ export class NotificationService {
       title:title,
       text: text,
       icon: icon,
+      showClass: {
+        popup: 'animate__animated animate__fadeIn'
+      },
+      iconColor:'red',
       showCancelButton: showCancelButton,
       confirmButtonText: confirmButtonText,
-      cancelButtonText: cancelButtonText
+      cancelButtonText: cancelButtonText,
+      allowOutsideClick:false
     })
   }
 }

@@ -53,7 +53,7 @@ export class TasksheetComponent implements OnInit {
   }
 
   onEditTask(task){
-    this.router.navigate(['/user/tasksheet/'+task.year+'/'+task.month+'/'+task.uid])
+    this.router.navigate(['/user/user-main/tasksheet/'+task.year+'/'+task.month+'/'+task.uid])
     this.tasksheet.taskSheet.next(task)
   }
 

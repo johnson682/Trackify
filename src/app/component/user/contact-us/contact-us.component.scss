@@ -1,0 +1,14 @@
+.profilepic {
+	position: relative;
+	border-radius: 50%;
+	margin-left: -100px;
+    height: 200px;
+    width: 200px;
+	left:50%;
+	overflow: hidden;
+}
+.profilepic__image {
+	object-fit: cover;
+	opacity: 1;
+	transition: opacity .2s ease-in-out;
+}
