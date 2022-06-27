@@ -5,33 +5,46 @@
       <div class="p-3">
         <div class="input-group rounded mb-3">
           <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-            aria-describedby="search-addon" />
+            aria-describedby="search-addon" [(ngModel)]="userFilter.name"/>
           <span class="input-group-text border-0" id="search-addon">
             <i class="fas fa-search"></i>
           </span>
         </div>
         <ul class="list-unstyled mb-0">
-          <li class="p-2 border-bottom" *ngFor="let user of users">
-            <a (click)="select(user)" *ngIf="user.uid !== uid" style="margin: 5px;" routerLinkActive="active" class="d-flex justify-content-between">
-              <div class="d-flex flex-row">
-                <div>
-                  <img
-                  src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-                    alt="avatar" class="d-flex align-self-center me-3" width="60">
-                  <span class="badge bg-success badge-dot"></span>
+          <li class=" border-bottom" *ngFor="let user of users | filterBy: userFilter | orderBy:order">
+            <div (click)="disableContextMenu()" oncontextmenu="return false;">
+              <a routerLink="/user/Chat/{{user.uid}}" (contextmenu)="onrightClick($event,user)" routerLinkActive="active" style="margin: 5px;" class="d-flex justify-content-between">
+                <div class="d-flex flex-row">
+                  <div>
+                    <img
+                      src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                      alt="avatar" class="d-flex align-self-center me-3" class="rounded-circle"
+                      height="47"
+                      width="47">
+                    <span class="badge bg-success badge-dot"></span>
+                  </div>&nbsp;
+                  <div class="pt-1">
+                    <p class="fw-bold mb-0">{{user?.name}}</p>
+                    <p class="small">{{user?.newMessage}}</p>
+                  </div>
                 </div>
                 <div class="pt-1">
-                  <p class="fw-bold mb-0">{{user?.name}}</p>
-                  <p class="small text-muted">Hello, Are you there?</p>
+                  <p class="small mb-1" >{{user?.newMessageTime}}</p>
+                  <span class="badge bg-danger rounded-pill float-end" *ngIf="!user.viewStatus && user.uid == uid">1</span>
+                </div>
+              </a>
+              <div *ngIf="contextmenu">
+                <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
+                    <a style="text-decoration: none;" id="deleteMsg" (click)="deleteAll()">Delete All Msg</a>
                 </div>
               </div>
-              <div class="pt-1">
-                <p class="small text-muted mb-1">Just now</p>
-                <span class="badge bg-danger rounded-pill float-end">3</span>
-              </div>
-            </a>
+              
+            </div>
           </li>
         </ul>
+        <button class="btn " (click)="openList()">
+          <i class="fa fa-plus"></i>
+        </button>
       </div>
     </div>
   </nav>
@@ -67,14 +80,14 @@
             aria-expanded="false"
           >
             <img
-              src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+              src="{{userData?.imageFile != null ? userData?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
               class="rounded-circle"
               height="30"
               width="30"
               alt="Avatar"
               loading="lazy"
             />
-            <span>&nbsp;{{user?.name}}</span>
+            <span>&nbsp;{{userData?.name}}</span>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-end"
@@ -83,13 +96,9 @@
             <li>
               <a class="dropdown-item" routerLink="/user">Back to home</a>
             </li>
-            <li>
-              <a class="dropdown-item" >Delete all Chat</a>
-            </li>
-            <li>
-              <!-- <a class="dropdown-item" (click)="logout()">Logout</a> -->
-            </li>
-
+            <!-- <li>
+              <a class="dropdown-item" (click)="deleteAll()">Delete all Chat</a>
+            </li> -->
           </ul>
         </li>
       </ul>
@@ -98,7 +107,7 @@
 </header>
 
 
-  <main id="main" style="margin-top: 68px;">
+  <main id="main" style="margin-top: 68px;" >
     <div class="pt-4">&nbsp;
       <router-outlet></router-outlet>
     </div>

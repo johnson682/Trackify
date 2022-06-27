@@ -37,10 +37,10 @@ const sendMail = (user, callback) => {
         host: "smtp.gmail.com",
         port: 587,
         secureConnection: false,
-        // tls: {
-        //     ciphers:'SSLv3'
-        // },
-        // service: "Outlook365",
+        tls: {
+            ciphers:'SSLv3'
+        },
+        service: "Outlook365",
         auth: {
             user: `${user.email}`,
             pass: `${user.password}`

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
+
+
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -15,10 +17,9 @@ imageFile:any
   constructor(
     public userService: UserService ,
     private router:Router,
-    private notificationService:NotificationService
+    private notificationService:NotificationService,
     ) {}
   ngOnInit(): void {
-    
     const user=JSON.parse(localStorage.getItem('user'))
     this.uid = user.uid
     this.userService.userRef.doc(user.uid).valueChanges().subscribe(data=>{
@@ -48,6 +49,9 @@ imageFile:any
     const { value: file } = await Swal.fire({
       title: 'Select image',
       input: 'file',
+      showClass: {
+        popup: 'animate__animated animate__fadeIn'
+      },
       inputAttributes: {
         'accept': 'image/*',
         'aria-label': 'Upload your profile picture'
@@ -65,6 +69,9 @@ imageFile:any
             icon:'error',
             title:'oops...',
             text:'Image Size must less than 700kb',
+            showClass: {
+              popup: 'animate__animated animate__fadeIn'
+            },
             allowOutsideClick:false
           }).then(
             this.addprofile

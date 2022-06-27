@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { MessageService } from 'src/app/service/message.service';
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./chat-box.component.scss']
 })
 export class ChatBoxComponent implements OnInit {
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  
   dataofSenderMessage:any;
   senderUid:any
   reciverUid:any;
@@ -27,6 +28,7 @@ export class ChatBoxComponent implements OnInit {
   contextmenuY = 0;
   msgUid:any
 
+  chatForm:FormGroup
   constructor(
     private message:MessageService,
     private userService:UserService,
@@ -36,13 +38,19 @@ export class ChatBoxComponent implements OnInit {
       this.reciverUid = params['id']
       console.log(this.reciverUid);
       if(this.reciverUid){
+        // this.message.updateuserDetails(this.senderUid,this.reciverUid,{viewStatus:true})
         this.ngOnInit()
       }
     })
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, document.body.scrollHeight);
     this.order ='sendingDate'
+
+    this.chatForm = new FormGroup({
+      "chat":new FormControl('',Validators.required)
+    })
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
 
@@ -50,17 +58,15 @@ export class ChatBoxComponent implements OnInit {
     this.route.params.subscribe((params:Params)=>{
       this.reciverUid = params['id']
     })
-
     this.senderUid= this.uid
 
-    this.fetchDataUserList()
-    this.scrollToBottom()
-
+    
+    
     document.body.addEventListener('click',()=>{
       this.disableContextMenu()
     })
 
-   
+   this.fetchDataUserList()
 
     this.userService.getData(this.reciverUid).subscribe(data=>{
       this.selectedUser = data
@@ -74,17 +80,18 @@ export class ChatBoxComponent implements OnInit {
       trigger.addEventListener('keydown',(e)=>{
         if(e.code == 'Enter'){
           this.sendMessage()
+
         }
       })
     }
+    this.message.updateuserDetails(this.senderUid,this.reciverUid,{viewStatus:true})
   }
-
+  
   fetchDataUserList(){
     this.message.getAllSenderMessage(this.senderUid,this.reciverUid).subscribe(data=>{
       this.dataofSenderMessage = data
+      window.scrollTo(0, document.body.scrollHeight);
       this.dataofSenderMessage.forEach(ele=>{
-
-        console.log(new Date().getDate())
         if(ele.sendingSingleDate == new Date().getDate()){
           ele.dateStatus = 'today'
         }else if(new Date().getDate() - ele.sendingSingleDate == 1){
@@ -103,24 +110,46 @@ export class ChatBoxComponent implements OnInit {
     })
   }
   
-
+  
   sendMessage(){
+    window.scrollTo(0, document.body.scrollHeight);
+    this.saveUserDetail()
+    this.saveMessageDetails()
+    // this.cancel()
+  }
 
+  saveUserDetail(){
+    this.userService.getData(this.reciverUid).subscribe(data=>{
+      this.selectedUser = data
+      this.message.addUserDetails(this.senderUid,this.reciverUid,{
+        name:this.selectedUser.name,
+        email:this.selectedUser.email,
+        imageFile:this.selectedUser.imageFile,
+        uid:this.selectedUser.uid,
+        viewStatus:false,
+        newMessage:this.chatForm.value.chat,
+        newMessageTime:moment().format('MMM-DD hh:mm:ss a')
+      })
+    })
+  }
+
+  saveMessageDetails(){
     let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
-
     this.message.add(this.senderUid,this.reciverUid,{
-      message:this.userMessage,
+      message:this.chatForm.value.chat,
       senderUid:this.senderUid,
       status:'Sending',
       id:nums,
+      viewStatus:false,
       sendingTime:+new Date(),
       sendingSingleDate:new Date().getDate(),
       dateStatus:'today',
-      sendingDate:moment().format('MMM-DD hh:mm:ss a')
+      sendingDate:moment().format('MMM-DD hh:mm a')
     })
+  }
 
-    this.scrollToBottom()
-    this.userMessage =""
+  async cancel(){
+    await this.chatForm.reset()
   }
 
   
@@ -161,9 +190,5 @@ export class ChatBoxComponent implements OnInit {
     }
   } 
 
-  scrollToBottom(): void {
-    try {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }                 
-  }
+ 
 }

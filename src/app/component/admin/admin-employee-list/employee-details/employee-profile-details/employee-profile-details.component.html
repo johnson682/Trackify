@@ -7,7 +7,7 @@
               <div class="col-md-4 gradient-custom text-center"
                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                 <img src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-                  alt="Avatar" class="img-fluid my-5" style="width: 150px;height: 150px;" />
+                  alt="Avatar" class="rounded-circle img-fluid my-5" style="width: 150px;height: 150px;" />
                 <h5>{{user?.name}}</h5>
                 <p>{{user?.role != null ? user?.role : 'No Data Found'}}</p>
                 <a routerLink="EmployeeProfileDetailsEdit" routerLinkActive="active" type="button" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#exampleModal5">

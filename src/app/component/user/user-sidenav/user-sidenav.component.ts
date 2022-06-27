@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
+import { AdminProfileService } from '../../admin/service/admin-profile.service';
 import { AuthService } from '../../login/service/auth.service';
-
 @Component({
   selector: 'app-user-sidenav',
   templateUrl: './user-sidenav.component.html',
@@ -19,7 +20,7 @@ export class UserSidenavComponent implements OnInit {
     private userService:UserService ,
     public authService:AuthService,
     private notificationService:NotificationService,
-    private router:Router) { }
+   ) { }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
@@ -27,9 +28,11 @@ export class UserSidenavComponent implements OnInit {
     this.userService.getData(this.uid).subscribe(data=>{
       this.user = data
     })
+
+    
     
   } 
-  
+
 
   logout(){
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
@@ -44,11 +47,12 @@ export class UserSidenavComponent implements OnInit {
           'No, keep Login'
         ).then((result) => {
           if (result.value) {
+            this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
             this.authService.logout(this.uid)
-            
           } 
        })
       }else{
+        this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
         this.authService.logout(this.uid)
       }
     })

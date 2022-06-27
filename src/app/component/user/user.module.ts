@@ -21,8 +21,7 @@ import { UserComponent } from './user.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { UserSidenavComponent } from './user-sidenav/user-sidenav.component';
 import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component';
-
-
+import { UserListComponent } from './chatwith-others/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,8 @@ import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component'
     UserComponent,
     ContactUsComponent,
     UserSidenavComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +51,6 @@ import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component'
     FilterPipeModule,
     OrderModule,
     BsDatepickerModule.forRoot(),
-    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

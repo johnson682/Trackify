@@ -25,6 +25,7 @@ import { UserService } from './service/user.service';
 import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 import { ChatwithOthersComponent } from './component/user/chatwith-others/chatwith-others.component';
 import { OrderModule } from 'ngx-order-pipe';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -61,7 +62,8 @@ const firebaseConfig = {
     BrowserAnimationsModule,
     FormsModule,
     OrderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FilterPipeModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],

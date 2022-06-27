@@ -31,7 +31,7 @@ export class ContactUsComponent implements OnInit {
         '<br>'+
         '<input id="swal-input2" placeholder="Your Email"  style="border-left:3px solid #7386D5" class="swal2-input">'+
         '<br>'+
-        '<input id="swal-input5" placeholder="Your password"  style="border-left:3px solid #7386D5" class="swal2-input">'+
+        '<input id="swal-input5" placeholder="Your password" type="password"  style="border-left:3px solid #7386D5" class="swal2-input">'+
         '<br>'+
         '<input id="swal-input3" placeholder="Subject" style="border-left:3px solid #7386D5" class="swal2-input">'+
         '<br>'+

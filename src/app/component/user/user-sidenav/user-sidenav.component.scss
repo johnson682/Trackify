@@ -45,13 +45,13 @@
 /* Links on mouse-over */
 #navbar a:hover {
   transition-duration: 0.4s;
-  color: red;
+  color: #7386D5;;
 }
 
 /* Style the active/current link */
 #navbar a.active {
   background-color: white;
-  color: red;
+  color: #7386D5;;
 }
   
 @media (min-width: 991.98px) {
@@ -89,7 +89,7 @@
 }
 .sidebar .active {
     background-color:#ffffff;
-    color:black;
+    color:#7386D5;
     border-radius: 5px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
@@ -106,3 +106,4 @@
 .accordion{
     background:#7386D5;
 }
+

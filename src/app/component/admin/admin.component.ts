@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { AuthService } from '../login/service/auth.service';
 import { AdminProfileService } from './service/admin-profile.service';
 
@@ -22,6 +23,7 @@ export class AdminComponent implements OnInit {
   } 
   
   logout(){
+    this.adminProfileService.adminRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
     this.authService.logout(this.uid)
   }
 

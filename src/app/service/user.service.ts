@@ -26,6 +26,7 @@ export class UserService {
     removeEmployee(uid){
         this.userRef.doc(uid).delete()
         this.userRef.doc(`${uid}/year`).delete()
+        this.userRef.doc(`${uid}/Message`).delete();
     }
 
     async removeAccount(uid){

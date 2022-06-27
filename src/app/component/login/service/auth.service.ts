@@ -86,6 +86,7 @@ export class AuthService {
         const admin:any={
             uid:adminData.uid,
             email:adminData.email,
+            Status:true,
         }
         localStorage.setItem('user',JSON.stringify(admin))
         return adminRef.set(admin,{
@@ -137,11 +138,7 @@ export class AuthService {
         await this.afAuth.signOut();
         localStorage.removeItem('user');
         this.router.navigate(['login']);
-        if (uid !== 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
-            this.userRef.doc(uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-        } else {
-            this.adminRef.doc(uid).update({ Status: false });
-        }
+       
     }
 
 }

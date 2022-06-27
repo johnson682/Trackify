@@ -13,42 +13,86 @@ import Swal from 'sweetalert2';
   styleUrls: ['./chatwith-others.component.scss']
 })
 export class ChatwithOthersComponent implements OnInit {
-
   
   users:any;
-  user:any;
+  userData:any;
   uid:any
   dataofSenderMessage:any;
+  reciverUid:any
 
-  constructor(private router:Router,private userService:UserService,private message:MessageService,) {}
+  data:any
+  count:any
+  allData:any
+  order:any
+  userId:any
+
+  contextmenu = false;
+  contextmenuX = 0;
+  contextmenuY = 0;
+  msgUid:any;
+
+  userFilter: any = { name: '' };
+  constructor(private router:Router,private userService:UserService,private message:MessageService,private route:ActivatedRoute) {
+    
+  }
 
   ngOnInit(): void {
+    this.order ='sendingDate'
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
-
     this.init()
+
+    document.body.addEventListener('click',()=>{
+      this.disableContextMenu()
+    })
   }
 
   init(){
-    this.userService.userRef.valueChanges().subscribe(data=>{
+
+    this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
+
+     
     })
 
     this.userService.getData(this.uid).subscribe(data=>{
-      this.user = data
+      this.userData = data
     })
   
   }
   
-
-  
-
-  deleteAll(){
-    // this.message.deleteAllMsg(this.users.uid,this.reciverUid)
+  disableContextMenu(){
+    this.contextmenu= false;
   }
 
-  select(user){
-    this.router.navigate(['user/Chat/'+user.uid])
+  deleteAll(){
+    this.message.deleteAllMsg(this.uid,this.reciverUid)
+  }
+
+  onrightClick(event,Recivemsg){
+    
+
+    this.contextmenuX=event.clientX
+    this.contextmenuY=event.clientY
+    this.contextmenu=true;
+    this.reciverUid = Recivemsg.uid
+
+    const deleteMsg = document.getElementById('deleteMsg')
+    if(deleteMsg != null){
+      deleteMsg.addEventListener('click',()=>{
+        this.deleteAll()
+      })
+    }
+    setTimeout(()=>{
+      this.contextmenu= false;
+    },2000)
+
+    
+
+  }
+
+  openList(){
+    
   }
 
   

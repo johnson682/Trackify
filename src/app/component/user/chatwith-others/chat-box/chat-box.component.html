@@ -1,13 +1,18 @@
-<div class="my-custom-scrollbar my-custom-scrollbar-primary">
-      
+<div class="d-flex justify-content-center">
+    <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="dataofSenderMessage == null"></div>
+</div>
+<div class="my-custom-scrollbar my-custom-scrollbar-primary" *ngIf="dataofSenderMessage != null" style="margin-bottom: 30px;">
+    
     <div *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order">
         <div class="d-flex flex-row justify-content-start" *ngIf="Recivemsg.status == 'Reciving'">
-          <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-            alt="avatar 1" style="width: 45px; height: 100%;">
-          <div>
+        <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+            alt="avatar 1"  class="rounded-circle"
+            height="30"
+            width="30">
+        <div>
             <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">{{Recivemsg.message}}</p>
             <p class="small ms-3 mb-3 rounded-3 text-muted float-end">{{Recivemsg.sendingDate}}</p>
-          </div>
+        </div>
         </div>
         <div class="d-flex flex-row justify-content-end"  *ngIf="Recivemsg.status == 'Sending'">
             <div (click)="disableContextMenu()" oncontextmenu="return false;">
@@ -22,7 +27,9 @@
                 <p class="small me-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
             </div>
             <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-            alt="avatar 1" style="width: 45px; height: 100%;">
+            alt="avatar 1" class="rounded-circle"
+            height="40"
+            width="40">
         </div>
     </div>
 
@@ -31,5 +38,18 @@
 <div id="footer">
     <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
         alt="avatar 3" style="width: 40px; height: 100%;"> -->
-    <input type="text" class="form-control form-control-lg" placeholder="Type message" id="input" [(ngModel)]="userMessage">
+    <img
+        src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+        class="rounded-circle"
+        height="45"
+        width="45"
+        alt="Avatar"
+        loading="lazy"
+    />&nbsp;
+    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+        <div class="input-group">
+            <input type="text" class="form-control form-control-lg" formControlName="chat" placeholder="Type message" >
+            <button class="input-group-text" id="input" type="submit">submitt</button>
+        </div>
+    </form>
 </div>
