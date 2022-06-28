@@ -45,12 +45,16 @@ export class ChatBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     window.scrollTo(0, document.body.scrollHeight);
     this.order ='sendingDate'
 
     this.chatForm = new FormGroup({
       "chat":new FormControl('',Validators.required)
     })
+
+   
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
 
@@ -84,12 +88,12 @@ export class ChatBoxComponent implements OnInit {
         }
       })
     }
-    this.message.updateuserDetails(this.senderUid,this.reciverUid,{viewStatus:true})
   }
   
   fetchDataUserList(){
     this.message.getAllSenderMessage(this.senderUid,this.reciverUid).subscribe(data=>{
       this.dataofSenderMessage = data
+      this.order ='sendingDate'
       window.scrollTo(0, document.body.scrollHeight);
       this.dataofSenderMessage.forEach(ele=>{
         if(ele.sendingSingleDate == new Date().getDate()){
@@ -110,25 +114,38 @@ export class ChatBoxComponent implements OnInit {
     })
   }
   
-  
   sendMessage(){
+    this.userMessage= this.chatForm.value.chat
     window.scrollTo(0, document.body.scrollHeight);
-    this.saveUserDetail()
+    this.saveSenderDetail()
+    this.saveReciverDetails()
     this.saveMessageDetails()
-    // this.cancel()
+    this.cancel()
+  }
+  saveSenderDetail(){
+    this.userService.getData(this.senderUid).subscribe(data=>{
+      this.currentUser = data
+      this.message.addSenderDetail(this.senderUid,this.reciverUid,{
+        name:this.currentUser.name,
+        email:this.currentUser.email,
+        imageFile:this.currentUser.imageFile,
+        uid:this.currentUser.uid,
+        newMessage:this.userMessage,
+        newMessageTime:moment().format('MMM-DD | hh:mm a')
+      })
+    })
   }
 
-  saveUserDetail(){
+  saveReciverDetails(){
     this.userService.getData(this.reciverUid).subscribe(data=>{
       this.selectedUser = data
-      this.message.addUserDetails(this.senderUid,this.reciverUid,{
+      this.message.addReciverDetails(this.senderUid,this.reciverUid,{
         name:this.selectedUser.name,
         email:this.selectedUser.email,
         imageFile:this.selectedUser.imageFile,
         uid:this.selectedUser.uid,
-        viewStatus:false,
-        newMessage:this.chatForm.value.chat,
-        newMessageTime:moment().format('MMM-DD hh:mm:ss a')
+        newMessage:this.userMessage,
+        newMessageTime:moment().format('MMM-DD | hh:mm a')
       })
     })
   }
@@ -136,15 +153,14 @@ export class ChatBoxComponent implements OnInit {
   saveMessageDetails(){
     let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
     this.message.add(this.senderUid,this.reciverUid,{
-      message:this.chatForm.value.chat,
+      message:this.userMessage,
       senderUid:this.senderUid,
       status:'Sending',
       id:nums,
-      viewStatus:false,
       sendingTime:+new Date(),
       sendingSingleDate:new Date().getDate(),
       dateStatus:'today',
-      sendingDate:moment().format('MMM-DD hh:mm a')
+      sendingDate:moment().format('MMM-DD | hh:mm:ss a')
     })
   }
 

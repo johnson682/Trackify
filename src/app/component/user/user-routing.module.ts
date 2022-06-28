@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component';
 import { ChatwithOthersComponent } from './chatwith-others/chatwith-others.component';
+import { UserListComponent } from './chatwith-others/user-list/user-list.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './tasksheet/add/add.component';
@@ -43,7 +44,8 @@ const routes: Routes = [
       {path:'contact',component:ContactUsComponent},
     ]},
     {path:'Chat',component:ChatwithOthersComponent,children:[
-      {path:':id',component:ChatBoxComponent}
+      {path:'userlist',component:UserListComponent},
+      {path:':id',component:ChatBoxComponent},
     ]},
     
     {path:'**',component:PageNotFoundComponent,pathMatch: 'full' }

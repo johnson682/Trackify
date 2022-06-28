@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgSelectModule } from '@ng-select/ng-select';
 import * as moment from 'moment';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 
@@ -32,6 +30,7 @@ export class AddComponent implements OnInit {
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
+    document.getElementById('exampleModal1').classList.add('animate__animated','animate__fadeIn')
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
     this.upstartedDate =false
@@ -59,8 +58,11 @@ export class AddComponent implements OnInit {
   }
 
   onCancel(){
+
+    document.getElementById('exampleModal1').classList.add('animate__animated','animate__fadeOut')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
+    
   }
 
   change(event){

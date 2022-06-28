@@ -1,76 +1,66 @@
 
 <header>
-    <!-- <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="margin-top: 30px;">
-      <div class="position-sticky">
-        <div class="list-group list-group-flush mx-3 mt-4">
-            <a routerLinkActive="active" routerLink="adminEmployeeList" class="list-group-item list-group-item-action py-2 ripple">
-                <i class="fa fa-list fa-fw me-3"></i><span>Employee List</span> 
-            </a>
-        </div>
-      </div>
-    </nav> -->
-  
-    <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
-      <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#sidebarMenu"
-          aria-controls="sidebarMenu"
-          aria-expanded="true"
-          aria-label="Toggle navigation"
-        >
-          <i class="fas fa-bars"></i>
-        </button>
+  <nav id="main-navbar" class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="true"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
 
-        <a class="navbar-brand" id="brand">
-          <img src="https://lh3.googleusercontent.com/ATfigUXU4v9UX-vdYlqacOc-_On1GoQsLTvHkIRWVgLfBMYu3hT-3y0c-w9PmBBbLQ" alt=""
-          width="70px"
-        >
-        <span>Trackify</span>
-        </a>
+      <a class="navbar-brand" id="brand">
+        <img src="https://lh3.googleusercontent.com/ATfigUXU4v9UX-vdYlqacOc-_On1GoQsLTvHkIRWVgLfBMYu3hT-3y0c-w9PmBBbLQ" alt=""
+        width="70px"
+      >
+      <span>Trackify</span>
+      </a>
 
-        <ul class="navbar-nav ms-auto d-flex flex-row">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false">
-              <img
-                src="{{user?.imageFile!= null ? user?.imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-                class="rounded-circle"
-                height="30"
-                width="30"
-                alt="Avatar"
-                loading="lazy"
-              />
-              <span>&nbsp;{{user?.name}}</span>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end"
-              aria-labelledby="navbarDropdownMenuLink">
-              <li>
-                <a class="dropdown-item" routerLink="adminProfile">My profile</a>
-              </li>
-              <li>
-                <a  class="dropdown-item" routerLink="adminEmployeeList">Employee List</a>
-              </li>
-              <li>
-                <a class="dropdown-item" (click)="logout()">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  
-  <main style="margin-top: 68px;">
-    <div class="container-fluid pt-4">
-      <router-outlet></router-outlet>
+      <ul class="navbar-nav ms-auto d-flex flex-row">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img
+              src="{{user?.imageFile!= null ? user?.imageFile :'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+              class="rounded-circle"
+              height="30"
+              width="30"
+              alt="Avatar"
+              loading="lazy"
+            />
+            <span>&nbsp;{{user?.name}}</span>
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item" routerLink="adminProfile">My profile</a>
+            </li>
+            <li>
+              <a  class="dropdown-item" routerLink="adminEmployeeList">Employee List</a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </main>
+  </nav>
+</header>
+  
+<main style="margin-top: 68px;">
+  <div class="container-fluid pt-4">
+    <router-outlet></router-outlet>
+  </div>
+</main>
   

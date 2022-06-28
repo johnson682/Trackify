@@ -1,4 +1,7 @@
-
+header{
+  animation:fadeIn;
+  animation-duration: 1.5s;
+}
   
   .badge-dot {
   border-radius: 50%;
@@ -31,7 +34,7 @@
   top: 0; /* At the top */
   z-index: 100;
   display: inline-flex;
-
+  padding: 8px;
 }
 
 /* Style the navbar links */

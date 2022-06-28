@@ -86,14 +86,15 @@ export class UserloginActivityComponent implements OnInit {
   };
 
   stopTimer(){
-    Swal.fire({
-      title: 'Are you sure want to Stop?',
-      text: 'You will not be able to restart activity!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, Stop it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
+
+    this.notificationService.sweetalert2Modal(
+      'Are you sure want to Stop?',
+      'You will not be able to restart activity!',
+      'warning',
+      true,
+      'Yes, Stop it!',
+      'No, keep it'
+    ).then((result) => {
       if (result.value) {
         this.userService.updateUserData(this.uid,{StopStatus:false})
         this.userService.userRef.doc(this.uid).get().subscribe(data=>{

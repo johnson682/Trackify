@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, FormControl, Validators, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -30,6 +30,7 @@ export class EditComponent implements OnInit {
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
+    document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeIn')
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
 
@@ -83,6 +84,7 @@ export class EditComponent implements OnInit {
   }
 
   onCancel(){
+    document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeOut')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
 

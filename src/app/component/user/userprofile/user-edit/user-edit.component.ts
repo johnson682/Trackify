@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -60,8 +60,11 @@ export class UserEditComponent implements OnInit {
     this.onCancel()
   }
   onCancel(){
+    document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeOut')
+
     this.router.navigate(['/user/user-main/userprofile'])
     document.getElementById("closeModalButton").click();
+
   }
 
 }

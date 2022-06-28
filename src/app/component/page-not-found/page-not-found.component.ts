@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { AuthService } from '../login/service/auth.service';
 
 @Component({

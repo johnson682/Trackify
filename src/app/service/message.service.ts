@@ -21,12 +21,25 @@ export class MessageService{
        this.reciver(senderUid,reciverUid).add(newMessage)
     }
 
-    addUserDetails(senderUid,reciverUid,newMessage){
-        this.data.doc(senderUid).collection('Message').doc(reciverUid).update(newMessage)
+    addReciverDetails(senderUid,reciverUid,newMessage){
+        this.getData(senderUid).doc(reciverUid).set(newMessage,{merge:true})
+    }
+    
+    addSenderDetail(senderUid,reciverUid,newMessage){
+        this.getData(reciverUid).doc(senderUid).set(newMessage,{merge:true})
     }
 
     getAllChatUser(senderUid){
-        return this.data.doc(senderUid).collection('Message').valueChanges()
+        return this.getData(senderUid).snapshotChanges()
+            .pipe(
+                map(a=>a.map(c=>
+                    ({uid:c.payload.doc.id,...c.payload.doc.data()})
+                ))
+            )
+    }
+
+    getReceiverChatUser(reciverUid){
+        return this.getData(reciverUid).valueChanges()
     }
 
     updateuserDetails(senderUid,reciverUid,newData){
@@ -48,6 +61,7 @@ export class MessageService{
     }
 
     deleteAllMsg(senderUid,reciverUid){
+        this.getData(senderUid).doc(reciverUid).delete()
         this.sender(senderUid,reciverUid).get().toPromise().then((quer)=>{
             quer.docs.forEach((doc)=>{
                 doc.ref.delete()
@@ -68,6 +82,11 @@ export class MessageService{
         )))
     }
 
+
+    getData(uid){
+        return this.data.doc(uid).collection('Message')
+    }
+
     sender(senderUid,reciverUid){
         return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage')
     }
@@ -75,8 +94,8 @@ export class MessageService{
         return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage')
     }
     
-    getLastData(senderUid,reciverUid){
-        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage',ref =>ref.orderBy('sendingDate').limitToLast(1)).snapshotChanges().pipe(map(a=>a.map(c=>({uid:c.payload.doc.id,...c.payload.doc.data()}))))
-    }
+    // getLastData(senderUid,reciverUid){
+    //     return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage',ref =>ref.orderBy('sendingDate').limitToLast(1)).snapshotChanges().pipe(map(a=>a.map(c=>({uid:c.payload.doc.id,...c.payload.doc.data()}))))
+    // }
 
 }

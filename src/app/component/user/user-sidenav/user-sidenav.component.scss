@@ -11,13 +11,13 @@
     z-index:-1;
   }
 #navbar {
-  // overflow: hidden;
   background-color:#7386D5;// Large padding which will shrink on scroll (using JS) */
   transition: 0.4s; /* Adds a transition effect when the padding is decreased */
   position: fixed; /* Sticky/fixed navbar */
   width: 100%;
   top: 0; /* At the top */
   z-index: 100;
+  padding: 8px;
   display: inline-flex;
 
 }

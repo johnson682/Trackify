@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-employee-details',
   templateUrl: './employee-details.component.html',

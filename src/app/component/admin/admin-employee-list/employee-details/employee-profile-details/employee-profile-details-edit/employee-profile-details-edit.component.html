@@ -1,39 +1,39 @@
 <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel5" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="column" id="main">
-            <h1>Edit Profile </h1>
-            <form [formGroup]="EmployeeEditForm" (ngSubmit)="onSubmit()">
-                <div class="input-group">
-                    <input
-                    placeholder="Datepicker"
-                    class="form-control"
-                    [readonly]="true"
-                    bsDatepicker
-                    [isOpen]="isOpen"
-                    formControlName="DateofJoin"
-                    [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
-                    <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
-                      <i class="fa fa-calendar"></i>
-                    </a>
-                  </div>
-                <br>
-                <input type="text" name="role" class="form-control" id="role" placeholder="role" formControlName="role">
-                <br>
-                <button 
-                  class="btn primary btn-sm"
-                  style="cursor: pointer;"
-                  type="submit"
-                  [disabled]="!EmployeeEditForm.valid">Add Employee
-                </button>
-                <button class="btn btn-sm" (click)="onCancel()">Cancel</button>
-              </form>
-          </div>
-          <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
-            data-target="#myModal" class="btn btn-default"                          
-            data-dismiss="modal">Close</button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="column" id="main">
+          <h1>Edit Profile </h1>
+          <form [formGroup]="EmployeeEditForm" (ngSubmit)="onSubmit()">
+              <div class="input-group">
+                <input
+                  placeholder="Datepicker"
+                  class="form-control"
+                  [readonly]="true"
+                  bsDatepicker
+                  [isOpen]="isOpen"
+                  formControlName="DateofJoin"
+                  [bsConfig]="{ containerClass: 'theme-dark-blue', todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                  <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
+                    <i class="fa fa-calendar"></i>
+                  </a>
+                </div>
+              <br>
+              <input type="text" name="role" class="form-control" id="role" placeholder="role" formControlName="role">
+              <br>
+              <button 
+                class="btn primary btn-sm"
+                style="cursor: pointer;"
+                type="submit"
+                [disabled]="!EmployeeEditForm.valid">Add Employee
+              </button>
+              <button class="btn btn-sm" (click)="onCancel()">Cancel</button>
+            </form>
         </div>
+        <button id="closeModalButton" [hidden]="true" data-toggle="modal"        
+          data-target="#myModal" class="btn btn-default"                          
+          data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>

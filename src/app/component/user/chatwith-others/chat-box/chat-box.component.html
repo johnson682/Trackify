@@ -2,8 +2,23 @@
     <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="dataofSenderMessage == null"></div>
 </div>
 <div class="my-custom-scrollbar my-custom-scrollbar-primary" *ngIf="dataofSenderMessage != null" style="margin-bottom: 30px;">
-    
-    <div *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order">
+    <!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand float-end">
+        <img
+          src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+          class="rounded-circle"
+          height="40"
+          width="40"
+          alt="MDB Logo"
+          loading="lazy"
+        />&nbsp;
+        <small>{{selectedUser?.name}}</small>
+      </a>
+    </div>
+  </nav>
+    <div class="container-fluid" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" style="margin-top: 20px;">
         <div class="d-flex flex-row justify-content-start" *ngIf="Recivemsg.status == 'Reciving'">
         <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
             alt="avatar 1"  class="rounded-circle"
@@ -49,7 +64,7 @@
     <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
         <div class="input-group">
             <input type="text" class="form-control form-control-lg" formControlName="chat" placeholder="Type message" >
-            <button class="input-group-text" id="input" type="submit">submitt</button>
+            <button class="input-group-text" id="input" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
         </div>
     </form>
 </div>

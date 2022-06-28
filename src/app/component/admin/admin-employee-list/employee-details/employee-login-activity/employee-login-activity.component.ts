@@ -11,7 +11,6 @@ import * as XLSX from 'xlsx';
 export class EmployeeLoginActivityComponent implements OnInit {
 
   fileName='ExcelSheet.xlsx'
-  
   uid:any;
 
   month:any;task:any;year:any

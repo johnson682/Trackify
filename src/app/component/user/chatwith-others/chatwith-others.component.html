@@ -30,7 +30,7 @@
                 </div>
                 <div class="pt-1">
                   <p class="small mb-1" >{{user?.newMessageTime}}</p>
-                  <span class="badge bg-danger rounded-pill float-end" *ngIf="!user.viewStatus && user.uid == uid">1</span>
+                  <!-- <span class="badge bg-danger rounded-pill float-end" *ngIf="!user.viewStatus && user.uid != uid">1</span> -->
                 </div>
               </a>
               <div *ngIf="contextmenu">
@@ -42,7 +42,11 @@
             </div>
           </li>
         </ul>
-        <button class="btn " (click)="openList()">
+        <button class="btn" style="position: fixed;background-color:#7386D5;color:white;bottom:30px;left:320px;" routerLink="/user/Chat/userlist" 
+        data-toggle="modal" 
+        data-target="#exampleModal1" 
+        data-backdrop="static" 
+        data-keyboard="false" >
           <i class="fa fa-plus"></i>
         </button>
       </div>
@@ -107,7 +111,7 @@
 </header>
 
 
-  <main id="main" style="margin-top: 68px;" >
+  <main id="main" style="margin-top: 55px;" >
     <div class="pt-4">&nbsp;
       <router-outlet></router-outlet>
     </div>

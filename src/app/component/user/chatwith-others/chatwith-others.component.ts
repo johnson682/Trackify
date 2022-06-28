@@ -33,9 +33,8 @@ export class ChatwithOthersComponent implements OnInit {
 
   userFilter: any = { name: '' };
   constructor(private router:Router,private userService:UserService,private message:MessageService,private route:ActivatedRoute) {
-    
   }
-
+  
   ngOnInit(): void {
     this.order ='sendingDate'
     const userData = JSON.parse(localStorage.getItem('user'))
@@ -51,9 +50,11 @@ export class ChatwithOthersComponent implements OnInit {
 
     this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
-
-     
+      console.log(this.users);
+      
     })
+
+    
 
     this.userService.getData(this.uid).subscribe(data=>{
       this.userData = data
@@ -67,6 +68,7 @@ export class ChatwithOthersComponent implements OnInit {
 
   deleteAll(){
     this.message.deleteAllMsg(this.uid,this.reciverUid)
+    this.router.navigate(['/user/Chat'])
   }
 
   onrightClick(event,Recivemsg){
@@ -91,9 +93,6 @@ export class ChatwithOthersComponent implements OnInit {
 
   }
 
-  openList(){
-    
-  }
 
   
 }
