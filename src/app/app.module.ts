@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import {NgxSpinnerModule} from 'ngx-spinner'
 import { ToastrModule } from 'ngx-toastr';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { OrderModule } from 'ngx-order-pipe';
 
 import { AppRoutingModule } from './app-routing.module';
 import { UserRoutingModule } from './component/user/user-routing.module';
@@ -19,13 +21,10 @@ import { AdminRoutingModule } from './component/admin/admin-routing.module';
 import { AppComponent } from './app.component';
 import { ForgotPasswordComponent } from './component/login/forgot-password/forgot-password.component';
 import { LoginComponent } from './component/login/login.component'
+import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
 
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
-import { PageNotFoundComponent } from './component/page-not-found/page-not-found.component';
-import { ChatwithOthersComponent } from './component/user/chatwith-others/chatwith-others.component';
-import { OrderModule } from 'ngx-order-pipe';
-import { FilterPipeModule } from 'ngx-filter-pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -44,7 +43,6 @@ const firebaseConfig = {
     LoginComponent,
     ForgotPasswordComponent,
     PageNotFoundComponent,
-    ChatwithOthersComponent
   ],
   imports: [
     BrowserModule,

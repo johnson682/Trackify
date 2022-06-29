@@ -7,8 +7,6 @@ import { Router } from "@angular/router";
 })
 
 export class UserService {
-
-
     private employeePath = 'users'
     userRef:AngularFirestoreCollection<any>
 

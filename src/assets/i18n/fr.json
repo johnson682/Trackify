@@ -1,0 +1,14 @@
+{
+    "USER": {
+      "DASHBOARD": "Tableau de bord",
+      "SELECT": "Sélectionner une langue",
+      "TASKSHEET": "Feuille de tâches",
+      "LOGINACTIVITY": "LoginActivité",
+      "CONTACTUS": "ContactUs",
+      "MYPROFILE": "Mon profil",
+      "CHAT": "Bavarder",
+      "LOGOUT": "Déconnexion",
+      "ADD": "Ajouter",
+      "EXPORT": "Exportation"
+    }
+  }

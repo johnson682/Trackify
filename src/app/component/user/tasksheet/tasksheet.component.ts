@@ -11,35 +11,29 @@ import * as moment from 'moment';
 })
 export class TasksheetComponent implements OnInit {
 
+  monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+  fileName='ExcelSheet.xlsx'
+  years=[]
+
+  tasks:any
+  uid:any
+  order:string
+  month:any;
+  task:any;
+  year:any
+
   constructor(
     private tasksheet:TasksheetService,
     private router:Router,
     private notificationService:NotificationService) { }
 
-  tasks:any
-  id:any
-  uid:any
-  data:any
-
-  order:string
-
-  fileName='ExcelSheet.xlsx'
-  
-  month:any;
-  task:any;
-  year:any
-  monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-  years=[]
-
   ngOnInit(): void {
-    
     this.month= moment().format('MMM')
     this.year =new Date().getFullYear()
     this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid =userData.uid
     this.onFetchData()
@@ -54,7 +48,6 @@ export class TasksheetComponent implements OnInit {
 
   onEditTask(task){
     this.router.navigate(['/user/user-main/tasksheet/'+task.year+'/'+task.month+'/'+task.uid])
-    this.tasksheet.taskSheet.next(task)
   }
 
   onDelete(task){
@@ -68,9 +61,7 @@ export class TasksheetComponent implements OnInit {
         this.tasksheet.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'task')
         this.notificationService.sweetalert2('error','Task Deleted!!')
       }
-   })
-    
-    
+    })
   }
 
   exportExcel(){
@@ -81,9 +72,6 @@ export class TasksheetComponent implements OnInit {
     XLSX.writeFile(wb,this.fileName)
   }
 
-  dataOfmonth:any
-  arr:any
-  obj={}
   changeMonth(event){
     if(event != undefined){
       this.month = event
@@ -92,6 +80,7 @@ export class TasksheetComponent implements OnInit {
       })
     }
   }
+
   changeYear(event){
     this.year = event
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{

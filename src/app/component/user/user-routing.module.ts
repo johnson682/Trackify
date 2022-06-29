@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';

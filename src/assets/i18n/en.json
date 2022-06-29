@@ -1,0 +1,15 @@
+{
+    "USER": {
+        "DASHBOARD":"Dashboard",
+        "SELECT":"Select Language",
+        "TASKSHEET":"TaskSheet",
+        "LOGINACTIVITY":"LoginActivity",
+        "CONTACTUS":"ContactUs",
+        "MYPROFILE":"My Profile",
+        "CHAT":"Chat",
+        "LOGOUT":"Logout",
+        "ADD":"Add",
+        "EXPORT":"Export"
+    }
+
+}

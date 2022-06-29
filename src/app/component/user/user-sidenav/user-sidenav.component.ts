@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
+
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
 import { AuthService } from '../../login/service/auth.service';
@@ -18,7 +20,13 @@ export class UserSidenavComponent implements OnInit {
     private userService:UserService ,
     public authService:AuthService,
     private notificationService:NotificationService,
-   ) { }
+    public translate:TranslateService
+   ) { 
+    translate.addLangs(['en', 'ta' , 'fr'])
+    translate.setDefaultLang('en')
+    const browserLang = translate.getBrowserLang();
+    translate.use(browserLang.match(/ en | ta | fr /) ? browserLang : 'en')
+   }
 
   ngOnInit() {
     const userData = JSON.parse(localStorage.getItem('user'))
@@ -26,11 +34,7 @@ export class UserSidenavComponent implements OnInit {
     this.userService.getData(this.uid).subscribe(data=>{
       this.user = data
     })
-
-    
-    
   } 
-
 
   logout(){
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{

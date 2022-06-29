@@ -1,19 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { combineLatest, from, map, Observable, Subject, switchMap, tap } from 'rxjs';
-
+import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class TasksheetService {
-  month;
-  MonthNum;
-  day;
   private dbpath='users'
   data:AngularFirestoreCollection<any>;
-
-  public taskSheet=new Subject()
 
   constructor(private db:AngularFirestore,private http:HttpClient) {
     this.data = db.collection(this.dbpath)
@@ -28,8 +23,6 @@ export class TasksheetService {
   }
 
   deleteTask(uid,id,newTask,collectionName){
-    console.log(newTask,);
-    
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).doc(id).delete()
   }
 

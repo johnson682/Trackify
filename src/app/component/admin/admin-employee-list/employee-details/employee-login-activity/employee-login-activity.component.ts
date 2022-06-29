@@ -75,9 +75,22 @@ export class EmployeeLoginActivityComponent implements OnInit {
       })
     }
   }
+
+  dateTotal:any;
+  getDaysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
+  };
+
   changeMonth(event){
     this.month = event
     if(event != undefined){
+      let temp =[];
+      const monthNum = moment().month(event).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
@@ -85,6 +98,14 @@ export class EmployeeLoginActivityComponent implements OnInit {
   changeYear(event){
     this.year=event
     if(event != undefined){
+      let temp =[];
+      const monthNum = moment().month(this.month).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }

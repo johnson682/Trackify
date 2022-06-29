@@ -11,7 +11,6 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 export class TimetrackerTableComponent implements OnInit {
   uid:any
   projects:any
-  task:any
 
   month:any;
   year:any;
@@ -53,11 +52,8 @@ export class TimetrackerTableComponent implements OnInit {
         this.tasksheetservice.deleteTask(this.uid,task.uid,{month:task.month,year:task.year},'taskTracker')
         this.notificationService.sweetalert2('error','Task Deleted!!')
       }
-   })
-    
+    }) 
   }
-
-  
 
   add(task){
     this.tasksheetservice.add(this.uid,task,'task')

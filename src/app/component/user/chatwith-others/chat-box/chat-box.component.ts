@@ -27,8 +27,8 @@ export class ChatBoxComponent implements OnInit {
   contextmenuX = 0;
   contextmenuY = 0;
   msgUid:any
-
   chatForm:FormGroup
+  
   constructor(
     private message:MessageService,
     private userService:UserService,
@@ -38,15 +38,12 @@ export class ChatBoxComponent implements OnInit {
       this.reciverUid = params['id']
       console.log(this.reciverUid);
       if(this.reciverUid){
-        // this.message.updateuserDetails(this.senderUid,this.reciverUid,{viewStatus:true})
         this.ngOnInit()
       }
     })
   }
 
   ngOnInit(): void {
-
-
     window.scrollTo(0, document.body.scrollHeight);
     this.order ='sendingDate'
 
@@ -54,18 +51,14 @@ export class ChatBoxComponent implements OnInit {
       "chat":new FormControl('',Validators.required)
     })
 
-   
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
-
 
     this.route.params.subscribe((params:Params)=>{
       this.reciverUid = params['id']
     })
     this.senderUid= this.uid
 
-    
-    
     document.body.addEventListener('click',()=>{
       this.disableContextMenu()
     })
@@ -78,13 +71,11 @@ export class ChatBoxComponent implements OnInit {
     this.userService.getData(this.senderUid).subscribe(data=>{
       this.currentUser = data
     })
-
     const trigger=document.getElementById('input')
     if(trigger != null){
       trigger.addEventListener('keydown',(e)=>{
         if(e.code == 'Enter'){
           this.sendMessage()
-
         }
       })
     }
@@ -96,14 +87,6 @@ export class ChatBoxComponent implements OnInit {
       this.order ='sendingDate'
       window.scrollTo(0, document.body.scrollHeight);
       this.dataofSenderMessage.forEach(ele=>{
-        if(ele.sendingSingleDate == new Date().getDate()){
-          ele.dateStatus = 'today'
-        }else if(new Date().getDate() - ele.sendingSingleDate == 1){
-          ele.dateStatus = 'yesterday'
-        }else{
-          ele.dateStatus = 'fewDays'
-        }
-
         if(ele.senderUid == this.senderUid){
           ele.status = 'Sending'
         }else {
@@ -122,6 +105,7 @@ export class ChatBoxComponent implements OnInit {
     this.saveMessageDetails()
     this.cancel()
   }
+
   saveSenderDetail(){
     this.userService.getData(this.senderUid).subscribe(data=>{
       this.currentUser = data
@@ -159,7 +143,6 @@ export class ChatBoxComponent implements OnInit {
       id:nums,
       sendingTime:+new Date(),
       sendingSingleDate:new Date().getDate(),
-      dateStatus:'today',
       sendingDate:moment().format('MMM-DD | hh:mm:ss a')
     })
   }
@@ -167,8 +150,6 @@ export class ChatBoxComponent implements OnInit {
   async cancel(){
     await this.chatForm.reset()
   }
-
-  
 
   disableContextMenu(){
     this.contextmenu= false;
@@ -194,7 +175,6 @@ export class ChatBoxComponent implements OnInit {
 
   delete(){
     const totalTime = Math.abs(+new Date() - this.msgUid.sendingTime)
-
     if(totalTime > 300000){
       Swal.fire({
         icon:'error',
@@ -206,5 +186,4 @@ export class ChatBoxComponent implements OnInit {
     }
   } 
 
- 
 }

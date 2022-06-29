@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationService } from 'src/app/service/notification.service';
-import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
-
+import { UserService } from 'src/app/service/user.service';
+import { NotificationService } from 'src/app/service/notification.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',

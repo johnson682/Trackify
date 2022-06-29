@@ -11,21 +11,17 @@
     z-index:-1;
   }
 #navbar {
-  background-color:#7386D5;// Large padding which will shrink on scroll (using JS) */
-  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
-  position: fixed; /* Sticky/fixed navbar */
+  background-color:#7386D5;
+  transition: 0.4s;
+  position: fixed; 
   width: 100%;
-  top: 0; /* At the top */
+  top: 0; 
   z-index: 100;
-  padding: 8px;
   display: inline-flex;
-
 }
 
-/* Style the navbar links */
 #navbar a {
   float: left;
-//   color: white;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -34,21 +30,17 @@
   transition-duration: 0.4s;
 }
 
-/* Style the logo */
 #navbar #brand {
   font-size: 35px;
   transition: 0.4s;
   color: white;
 }
 
-
-/* Links on mouse-over */
 #navbar a:hover {
   transition-duration: 0.4s;
   color: #7386D5;;
 }
 
-/* Style the active/current link */
 #navbar a.active {
   background-color: white;
   color: #7386D5;;
@@ -59,8 +51,7 @@
 	  padding-left: 300px;
 	}
 }
-  
-  /* Sidebar */
+
 .sidebar {
   position: fixed;
   background-color:#7386D5;
@@ -75,35 +66,33 @@
     color: white;
   }
 }
-
-
-
   
 @media (max-width: 991.98px) {
-    .sidebar {
-        width: 100%;
-        height: fit-content;
-        background-color:#7386D5;
-        margin-top: 50px;
-    }
+  .sidebar {
+    width: 100%;
+    height: fit-content;
+    background-color:#7386D5;
+    margin-top: 50px;
+  }
 }
+
 .sidebar .active {
-    background-color:#ffffff;
-    color:#7386D5;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  background-color:#ffffff;
+  color:#7386D5;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
 .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .accordion{
-    background:#7386D5;
+  background:#7386D5;
 }
 

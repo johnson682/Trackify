@@ -15,7 +15,6 @@ export class MessageService{
         this.data = db.collection(this.dbpath)
     }
 
-    
     add(senderUid,reciverUid,newMessage){
        this.sender(senderUid,reciverUid).add(newMessage)
        this.reciver(senderUid,reciverUid).add(newMessage)
@@ -31,26 +30,20 @@ export class MessageService{
 
     getAllChatUser(senderUid){
         return this.getData(senderUid).snapshotChanges()
-            .pipe(
-                map(a=>a.map(c=>
-                    ({uid:c.payload.doc.id,...c.payload.doc.data()})
-                ))
-            )
+        .pipe(
+            map(a=>a.map(c=>
+                ({uid:c.payload.doc.id,...c.payload.doc.data()})
+            ))
+        )
     }
-
-    getReceiverChatUser(reciverUid){
-        return this.getData(reciverUid).valueChanges()
-    }
-
-    updateuserDetails(senderUid,reciverUid,newData){
-        this.data.doc(reciverUid).collection('Message').doc(senderUid).update(newData)
-    }
-
 
     delete(senderUid,reciverUid,msgId){
         this.sender(senderUid,reciverUid).doc(msgId.uid).delete()
         
-        this.getAllReciverMessage(senderUid,reciverUid).subscribe(data=>{
+        this.reciver(senderUid,reciverUid).snapshotChanges()
+        .pipe(map(a=>a.map(c=>
+            ({uid:c.payload.doc.id,...c.payload.doc.data()})
+        ))).subscribe(data=>{
             data.forEach(ele=>{
                 if(ele["id"] == msgId.id){
                     this.reciver(senderUid,reciverUid).doc(ele.uid).delete()
@@ -68,13 +61,6 @@ export class MessageService{
             })
         })
     }
-
-    
-    getAllReciverMessage(senderUid,reciverUid){
-        return this.reciver(senderUid,reciverUid).snapshotChanges().pipe(map(a=>a.map(c=>
-            ({uid:c.payload.doc.id,...c.payload.doc.data()})
-            )))
-        }
         
     getAllSenderMessage(senderUid,reciverUid){
         return this.sender(senderUid,reciverUid) .snapshotChanges().pipe(map(a=>a.map(c=>

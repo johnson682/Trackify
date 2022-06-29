@@ -14,15 +14,13 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-  today:any
+  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+  year:any;month:any;projectName:any;date:any;singleDate:any;
   addtaskForm:FormGroup
+  isOpen = false;
+  today:any
   uid:any
   upstartedDate=false
-
-  isOpen = false;
-
-  year:any;month:any;projectName:any;date:any;singleDate:any;
-  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
 
   constructor(
     private router:Router,
@@ -58,26 +56,18 @@ export class AddComponent implements OnInit {
   }
 
   onCancel(){
-
     document.getElementById('exampleModal1').classList.add('animate__animated','animate__fadeOut')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
-    
   }
 
   change(event){
     const month=moment(event).format('MMM')
-
     const date=moment(event).format('DD-MM-YYYY')
     this.year=new Date(event).getFullYear()
     this.singleDate = new Date(event).getDate()
-
     this.date = `${date}`
     this.month = `${month}`
-    
-    
   }
  
-
-  
 }

@@ -1,15 +1,14 @@
 #footer{
-  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
-  position: fixed; /* Sticky/fixed navbar */
-  bottom: 10px; /* At the top */
+  transition: 0.4s; 
+  position: fixed; 
+  bottom: 10px;
   z-index: 100;
   display: inline-flex;
-  
 }
 
 .contextmenu{
-    position: fixed;
-    background-color:white;
-    box-shadow:2px solid black;
-    padding: 5px;
-  }
+  position: fixed;
+  background-color:white;
+  box-shadow:2px solid black;
+  padding: 5px;
+}

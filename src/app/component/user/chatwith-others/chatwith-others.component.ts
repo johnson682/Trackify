@@ -16,23 +16,20 @@ export class ChatwithOthersComponent implements OnInit {
   
   users:any;
   userData:any;
-  uid:any
-  dataofSenderMessage:any;
+  uid:any;
   reciverUid:any
-
-  data:any
-  count:any
-  allData:any
   order:any
-  userId:any
 
   contextmenu = false;
   contextmenuX = 0;
   contextmenuY = 0;
-  msgUid:any;
 
   userFilter: any = { name: '' };
-  constructor(private router:Router,private userService:UserService,private message:MessageService,private route:ActivatedRoute) {
+
+  constructor(
+    private router:Router,
+    private userService:UserService,
+    private message:MessageService) {
   }
   
   ngOnInit(): void {
@@ -40,22 +37,16 @@ export class ChatwithOthersComponent implements OnInit {
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.init()
-
     document.body.addEventListener('click',()=>{
       this.disableContextMenu()
     })
   }
 
   init(){
-
     this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
       console.log(this.users);
-      
     })
-
-    
-
     this.userService.getData(this.uid).subscribe(data=>{
       this.userData = data
     })
@@ -72,14 +63,12 @@ export class ChatwithOthersComponent implements OnInit {
   }
 
   onrightClick(event,Recivemsg){
-    
-
     this.contextmenuX=event.clientX
     this.contextmenuY=event.clientY
     this.contextmenu=true;
     this.reciverUid = Recivemsg.uid
-
     const deleteMsg = document.getElementById('deleteMsg')
+
     if(deleteMsg != null){
       deleteMsg.addEventListener('click',()=>{
         this.deleteAll()
@@ -89,10 +78,5 @@ export class ChatwithOthersComponent implements OnInit {
       this.contextmenu= false;
     },2000)
 
-    
-
   }
-
-
-  
 }

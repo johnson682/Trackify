@@ -8,13 +8,15 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  totalHRS =0;totalTask=0;
+  totalTask=0;
   datasFromLogin:any;datasFromTimetracker:any;uid:any;
   file:any
   
   time:any;month:any;task:any;year:any
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
-  years=[];day=[]
+  years=[];
+  date=[];
+  dateTotal:any;
 
   constructor(
     private tasksheetService:TasksheetService) { }
@@ -28,7 +30,7 @@ export class DashboardComponent implements OnInit {
       this.years.push(i)
     }
     for(let i=1;i<=31;i++){
-      this.day.push(i)
+      this.date.push(i)
     }
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
@@ -62,11 +64,9 @@ export class DashboardComponent implements OnInit {
 
 
   changeDay(event){
-  
     if(event != undefined){
       this.dataFromEventChange(event,this.uid,this.month,this.year,'ActivityLog')
       this.dataFromEventChange(event,this.uid,this.month,this.year,'task')
- 
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
@@ -82,9 +82,20 @@ export class DashboardComponent implements OnInit {
       })
     }
   }
+  getDaysInMonth(month,year) {
+    return new Date(year, month, 0).getDate();
+  };
+
   changeMonth(event){
     if(event != undefined){
       this.month = event
+      let temp =[];
+      const monthNum = moment().month(event).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFromEventChange(event,this.uid,this.month,this.year,'ActivityLog')
       this.dataFromEventChange(event,this.uid,this.month,this.year,'task')
     }
@@ -93,6 +104,13 @@ export class DashboardComponent implements OnInit {
   changeYear(event){
     if(event != undefined){
       this.year= event
+      let temp =[];
+      const monthNum = moment().month(this.month).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFromEventChange(event,this.uid,this.month,this.year,'ActivityLog')
       this.dataFromEventChange(event,this.uid,this.month,this.year,'task')
     }

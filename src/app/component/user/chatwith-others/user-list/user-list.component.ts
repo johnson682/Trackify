@@ -16,10 +16,8 @@ export class UserListComponent implements OnInit {
   constructor(private router:Router,private userService:UserService) { }
 
   ngOnInit(): void {
-
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
-
     this.userService.userRef.valueChanges().subscribe(data=>{
       this.users = data
     })

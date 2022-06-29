@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import Swal from 'sweetalert2';
+
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
-import Swal from 'sweetalert2';
-
 @Component({
   selector: 'app-userlogin-activity',
   templateUrl: './userlogin-activity.component.html',
   styleUrls: ['./userlogin-activity.component.scss']
 })
-export class UserloginActivityComponent implements OnInit {
-  uid:any
-  
-  fileName:any
-  stopButton=false
-  stopTime:any
-  localTimeStart:any
-  localTimeEnd:any
-  dateTotal:any
 
-  month:any;
-  date=[]
-  task:any;
+export class UserloginActivityComponent implements OnInit {
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+  stopButton=false;
+  date=[]
   years=[]
+  uid:any;
+  stopTime:any;
+  localTimeStart:any;
+  localTimeEnd:any;
+  dateTotal:any;
+  month:any;
+  task:any;
   year:any
-  datas:any
-  order:any 
+  order:any
+  datasFromLogin:any
+  file:any
+  time:any;
+
   constructor(
     private tasksheetService:TasksheetService,
     private userService:UserService,
@@ -43,7 +44,6 @@ export class UserloginActivityComponent implements OnInit {
         this.stopButton = true
       }
       this.localTimeStart = datas.localTimeStart
-      
     })
     
     this.month= moment().format('MMM');
@@ -59,14 +59,13 @@ export class UserloginActivityComponent implements OnInit {
     for(let i=1;i<=this.dateTotal;i++){
       this.date.push(i)
     }
-    let date = new Date().getDate()
 
+    let date = new Date().getDate()
     this.order= 'startTime'
+
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
       this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === this.month && obj.year === this.year )   
-      console.log(this.file);
-      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -86,7 +85,6 @@ export class UserloginActivityComponent implements OnInit {
   };
 
   stopTimer(){
-
     this.notificationService.sweetalert2Modal(
       'Are you sure want to Stop?',
       'You will not be able to restart activity!',
@@ -98,40 +96,35 @@ export class UserloginActivityComponent implements OnInit {
       if (result.value) {
         this.userService.updateUserData(this.uid,{StopStatus:false})
         this.userService.userRef.doc(this.uid).get().subscribe(data=>{
-
           const datas= data.data()
           if(!datas.StopStatus){
             this.stopButton = false
           }
           this.localTimeEnd = moment().format('hh:mm a')
           this.stopTime = new Date().getTime()
+          const  totalTime = this.stopTime - datas.startTime
+          const time = this.tasksheetService.convertMsToHM(totalTime) 
           
-            const  totalTime = this.stopTime - datas.startTime
-             
-            const time = this.tasksheetService.convertMsToHM(totalTime) 
-            
-            this.tasksheetService.add(this.uid,{
-              startTimeInMS:datas.startTime,
-              stopTimeInMs:this.stopTime,
-              startTime:datas.localTimeStart,
-              endTime:this.localTimeEnd,
-              month:moment().format('MMM'),
-              year:new Date().getFullYear(),
-              date:new Date().getDate(),
-              totalHours:time,
-              totalTime:totalTime,
-              localDate:moment().format('DD-MM-YYYY')
-      
-            },'ActivityLog')
+          this.tasksheetService.add(this.uid,{
+            startTimeInMS:datas.startTime,
+            stopTimeInMs:this.stopTime,
+            startTime:datas.localTimeStart,
+            endTime:this.localTimeEnd,
+            month:moment().format('MMM'),
+            year:new Date().getFullYear(),
+            date:new Date().getDate(),
+            totalHours:time,
+            totalTime:totalTime,
+            localDate:moment().format('DD-MM-YYYY')
     
-          }) 
-          this.notificationService.sweetalert2('warning','Timer Stopped!')
-          
+          },'ActivityLog')
+  
+        }) 
+        this.notificationService.sweetalert2('warning','Timer Stopped!') 
       }
-   })
-    
-      
+    })   
   }
+
   delete(time){
     this.notificationService.sweetalert2Modal(
       'Are you sure want to Delete?',
@@ -147,13 +140,6 @@ export class UserloginActivityComponent implements OnInit {
       } else if (result.dismiss === Swal.DismissReason.cancel) {}
     }) 
   }
-
-  datasFromLogin:any
-  file:any
-  time:any;
-  totalHRS=0
-
-
 
   changeDay(event){
     if(event != undefined){
@@ -173,9 +159,17 @@ export class UserloginActivityComponent implements OnInit {
       })
     }
   }
+
   changeMonth(event){
     if(event != undefined){
       this.month= event
+      let temp =[];
+      const monthNum = moment().month(event).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
@@ -183,9 +177,17 @@ export class UserloginActivityComponent implements OnInit {
   changeYear(event){
     if(event != undefined){
       this.year = event
+      let temp =[];
+      const monthNum = moment().month(this.month).format('M')
+      this.dateTotal = this.getDaysInMonth(monthNum,this.year)
+      for(let i=1;i<=this.dateTotal;i++){
+        temp.push(i)
+      }
+      this.date = [...temp]
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }
   }
+
   add(total,num){
     return total + num
   }
@@ -193,11 +195,7 @@ export class UserloginActivityComponent implements OnInit {
   dataFronChangeEvent(event,uid,month,year){
     this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      console.log(this.datasFromLogin);
-      
       this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event  || obj.year == event)
-      console.log(this.file);
-      
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-
-
 @Component({
   selector: 'app-addtimetracker',
   templateUrl: './addtimetracker.component.html',
@@ -24,7 +23,6 @@ export class AddtimetrackerComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = JSON.parse(localStorage.getItem('user'))
-
     this.addTimeTrackerForm = new UntypedFormGroup({
       "projectType":new UntypedFormControl(this.type,Validators.required),
       "projectName":new UntypedFormControl('',Validators.required),
@@ -59,14 +57,12 @@ export class AddtimetrackerComponent implements OnInit {
         month:month,
         year:year,
         day:day,
-        date:date
-        
+        date:date  
       },
       'taskTracker'
     )
     this.onCancel()
   }
-
 
   onCancel(){
     this.router.navigate(['/user/user-main/timetracker/timeTrackerTable'])

@@ -3,41 +3,38 @@ header{
   animation-duration: 1.5s;
 }
   
-  .badge-dot {
+.badge-dot {
   border-radius: 50%;
   height: 10px;
   width: 10px;
   margin-left: 2.9rem;
   margin-top: -.75rem;
-  }
-
-  
-
-  .close-navbar-toggler{
-    position:absolute;
-    top:0;
-    left:0;
-    height:100%;
-    width:100%;
-    z-index:1;
-    cursor:pointer;
-  }
-  .close-navbar-toggler.collapsed{
-    z-index:-1;
-  }
-#navbar {
-  // overflow: hidden;
-  background-color: #f1f1f1;// Large padding which will shrink on scroll (using JS) */
-  transition: 0.4s; /* Adds a transition effect when the padding is decreased */
-  position: fixed; /* Sticky/fixed navbar */
-  width: 100%;
-  top: 0; /* At the top */
-  z-index: 100;
-  display: inline-flex;
-  padding: 8px;
 }
 
-/* Style the navbar links */
+.close-navbar-toggler{
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  z-index:1;
+  cursor:pointer;
+}
+
+.close-navbar-toggler.collapsed{
+  z-index:-1;
+}
+
+#navbar {
+  background-color: #f1f1f1;
+  transition: 0.4s;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  display: inline-flex;
+}
+
 #navbar a {
   float: left;
   color: black;
@@ -49,19 +46,16 @@ header{
   transition-duration: 0.4s;
 }
 
-/* Style the logo */
 #navbar #brand {
   font-size: 35px;
   transition: 0.4s;
 }
 
-/* Links on mouse-over */
 #navbar a:hover {
   transition-duration: 0.4s;
   color: red;
 }
 
-/* Style the active/current link */
 #navbar a.active {
   background-color: white;
   color: red;
@@ -73,7 +67,6 @@ header{
 	}
 }
   
-  /* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -83,6 +76,7 @@ header{
   width: 400px;
   z-index: 600;
 }
+
 .sidebar a{
   text-decoration:none;
   color: black;
@@ -101,26 +95,27 @@ header{
 }
   
 @media (max-width: 991.98px) {
-    .sidebar {
-        width: 100%;
-        height: fit-content;
-        background: white;
-        margin-top: 50px;
-    }
+  .sidebar {
+    width: 100%;
+    height: fit-content;
+    background: white;
+    margin-top: 50px;
+  }
 }
+
 .sidebar .active {
-    border-radius: 5px;
-    background:#7386D5;
-    color: white;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  border-radius: 5px;
+  background:#7386D5;
+  color: white;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
 .sidebar-sticky {
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 

@@ -9,7 +9,6 @@
       </div>
       <div class="col">
         <!-- <ng-select
-
           style="width: 100px;float:right;" 
           [items]="monthNames" 
           [(ngModel)]="task.month">
@@ -33,41 +32,32 @@
       </tr>
     </thead>
     <tbody> 
-        <tr *ngFor="let project of projects ">
-            <td>
-                <p class="mb-0">{{project.projectName}}</p>
-            </td>
-            <td>
-                <p class=" mb-0">{{project.description}}</p>
-            </td>
-            <td >
-                <p class=" mb-0">{{project.status}}</p>
-            </td>
-            <td *ngIf="project.status == 'complete'"> 
-                <p class=" mb-0">
-                    {{project.startedDate}} 
-                    <br>
-                    <span>to</span>
-                    <br>
-                    {{project.endedDate}}
-                </p>
-            </td>
-            <td *ngIf="project.status != 'complete'"> 
-                <p class=" mb-0">
-                    {{project.startedDate}} 
-                </p>
-            </td>
-          
-          <td>
-            <button class="btn btn-outline-danger btn-sm"style="border-radius: 100px;" (click)="delete(project)"><i class="fas fa-trash"></i></button>
+      <tr *ngFor="let project of projects ">
+        <td><p class="mb-0">{{project.projectName}}</p></td>
+        <td><p class=" mb-0">{{project.description}}</p></td>
+        <td><p class=" mb-0">{{project.status}}</p></td>
+        <td *ngIf="project.status == 'complete'"> 
+          <p class=" mb-0">
+            {{project.startedDate}} 
             <br>
-            <button class="btn btn-sm" (click)="add(project)" style="border-radius: 100px;"><i class="fas fa-share"></i></button>
-          </td>
-          <td style="width: 150px;"> 
-            <ng-select [items]="projectStatus" [clearable]="false" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project)"></ng-select> 
-          </td>
-        </tr>
-      </tbody>
+            <span>to</span>
+            <br>
+            {{project.endedDate}}
+          </p>
+        </td>
+        <td *ngIf="project.status != 'complete'"> 
+          <p class=" mb-0">{{project.startedDate}}</p>
+        </td>
+        <td>
+          <button class="btn btn-outline-danger btn-sm"style="border-radius: 100px;" (click)="delete(project)"><i class="fas fa-trash"></i></button>
+          <br>
+          <button class="btn btn-sm" (click)="add(project)" style="border-radius: 100px;"><i class="fas fa-share"></i></button>
+        </td>
+        <td style="width: 150px;"> 
+          <ng-select [items]="projectStatus" [clearable]="false" placeholder="change status" [(ngModel)]="project.status" (change)="onChangeStatus($event,project)"></ng-select> 
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
 <router-outlet></router-outlet>

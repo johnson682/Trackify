@@ -15,15 +15,12 @@ export class ContactUsComponent implements OnInit {
   constructor(private adminService:AdminProfileService,private tasksheetService:TasksheetService) { }
 
   ngOnInit(): void {
-
     this.adminService.adminRef.valueChanges().subscribe(data=>{
       this.admin = data
     })
   }
 
   async Contact(){
-
-   
     const { value: formValues } = await Swal.fire({
       title: 'Contact',
       html:

@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
+
 import { NotificationService } from 'src/app/service/notification.service';
 import { UserService } from 'src/app/service/user.service';
-
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
@@ -55,13 +55,11 @@ export class UserEditComponent implements OnInit {
     let Address = this.userEditForm.value.Address
     let mobile = this.userEditForm.value.mobile
     this.userService.updateUserData(this.uid,{name:name,dob:dob,Address:Address,mobile:mobile})
-    
     this.notificationService.sweetalert2('success','Updated Successfully')
     this.onCancel()
   }
   onCancel(){
     document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeOut')
-
     this.router.navigate(['/user/user-main/userprofile'])
     document.getElementById("closeModalButton").click();
 

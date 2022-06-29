@@ -10,18 +10,20 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
+  
+  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   addtaskForm:UntypedFormGroup
-  id:any
-  uid:any
-  update=false
-  date:any
-  datas:any
   today = new Date()
   isOpen=false
-  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+
+  id:any
+  uid:any
+  date:any
   task:any
   month:any;
   year:any;
+  singleDate:any;
+
   constructor(
     private router:Router,
     private tasksheet:TasksheetService,
@@ -56,6 +58,7 @@ export class EditComponent implements OnInit {
       })
     }) 
   }
+
   init(task){
     this.addtaskForm.patchValue({
       Name:task.projectName,
@@ -64,7 +67,6 @@ export class EditComponent implements OnInit {
       description:task.description
     })
   }
-
 
   onSubmit(){    
     let projectName = this.addtaskForm.value.Name
@@ -87,18 +89,15 @@ export class EditComponent implements OnInit {
     document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeOut')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
-
   }
-  singleDate:any
+
   change(event){
     const month=moment(event).format("MMM")
-
     const date=moment(event).format("DD-MM-YYYY")
     this.year=new Date(event).getFullYear()
     this.singleDate =new Date(event).getDate()
-
     this.date = `${date}`
     this.month = `${month}`
-
   }
+
 }
