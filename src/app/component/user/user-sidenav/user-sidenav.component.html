@@ -5,24 +5,24 @@
       <div class="list-group list-group-flush mx-3 mt-4">
         <a routerLink="dashboard" routerLinkActive="active" 
           class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i>
+          <i class="fas fa-chart-line"></i>&nbsp;
           <span>Dashboard</span>
         </a>
         <a routerLinkActive="active" routerLink="tasksheet" 
           class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-area fa-fw me-3"></i>
+          <i class="fas fa-tasks"></i>&nbsp;
           <span>Tasksheet</span>
         </a>
         <a 
           routerLink="timetracker/loginActivity" routerLinkActive="active" 
           class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-history fa-fw me-3"></i>
+          <i class="fas fa-history"></i>&nbsp;
           <span>Login Activity</span>
         </a>
         <a 
           routerLink="contact" routerLinkActive="active" 
           class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-address-book fa-fw me-3"></i>
+          <i class="fas fa-address-book"></i>&nbsp;
           <span>Contact Us</span>
         </a>
       </div>
@@ -54,6 +54,9 @@
         <span>Trackify</span>
       </a>
       <ul class="navbar-nav ms-auto d-flex flex-row" >
+        <!-- <li class="nav-item">
+          <app-dark-mode></app-dark-mode>
+        </li> -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
@@ -71,9 +74,9 @@
             <span>&nbsp;{{user?.name}}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="userprofile">{{'USER.MYPROFILE' | translate}}</a></li>
-            <li><a class="dropdown-item" routerLink="/user/Chat">{{'USER.CHAT' | translate}}</a></li>
-            <li><a class="dropdown-item" (click)="logout()">{{'USER.LOGOUT' | translate}}</a></li>
+            <li><a class="dropdown-item" routerLink="userprofile"><i class="fas fa-user"></i>&nbsp;{{'USER.MYPROFILE' | translate}}</a></li>
+            <li><a class="dropdown-item" routerLink="/user/Chat"><i class="fas fa-comment"></i>&nbsp;{{'USER.CHAT' | translate}}</a></li>
+            <li><a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i>&nbsp;{{'USER.LOGOUT' | translate}}</a></li>
           </ul>
         </li>
       </ul>

@@ -7,7 +7,7 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body" >
-          <a style="float:right" data-bs-toggle="tooltip" title="Remove Profile" (click)="removeImg()"><span>&nbsp;X</span></a>
+          <a style="float:right" *ngIf="imageFile != null" data-bs-toggle="tooltip" title="Remove Profile" (click)="removeImg()"><span>&nbsp;X</span></a>
         </div>
         <div class="card-body text-center">
           <a (click)="addprofile()" data-bs-toggle="tooltip" title="Edit Profile" id="profile">
@@ -91,6 +91,15 @@
             </div>
             <div class="col-sm-9">
               <p class="text-muted mb-0">{{users?.Address}}</p>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <p class="mb-0">DOB</p>
+            </div>
+            <div class="col-sm-9">
+              <p class="text-muted mb-0">{{users?.dob}}</p>
             </div>
           </div>
         </div>

@@ -50,9 +50,6 @@ export class NotificationService {
       showClass: {
         popup: 'animate__animated animate__fadeIn'
       },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOut'
-      },
       iconColor:'red',
       showCancelButton: showCancelButton,
       confirmButtonText: confirmButtonText,

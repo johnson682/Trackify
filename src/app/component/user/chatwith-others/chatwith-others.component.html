@@ -1,7 +1,40 @@
 
 <header>
-  <nav id="navbarSupportedContent" class="collapse d-lg-block sidebar collapse" style="margin-top: 100px;border-right: 3px solid #7386D5;">
+  <nav id="navbarSupportedContent" class="collapse d-lg-block sidebar collapse" style="border-right: 3px solid #7386D5;">
     <div class="position-sticky">
+      <div class="row">
+        <div class="col">
+          <a class="navbar-brand" id="brand">
+            <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="" width="60px">&nbsp;
+          </a>
+        </div>
+        <div class="col">
+          <ul class="navbar-nav ms-auto d-flex flex-row">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <span>&nbsp;{{userData?.name}}</span>
+                <img
+                  src="{{userData?.imageFile != null ? userData?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                  class="rounded-circle"
+                  height="30"
+                  width="30"
+                  alt="Avatar"
+                  loading="lazy"/>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" routerLink="/user"><i class="fas fa-home"></i>&nbsp;Back to home</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+
       <div class="p-3">
         <div class="input-group rounded mb-3">
           <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
@@ -10,6 +43,7 @@
             <i class="fas fa-search"></i>
           </span>
         </div>
+
         <ul class="list-unstyled mb-0">
           <li class=" border-bottom" *ngFor="let user of users | filterBy: userFilter | orderBy:order">
             <div (click)="disableContextMenu()" oncontextmenu="return false;">
@@ -25,22 +59,22 @@
                   </div>&nbsp;
                   <div class="pt-1">
                     <p class="fw-bold mb-0">{{user?.name}}</p>
-                    <p class="small">{{user?.newMessage}}</p>
+                    <p class="small" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:15ch;">{{user?.newMessage}}</p>
                   </div>
                 </div>
                 <div class="pt-1">
                   <p class="small mb-1" >{{ user?.newMessageTime }}</p>
-                  <!-- <span class="badge bg-danger rounded-pill float-end" *ngIf="!user.viewStatus && user.uid != uid">1</span> -->
                 </div>
               </a>
               <div *ngIf="contextmenu">
                 <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
-                    <a style="text-decoration: none;" id="deleteMsg" (click)="deleteAll()">Delete All Msg</a>
+                    <a style="text-decoration: none;" id="deleteMsg" (click)="deleteAll()" style="color:black ;">Delete All Msg</a>
                 </div>
               </div>
             </div>
           </li>
         </ul>
+        
         <button class="btn" style="position: fixed;background-color:#7386D5;color:white;bottom:30px;left:320px;" routerLink="/user/Chat/userlist" 
           data-toggle="modal" 
           data-target="#exampleModal1" 
@@ -51,7 +85,10 @@
       </div>
     </div>
   </nav>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbar">
+</header>
+
+<main id="main">
+  <div>
     <button
       class="navbar-toggler"
       type="button"
@@ -61,41 +98,8 @@
       aria-expanded="true"
       aria-label="Toggle navigation"
       id="btntoggle">
-      <i class="fas fa-bars"></i>
+    <i class="fas fa-bars"></i>
     </button>
-    <div class="container-fluid">
-      <a class="navbar-brand" id="brand">
-        <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="" width="60px">&nbsp;
-        <span>Trackify</span>
-      </a>
-      <ul class="navbar-nav ms-auto d-flex flex-row">
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <img
-              src="{{userData?.imageFile != null ? userData?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-              class="rounded-circle"
-              height="30"
-              width="30"
-              alt="Avatar"
-              loading="lazy"/>
-            <span>&nbsp;{{userData?.name}}</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="/user">Back to home</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
-<main id="main" style="margin-top: 45px;" >
-  <div class="pt-4">&nbsp;
     <router-outlet></router-outlet>
   </div>
 </main>

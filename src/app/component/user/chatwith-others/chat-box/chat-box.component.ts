@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
+import { FileUpload } from 'src/app/model/fileUpload';
+import { FileUploadService } from 'src/app/service/fileupload.service';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -33,6 +35,8 @@ export class ChatBoxComponent implements OnInit {
     private message:MessageService,
     private userService:UserService,
     private route:ActivatedRoute,
+    private fileiploadService:FileUploadService,
+    private fileUploadService:FileUploadService,
   ){ 
     this.route.params.subscribe((params:Params)=>{
       this.reciverUid = params['id']
@@ -96,7 +100,34 @@ export class ChatBoxComponent implements OnInit {
       
     })
   }
-  
+  percentage: number;
+  currentFile:FileUpload
+  async fileUpload(){
+    const { value: file } = await Swal.fire({
+      title: 'Select File',
+      input: 'file',
+      showClass: {
+        popup: 'animate__animated animate__fadeIn'
+      },
+      inputAttributes: {
+        'aria-label': 'Upload your file'
+      }
+    })
+    
+    if (file) {
+      this.userMessage = file.name
+      this.currentFile = new FileUpload(file)
+      this.fileiploadService.pushFileStorage(this.currentFile,this.senderUid,this.reciverUid).subscribe(data=>{
+        this.percentage = Math.round(data)
+      }),error=>{
+        console.log(error);
+      }
+
+      this.saveSenderDetail()
+      this.saveReciverDetails()
+    }
+  }
+
   sendMessage(){
     this.userMessage= this.chatForm.value.chat
     window.scrollTo(0, document.body.scrollHeight);
@@ -106,16 +137,22 @@ export class ChatBoxComponent implements OnInit {
     this.cancel()
   }
 
+  lastData:any
+
   saveSenderDetail(){
     this.userService.getData(this.senderUid).subscribe(data=>{
       this.currentUser = data
-      this.message.addSenderDetail(this.senderUid,this.reciverUid,{
-        name:this.currentUser.name,
-        email:this.currentUser.email,
-        imageFile:this.currentUser.imageFile,
-        uid:this.currentUser.uid,
-        newMessage:this.userMessage,
-        newMessageTime:moment().format('MMM-DD | hh:mm a')
+      this.message.getLastData(this.senderUid,this.reciverUid).subscribe(data=>{
+        this.lastData = data[0]
+        this.message.addSenderDetail(this.senderUid,this.reciverUid,{
+          name:this.currentUser.name,
+          email:this.currentUser.email,
+          imageFile:this.currentUser.imageFile,
+          uid:this.currentUser.uid,
+          newMessage:this.lastData.message,
+          newMessageTime:this.lastData.sendingDate
+        })
+
       })
     })
   }
@@ -123,13 +160,16 @@ export class ChatBoxComponent implements OnInit {
   saveReciverDetails(){
     this.userService.getData(this.reciverUid).subscribe(data=>{
       this.selectedUser = data
-      this.message.addReciverDetails(this.senderUid,this.reciverUid,{
-        name:this.selectedUser.name,
-        email:this.selectedUser.email,
-        imageFile:this.selectedUser.imageFile,
-        uid:this.selectedUser.uid,
-        newMessage:this.userMessage,
-        newMessageTime:moment().format('MMM-DD | hh:mm a')
+      this.message.getLastData(this.senderUid,this.reciverUid).subscribe(data=>{
+        this.lastData = data[0]
+        this.message.addReciverDetails(this.senderUid,this.reciverUid,{
+          name:this.selectedUser.name,
+          email:this.selectedUser.email,
+          imageFile:this.selectedUser.imageFile,
+          uid:this.selectedUser.uid,
+          newMessage:this.lastData.message,
+          newMessageTime:this.lastData.sendingDate
+        })
       })
     })
   }
@@ -140,6 +180,7 @@ export class ChatBoxComponent implements OnInit {
       message:this.userMessage,
       senderUid:this.senderUid,
       status:'Sending',
+      urlStatus:false,
       id:nums,
       sendingTime:+new Date(),
       sendingSingleDate:new Date().getDate(),
@@ -156,6 +197,7 @@ export class ChatBoxComponent implements OnInit {
   }
 
   onrightClick(event,Recivemsg){
+
     this.contextmenuX=event.clientX
     this.contextmenuY=event.clientY
     this.contextmenu=true;
@@ -183,6 +225,10 @@ export class ChatBoxComponent implements OnInit {
       })
     }else{
       this.message.delete(this.senderUid,this.reciverUid,this.msgUid)
+
+      if(this.msgUid.urlStatus){
+        this.fileUploadService.deleteFile(this.msgUid.message,this.senderUid,this.reciverUid)
+      }
     }
   } 
 

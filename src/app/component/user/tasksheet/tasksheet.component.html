@@ -11,9 +11,10 @@
         data-toggle="modal" 
         data-target="#exampleModal1" 
         data-backdrop="static" 
-        data-keyboard="false">Add
+        data-keyboard="false">
+        <i class="fas fa-plus"></i>&nbsp;Add
       </button>
-      <button class="btn btn-sm" (click)="exportExcel()" >Export</button>
+      <button class="btn btn-sm" (click)="exportExcel()" ><i class="fas fa-table"></i>&nbsp;Export</button>
     </div>
     <div class="col">
       <ng-select
@@ -48,7 +49,7 @@
     <thead class="bg-light">
       <tr>
         <th>S.NO</th>
-        <th>startedDate <i class="fas fa-arrow-down"></i></th>
+        <th>Date <i class="fas fa-arrow-down"></i></th>
         <th>projectType</th>
         <th>projectName</th>
         <th>Description</th>
@@ -77,17 +78,17 @@
           <td style="width: 150px;"> 
             <button 
               type="button" 
-              class="btn btn-outline btn-sm" 
-              style="border-radius: 100px;cursor: pointer;border-color:#7386D5;color:#7386D5;" 
+              class="btn btn-outline rounded-circle" 
+              style="cursor: pointer;border-color:#7386D5;color:#7386D5;" 
               data-toggle="modal" 
               data-target="#exampleModal" 
               data-backdrop="static" 
               data-keyboard="false"
               (click)="onEditTask(task)" >
-              <i class="fas fa-pencil"></i>
+              <i class="fas fa-edit"></i>
             </button>
-            <button type="button" class="btn btn-outline-danger btn-sm" style="border-radius: 100px;" (click)="onDelete(task)">
-              <i class="fas fa-trash"></i>
+            <button type="button" class="btn btn-outline rounded-circle" style="cursor: pointer;border-color:red;color:red;"  (click)="onDelete(task)">
+              <i class="fas fa-trash-alt"></i>
             </button>
           </td>
         </tr>

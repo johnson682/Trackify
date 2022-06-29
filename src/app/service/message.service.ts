@@ -29,6 +29,8 @@ export class MessageService{
     }
 
     getAllChatUser(senderUid){
+        console.log(senderUid);
+        
         return this.getData(senderUid).snapshotChanges()
         .pipe(
             map(a=>a.map(c=>
@@ -68,7 +70,6 @@ export class MessageService{
         )))
     }
 
-
     getData(uid){
         return this.data.doc(uid).collection('Message')
     }
@@ -80,8 +81,10 @@ export class MessageService{
         return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage')
     }
     
-    // getLastData(senderUid,reciverUid){
-    //     return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage',ref =>ref.orderBy('sendingDate').limitToLast(1)).snapshotChanges().pipe(map(a=>a.map(c=>({uid:c.payload.doc.id,...c.payload.doc.data()}))))
-    // }
+    getLastData(senderUid,reciverUid){
+        return this.data.doc(senderUid).collection('Message').doc(reciverUid)
+        .collection('newMessage',ref =>ref.orderBy('sendingDate').limitToLast(1))
+        .snapshotChanges().pipe(map(a=>a.map(c=>({uid:c.payload.doc.id,...c.payload.doc.data()}))))
+    }
 
 }

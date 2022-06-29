@@ -11,56 +11,15 @@ header{
   margin-top: -.75rem;
 }
 
-.close-navbar-toggler{
-  position:absolute;
+#btntoggle{
+  position:fixed;
+  display: none;
   top:0;
   left:0;
-  height:100%;
-  width:100%;
   z-index:1;
   cursor:pointer;
 }
 
-.close-navbar-toggler.collapsed{
-  z-index:-1;
-}
-
-#navbar {
-  background-color: #f1f1f1;
-  transition: 0.4s;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 100;
-  display: inline-flex;
-}
-
-#navbar a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 25px;
-  transition-duration: 0.4s;
-}
-
-#navbar #brand {
-  font-size: 35px;
-  transition: 0.4s;
-}
-
-#navbar a:hover {
-  transition-duration: 0.4s;
-  color: red;
-}
-
-#navbar a.active {
-  background-color: white;
-  color: red;
-}
-  
 @media (min-width: 991.98px) {
 	main {
 	  padding-left: 400px;
@@ -96,11 +55,18 @@ header{
   
 @media (max-width: 991.98px) {
   .sidebar {
-    width: 100%;
-    height: fit-content;
+    margin-top: 40px;
+    width: 400px;
+    transition-duration: .4s;
     background: white;
-    margin-top: 50px;
   }
+  #btntoggle{
+    position: fixed;
+    left:0;
+    top:0;
+    display: inline-flex;
+  }
+
 }
 
 .sidebar .active {
@@ -119,3 +85,10 @@ header{
   overflow-y: auto;
 }
 
+.border-bottom:hover{
+  background-color:#7386D5;
+  transition-duration: .4s;
+  a{
+    color: white;
+  }
+}

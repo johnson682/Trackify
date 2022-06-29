@@ -8,7 +8,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { OrderModule } from 'ngx-order-pipe';
-
 import { UserRoutingModule } from './user-routing.module';
 
 import { UserprofileComponent } from './userprofile/userprofile.component';
@@ -28,6 +27,7 @@ import { UserSidenavComponent } from './user-sidenav/user-sidenav.component';
 import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component';
 import { UserListComponent } from './chatwith-others/user-list/user-list.component';
 import { ChatwithOthersComponent } from './chatwith-others/chatwith-others.component';
+import { DarkModeComponent } from '../dark-mode/dark-mode.component';
 
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http)
@@ -49,7 +49,8 @@ export function HttpLoaderFactory(http:HttpClient){
     UserSidenavComponent,
     ChatBoxComponent,
     UserListComponent,
-    ChatwithOthersComponent
+    ChatwithOthersComponent,
+    DarkModeComponent
   ],
   imports: [
     CommonModule,

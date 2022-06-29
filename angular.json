@@ -35,7 +35,8 @@
               "node_modules/ngx-spinner/animations/timer.css"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/chart.js"
+              "node_modules/chart.js/dist/chart.js",
+              "node_modules/angular-dark-mode/angular-dark-mode.js"
             ]
           },
           "configurations": {

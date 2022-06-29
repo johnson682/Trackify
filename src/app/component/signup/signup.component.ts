@@ -16,14 +16,13 @@ export class SignupComponent implements OnInit {
     private router:Router,
     private notificationService:NotificationService){}
   ngOnInit(): void {
-      this.addEmployeeForm = new UntypedFormGroup({
-        'userName':new UntypedFormControl('',Validators.required),
-        'email':new UntypedFormControl('',Validators.required),
-        'password':new UntypedFormControl('',Validators.required)
-      })
+    this.addEmployeeForm = new UntypedFormGroup({
+      'userName':new UntypedFormControl('',Validators.required),
+      'email':new UntypedFormControl('',Validators.required),
+      'password':new UntypedFormControl('',Validators.required)
+    })
   }
   onSubmit(){
-
     let email = this.addEmployeeForm.value.email
     let password = this.addEmployeeForm.value.password
     let userName = this.addEmployeeForm.value.userName

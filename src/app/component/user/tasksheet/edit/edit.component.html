@@ -12,6 +12,7 @@
                 placeholder="Select Project Type" 
                 formControlName="projectType">
               </ng-select>
+              <br>
               <div class="row">
                 <div class="col">
                   <input type="text" formControlName="Name" placeholder="ProjectName" class="form-control" name="name">
@@ -56,9 +57,9 @@
                 type="submit"
                 class="btn primary"
                 [disabled]="!addtaskForm.valid">
-                Update
+                <i class="fas fa-edit"></i>&nbsp;Update
               </button>
-              <button class="btn" (click)="onCancel()">Cancel</button>
+              <button class="btn" (click)="onCancel()"><i class="fas fa-ban"></i>&nbsp;Cancel</button>
             </form>
           </div>
           <button 

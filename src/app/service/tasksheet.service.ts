@@ -15,6 +15,8 @@ export class TasksheetService {
   }
 
   add(uid,newTask,collectionName){
+    console.log(newTask);
+    
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).add(newTask)
   }
 
