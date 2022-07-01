@@ -65,6 +65,7 @@ export class UserloginActivityComponent implements OnInit {
 
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
+      
       this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === this.month && obj.year === this.year )   
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
@@ -77,7 +78,6 @@ export class UserloginActivityComponent implements OnInit {
         this.time = this.tasksheetService.convertMsToHM(time)
       }
     })
-
   }
 
   getDaysInMonth(month,year) {
@@ -142,12 +142,12 @@ export class UserloginActivityComponent implements OnInit {
   }
 
   changeDay(event){
+    
     if(event != undefined){
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
-        console.log(this.datasFromLogin);
         this.order =['date','startTime']
         this.file = this.datasFromLogin
         

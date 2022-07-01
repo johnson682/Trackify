@@ -4,6 +4,8 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 import * as XLSX from 'xlsx';
 import { NotificationService } from 'src/app/service/notification.service';
 import * as moment from 'moment';
+import { ExcelsheetService } from 'src/app/service/excelsheet.service';
+import { concatAll, map } from 'rxjs';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -25,7 +27,8 @@ export class TasksheetComponent implements OnInit {
   constructor(
     private tasksheet:TasksheetService,
     private router:Router,
-    private notificationService:NotificationService) { }
+    private notificationService:NotificationService,
+    private excelsheetService:ExcelsheetService) { }
 
   ngOnInit(): void {
     this.month= moment().format('MMM')
@@ -64,12 +67,20 @@ export class TasksheetComponent implements OnInit {
     })
   }
 
+  data:any[] = []
   exportExcel(){
-    let element = document.getElementById('table-sheet')
-    const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
-    const wb:XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,ws,'sheet1')
-    XLSX.writeFile(wb,this.fileName)
+    for(let i=0 ;i<this.tasks.length;i++){
+      this.data.push({
+        Date:this.tasks[i].Date,
+        ProjectName:this.tasks[i].ProjectName,
+        ProjectType:this.tasks[i].ProjectType,
+        Description:this.tasks[i].Description
+      })
+    }
+    this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)
+    // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
+    //   return rest
+    // })
   }
 
   changeMonth(event){

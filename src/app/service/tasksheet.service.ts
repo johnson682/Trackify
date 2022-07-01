@@ -15,8 +15,6 @@ export class TasksheetService {
   }
 
   add(uid,newTask,collectionName){
-    console.log(newTask);
-    
     return this.fromFireBase(uid,newTask.month,newTask.year,collectionName).add(newTask)
   }
 
@@ -56,7 +54,7 @@ export class TasksheetService {
   }
 
   sendMessage(body){
-    return this.http.post('http://localhost:3000/sendmail',body)
+    return this.http.post('http://localhost:9000/sendmail',body)
   }
 
 }

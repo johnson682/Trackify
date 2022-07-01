@@ -16,8 +16,6 @@ export class EmployeeProfileDetailsComponent implements OnInit {
     this.uid = data
     this.userService.getData(this.uid).subscribe(data=>{
       this.user = data
-      console.log(this.user);
-      
     })
   }
 

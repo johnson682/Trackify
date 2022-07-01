@@ -45,54 +45,48 @@
         </div>
     </div>
   </ng-container>
-  <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet" *ngIf="tasks.length != 0">
-    <thead class="bg-light">
-      <tr>
-        <th>S.NO</th>
-        <th>Date <i class="fas fa-arrow-down"></i></th>
-        <th>projectType</th>
-        <th>projectName</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody> 
-        <tr *ngFor="let task of tasks | filterBy:task | orderBy:order;let i= index;" >
-          <th>
-            <div class="d-flex align-items-center">
-              <div class="ms-3">
-                <p class="mb-0">{{i+1}}</p>
-              </div>
-            </div>
-          </th>
-          <td>
-            <p class="mb-0">{{task.startedDate}}</p>
-          </td>
-          <td >
-            <p class=" mb-0">{{task.projectType}}</p>
-          </td>
-          <td >
-            <p class=" mb-0">{{task.projectName}}</p>
-          </td>
-          <td style="width: 350px;"><p class="mb-0 w-100" >{{task.description}}</p></td>
-          <td style="width: 150px;"> 
-            <button 
-              type="button" 
-              class="btn btn-outline rounded-circle" 
-              style="cursor: pointer;border-color:#7386D5;color:#7386D5;" 
-              data-toggle="modal" 
-              data-target="#exampleModal" 
-              data-backdrop="static" 
-              data-keyboard="false"
-              (click)="onEditTask(task)" >
-              <i class="fas fa-edit"></i>
-            </button>
-            <button type="button" class="btn btn-outline rounded-circle" style="cursor: pointer;border-color:red;color:red;"  (click)="onDelete(task)">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </td>
+  <div class="table"  *ngIf="tasks.length != 0">
+    <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
+      <thead class="bg-light">
+        <tr>
+          <th>S.NO</th>
+          <th>Date <i class="fas fa-arrow-down"></i></th>
+          <th>projectType</th>
+          <th>projectName</th>
+          <th>Description</th>
+          <th>Action</th>
         </tr>
-      </tbody>
-  </table>
+      </thead>
+      <tbody> 
+          <tr *ngFor="let task of tasks | filterBy:task | orderBy:order;let i= index;" >
+            <th>
+              <div class="d-flex align-items-center">
+                <div class="ms-3"><p class="mb-0">{{i+1}}</p></div>
+              </div>
+            </th>
+            <td><p class="mb-0">{{task.Date}}</p></td>
+            <td><p class=" mb-0">{{task.ProjectType}}</p></td>
+            <td><p class=" mb-0">{{task.ProjectName}}</p></td>
+            <td style="width: 350px;"><p class="mb-0 w-100" >{{task.Description}}</p></td>
+            <td style="width: 150px;"> 
+              <button 
+                type="button" 
+                class="btn btn-outline rounded-circle" 
+                style="cursor: pointer;border-color:#7386D5;color:#7386D5;" 
+                data-toggle="modal" 
+                data-target="#exampleModal" 
+                data-backdrop="static" 
+                data-keyboard="false"
+                (click)="onEditTask(task)" >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-outline rounded-circle" style="cursor: pointer;border-color:red;color:red;"  (click)="onDelete(task)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
 </div>
 <router-outlet></router-outlet>

@@ -7,8 +7,8 @@
             <h1>Task</h1>
             <form [formGroup]="addtaskForm" (ngSubmit)="onSubmit()">
               <ng-select
-                [items]="projectType" 
-                [(ngModel)]="task.projectType"
+                [items]="ProjectType" 
+                [(ngModel)]="task.ProjectType"
                 placeholder="Select Project Type" 
                 formControlName="projectType">
               </ng-select>

@@ -43,14 +43,14 @@ export class AddComponent implements OnInit {
   }
 
   onSubmit(){
-    let startedDate = this.date
-    let description = this.addtaskForm.value.description
-    let projectType = this.addtaskForm.value.projectType
-    let projectName = this.addtaskForm.value.Name
+    let Date = this.date
+    let Description = this.addtaskForm.value.description
+    let ProjectType = this.addtaskForm.value.projectType
+    let ProjectName = this.addtaskForm.value.Name
     let month =this.month
     let year = this.year
-    let date = this.singleDate
-    this.tasksheet.add(this.uid,{startedDate,description,month,year,projectType,date,projectName:projectName},'task')
+    let singledate = this.singleDate
+    this.tasksheet.add(this.uid,{Date,Description,month,year,ProjectType,singledate,ProjectName},'task')
     this.onCancel()
     this.toastr.sweetalert2('success','Added Succesfully')
   }
@@ -66,7 +66,7 @@ export class AddComponent implements OnInit {
     const date=moment(event).format('DD-MM-YYYY')
     this.year=new Date(event).getFullYear()
     this.singleDate = new Date(event).getDate()
-    this.date = `${date}`
+    this.date = date
     this.month = `${month}`
   }
  

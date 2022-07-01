@@ -39,13 +39,14 @@
     <thead class="bg-light">
       <tr>
         <th>S.NO</th>
-        <th>StartedDate</th>
-        <th>projectType</th>
+        <th>Date</th>
+        <th>ProjectName</th>
+        <th>ProjectType</th>
         <th>Description</th>
       </tr>
     </thead>
     <tbody> 
-      <tr *ngFor="let task of employeeDetails | filterBy:task;let i= index;" >
+      <tr *ngFor="let task of employeeDetails | filterBy:task | orderBy:order;let i= index;" >
         <th>
           <div class="d-flex align-items-center">
             <div class="ms-3">
@@ -53,9 +54,10 @@
             </div>
           </div>
         </th>
-        <td><p class="text-muted mb-0">{{task.startedDate}}</p></td>
-        <td><p class="text-muted mb-0">{{task.projectType}}</p></td>
-        <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.description}}</p></td>
+        <td><p class="text-muted mb-0">{{task.Date}}</p></td>
+        <td><p class="text-muted mb-0">{{task.ProjectName}}</p></td>
+        <td><p class="text-muted mb-0">{{task.ProjectType}}</p></td>
+        <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.Description}}</p></td>
       </tr>
     </tbody>
   </table>

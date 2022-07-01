@@ -4,6 +4,7 @@ import { AngularFireStorage } from "@angular/fire/compat/storage";
 import * as moment from "moment";
 import { finalize, map, Observable, pipe } from "rxjs";
 import { FileUpload } from "../model/fileUpload";
+import { EncryptDecryptService } from "./encrypt&Decrypt.service";
 import { MessageService } from "./message.service";
 
 @Injectable({
@@ -13,7 +14,7 @@ import { MessageService } from "./message.service";
 export class FileUploadService{
     private path ='users'
     data:AngularFirestoreCollection<any>
-    constructor(private db:AngularFirestore,private storage:AngularFireStorage,private message:MessageService){
+    constructor(private db:AngularFirestore,private storage:AngularFireStorage,private message:MessageService,private encrDecrService:EncryptDecryptService){
         this.data = this.db.collection(this.path)
     }
 
@@ -36,8 +37,11 @@ export class FileUploadService{
 
     saveFileData(fileUpload:FileUpload,senderUid,reciverUid) {
         let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
+
+        const message=this.encrDecrService.set("messages",fileUpload.name)
+        
         let obj = {
-            message:fileUpload.name,
+            message:message,
             url:fileUpload.url,
             id :nums,
             sendingDate:moment().format('MMM-DD | hh:mm:ss a'),
@@ -50,15 +54,9 @@ export class FileUploadService{
         return this.message.add(senderUid,reciverUid,obj);
     }
 
-    getFiles(senderUid,reciverUid){
-        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('file').snapshotChanges().pipe(
-            map(a=>a.map(c=>({uid:c.payload.doc.id,...c.payload.doc.data()})))
-        )
-    }
-
     deleteFile(fileUpload,senderUid,reciverUid): void {
         const storageRef = this.storage.ref(`${this.path}/${senderUid}/${reciverUid}`);
         storageRef.child(fileUpload).delete();
-      }
+    }
 
 }

@@ -52,9 +52,7 @@ export class ContactUsComponent implements OnInit {
     
     if (formValues) {
       this.mailData = formValues
-      this.tasksheetService.sendMessage(this.mailData).subscribe(data=>{
-        console.log(data);   
-      })
+      this.tasksheetService.sendMessage(this.mailData).subscribe()
     }
     
   }

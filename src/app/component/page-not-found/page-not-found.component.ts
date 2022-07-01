@@ -15,7 +15,6 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnInit(): void {
     // this.uid = this.next.data['uid']
-    // console.log(this.uid);
     
     this.userData = JSON.parse(localStorage.getItem('user'))
   }

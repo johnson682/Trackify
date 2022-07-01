@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { ExcelsheetService } from 'src/app/service/excelsheet.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-import * as XLSX from 'xlsx';
+import { UserService } from 'src/app/service/user.service';
 @Component({
   selector: 'app-employee-tasksheet',
   templateUrl: './employee-tasksheet.component.html',
@@ -10,16 +11,18 @@ import * as XLSX from 'xlsx';
 export class EmployeeTasksheetComponent implements OnInit {
 
   uid:any;employeeDetails:any
-
-  fileName='ExcelSheet.xlsx'
+  order:any
+  userData:any;
+  exportData:any[]=[]
 
   monthNames=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   task:any;year:any;month:any;years=[]
 
-  constructor(private tasksheetService:TasksheetService) { }
+  constructor(private tasksheetService:TasksheetService,private excelsheetService:ExcelsheetService,private userService:UserService) { }
 
   ngOnInit(): void {
-    this.year = moment().format('YYYY')
+    this.order = 'date'
+    this.year = new Date().getFullYear()
     this.month=moment().format('MMM')
     this.task={month:this.month,year:this.year}
     for(let i=2022;i<=2040;i++){
@@ -33,19 +36,26 @@ export class EmployeeTasksheetComponent implements OnInit {
   fetchData(){
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
-      console.log(this.employeeDetails);
     })
   }
 
   exportExcel(){
-    let element = document.getElementById('table-sheet')
-    const ws:XLSX.WorkSheet = XLSX.utils.table_to_sheet(element)
-    const wb:XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,ws,'sheet1')
-    XLSX.writeFile(wb,this.fileName)
+    this.userService.getData(this.uid).subscribe(data=>{
+      this.userData=data
+      for(let i=0 ;i<this.employeeDetails.length;i++){
+        this.exportData.push({
+          Date:this.employeeDetails[i].Date,
+          ProjectName:this.employeeDetails[i].ProjectName,
+          ProjectType:this.employeeDetails[i].ProjectType,
+          Description:this.employeeDetails[i].Description
+        })
+      }
+      this.excelsheetService.exportAsExcelFile(this.exportData,`${this.userData.name}/${this.year}/${this.month}/tasksheet`)
+    })
   }
 
   changeMonth(event){
+    this.order = 'date'
     this.month = event
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
@@ -53,6 +63,7 @@ export class EmployeeTasksheetComponent implements OnInit {
   }
 
   changeYear(event){
+    this.order = 'date'
     this.year = event
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data

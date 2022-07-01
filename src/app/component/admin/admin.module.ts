@@ -17,6 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EmployeeProfileDetailsComponent } from './admin-employee-list/employee-details/employee-profile-details/employee-profile-details.component';
 import { EmployeeProfileDetailsEditComponent } from './admin-employee-list/employee-details/employee-profile-details/employee-profile-details-edit/employee-profile-details-edit.component';
+import { OrderModule } from 'ngx-order-pipe';
 
 
 
@@ -44,6 +45,7 @@ import { EmployeeProfileDetailsEditComponent } from './admin-employee-list/emplo
     NgSelectModule ,
     AdminRoutingModule,
     BsDatepickerModule.forRoot(),
+    OrderModule
 
   ]
 })

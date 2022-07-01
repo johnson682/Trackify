@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
 import { map } from "rxjs";
-
-
 @Injectable({
     providedIn:'root'
 })
@@ -29,8 +27,6 @@ export class MessageService{
     }
 
     getAllChatUser(senderUid){
-        console.log(senderUid);
-        
         return this.getData(senderUid).snapshotChanges()
         .pipe(
             map(a=>a.map(c=>
@@ -57,11 +53,15 @@ export class MessageService{
 
     deleteAllMsg(senderUid,reciverUid){
         this.getData(senderUid).doc(reciverUid).delete()
-        this.sender(senderUid,reciverUid).get().toPromise().then((quer)=>{
-            quer.docs.forEach((doc)=>{
-                doc.ref.delete()
+        this.sender(senderUid,reciverUid).get().subscribe(data=>{
+            data.docs.forEach(ele=>{
+                ele.ref.delete()
             })
         })
+    }
+
+    updateMsg(senderUid,reciverUid,newData){
+        return this.getData(senderUid).doc(reciverUid).update(newData)
     }
         
     getAllSenderMessage(senderUid,reciverUid){
@@ -70,8 +70,8 @@ export class MessageService{
         )))
     }
 
-    getData(uid){
-        return this.data.doc(uid).collection('Message')
+    getData(senderUid){
+        return this.data.doc(senderUid).collection('Message')
     }
 
     sender(senderUid,reciverUid){

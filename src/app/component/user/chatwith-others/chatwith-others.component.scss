@@ -2,31 +2,12 @@ header{
   animation:fadeIn;
   animation-duration: 1.5s;
 }
-  
-.badge-dot {
-  border-radius: 50%;
-  height: 10px;
-  width: 10px;
-  margin-left: 2.9rem;
-  margin-top: -.75rem;
-}
 
-#btntoggle{
-  position:fixed;
-  display: none;
-  top:0;
-  left:0;
-  z-index:1;
-  cursor:pointer;
-}
-
-@media (min-width: 991.98px) {
-	main {
-	  padding-left: 400px;
-	}
+main {
+  padding-left: 400px;
 }
   
-.sidebar {
+#sidebar {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -36,59 +17,44 @@ header{
   z-index: 600;
 }
 
-.sidebar a{
+#sidebar a{
   text-decoration:none;
   color: black;
   padding: 20px;
 }
 
-.sidebar.active{
+#sidebar.active{
   color:white;
 }
 
-.contextmenu{
-  position: fixed;
-  background-color:white;
-  box-shadow:2px solid black;
-  padding: 5px;
-}
-  
-@media (max-width: 991.98px) {
-  .sidebar {
-    margin-top: 40px;
-    width: 400px;
-    transition-duration: .4s;
-    background: white;
-  }
-  #btntoggle{
-    position: fixed;
-    left:0;
-    top:0;
-    display: inline-flex;
-  }
 
-}
-
-.sidebar .active {
+#sidebar .active {
   border-radius: 5px;
   background:#7386D5;
   color: white;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
-.sidebar-sticky {
-  position: relative;
-  top: 0;
-  height: calc(100vh - 48px);
-  padding-top: 0.5rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+#link:hover{
+  background:#7386D5;
+  transition-duration: .4s;
+  p{
+    color: white;
+
+  }
 }
 
-.border-bottom:hover{
-  background-color:#7386D5;
-  transition-duration: .4s;
-  a{
+#dropmenu{
+  a:hover{
+    transition-duration: .4s;
+    background:#7386D5;
     color: white;
+
   }
+}
+
+
+.c{
+	animation:fadeIn;
+	animation-duration: 2s;
 }

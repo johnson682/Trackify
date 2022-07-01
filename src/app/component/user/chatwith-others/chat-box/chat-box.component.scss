@@ -2,8 +2,9 @@
   transition: 0.4s; 
   position: fixed; 
   bottom: 10px;
-  z-index: 100;
-  display: inline-flex;
+  left: 400px;
+  right:0;
+  // z-index: 100;
 }
 
 .contextmenu{
@@ -11,4 +12,17 @@
   background-color:white;
   box-shadow:2px solid black;
   padding: 5px;
+}
+
+.navbar{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 400px;
+  padding: 12px;
+}
+
+.c{
+	animation:fadeIn;
+	animation-duration: 2s;
 }

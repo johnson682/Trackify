@@ -12,47 +12,37 @@ app.use(cors({origin: "*" }));
 app.use(bodyParser.json());
 
 //start application server on port 3000
-app.listen(3000, () => {
-  console.log("The server started on port 3000");
+app.listen(9000, () => {
+  console.log("The server started on port 9000");
 });
 
 // define a sendmail endpoint, which will send emails and response with the corresponding status
 app.post("/sendmail", (req, res) => {
   console.log("request came");
+  
   let user = req.body;
-  sendMail(user, (err, info) => {
-    if (err) {
-      console.log(err);
-      res.status(400);
-      res.send({ error: "Failed to send email" });
-    } else {
-      console.log("Email has been sent");
-      res.send(info);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user:`${user.email}`,
+      pass: `${user.password}`
     }
   });
-});
 
-const sendMail = (user, callback) => {
-    const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secureConnection: false,
-        tls: {
-            ciphers:'SSLv3'
-        },
-        service: "Outlook365",
-        auth: {
-            user: `${user.email}`,
-            pass: `${user.password}`
-        },
-    });
-    const mailOptions = {
-      from: `${user.name}, ${user.email}`,
-      to: `clintan_antony@cjbyte.com`,
-      subject: "recording",
-      html: `${user.description}`
-    };
-    transporter.sendMail(mailOptions, callback);
+  let info = transporter.sendMail({
+    from: `${user.email}`,
+    to: 'peterantony40@gmail.com',
+    subject: user.subject,
+    html: user.description,
+  })
+
+  if (info) {
+    console.log("Email has been sent");
+    res.send('message sent');
+  } else {
+    res.status(400);
+    res.send({ error: "Failed to send email" });
   }
+});
 
   

@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as moment from 'moment';
 import { map } from 'rxjs';
+import { EncryptDecryptService } from 'src/app/service/encrypt&Decrypt.service';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
@@ -29,54 +30,38 @@ export class ChatwithOthersComponent implements OnInit {
   constructor(
     private router:Router,
     private userService:UserService,
-    private message:MessageService) {
+    private message:MessageService,
+    private encryptedDecryptedService:EncryptDecryptService) {
   }
   
   ngOnInit(): void {
+    
     this.order ='sendingDate'
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.init()
-    document.body.addEventListener('click',()=>{
-      this.disableContextMenu()
-    })
   }
 
   init(){
     this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
-      console.log(this.users);
+      this.users.forEach(ele=>{
+        const decrypt = this.encryptedDecryptedService.get('messages',ele.newMessage)
+        const message=decrypt.replace(/['"]+/g, '')
+
+        ele.newMessage = message
+      })
     })
     this.userService.getData(this.uid).subscribe(data=>{
       this.userData = data
     })
+
+    
   
   }
-  
-  disableContextMenu(){
-    this.contextmenu= false;
+
+  select(reciverUid){
+    this.message.updateMsg(this.uid,reciverUid,{notification:true})
   }
 
-  deleteAll(){
-    this.message.deleteAllMsg(this.uid,this.reciverUid)
-    this.router.navigate(['/user/Chat'])
-  }
-
-  onrightClick(event,Recivemsg){
-    this.contextmenuX=event.clientX
-    this.contextmenuY=event.clientY
-    this.contextmenu=true;
-    this.reciverUid = Recivemsg.uid
-    const deleteMsg = document.getElementById('deleteMsg')
-
-    if(deleteMsg != null){
-      deleteMsg.addEventListener('click',()=>{
-        this.deleteAll()
-      })
-    }
-    setTimeout(()=>{
-      this.contextmenu= false;
-    },2000)
-
-  }
 }

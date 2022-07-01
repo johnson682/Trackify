@@ -1,68 +1,57 @@
 <div class="d-flex justify-content-center">
     <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="dataofSenderMessage == null"></div>
 </div>
-<div class="my-custom-scrollbar my-custom-scrollbar-primary" *ngIf="dataofSenderMessage != null" style="margin-bottom: 30px;">
-    <!-- Image and text -->
-    <nav class="navbar navbar-light bg-light">
+<div class="c" *ngIf="dataofSenderMessage != null">
+    <nav class="navbar bg-light ">
         <div class="container-fluid">
-        <a class="navbar-brand float-end">
-            <img
-            src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-            class="rounded-circle"
-            height="40"
-            width="40"
-            alt="MDB Logo"
-            loading="lazy"
-            />&nbsp;
-            <small>{{selectedUser?.name}}</small>
-        </a>
+            <a class="navbar-brand float-end">
+                <img
+                src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                class="rounded-circle"
+                height="40"
+                width="40"
+                alt="MDB Logo"
+                loading="lazy"
+                />&nbsp;
+                <small>{{selectedUser?.name}}</small>
+            </a>
+            
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <li class="nav-item dropdown">
+                    <a 
+                        style="background-color:white ;color:#7386D5;"
+                        class="btn " 
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                    <li>
+                        <a class="list-group-item list-group-item-action px-3 border-0 ripple"aria-current="true" (click)="deleteAll()">
+                            Delete All
+                        </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
         </div>
     </nav>
-
-    <div class="container-fluid" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order" style="margin-top: 20px;">
-        <div class="d-flex flex-row justify-content-start" *ngIf="Recivemsg.status == 'Reciving'">
-            <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-                alt="avatar 1"  class="rounded-circle"
-                height="30"
-                width="30">
-            <div *ngIf="Recivemsg.urlStatus" style="margin-bottom: 20px;">
-                <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)" href="{{Recivemsg.url}}" target="_blank" >
-                    <div class="card" style="height: 100px;height: 100px;">
-                        <img src="https://thumbs.dreamstime.com/b/multiple-file-document-icon-logo-design-element-multiple-file-document-icon-logo-design-element-white-background-122728126.jpg" height="80px" width="100px" class="card-img-top" alt="Fissure in Sandstone"/>
-                        <p class="card-text text-center bg-light">{{Recivemsg.message}}</p>
-                    </div>
-                </a>
-                <br>
-                <p class="small me-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
-                <div *ngIf="contextmenu">
-                    <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
-                        <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="!Recivemsg.urlStatus">
-                <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
-                    <p class="small p-2 me-3 mb-1 rounded-3 bg-light ">{{Recivemsg.message}}</p>
-                </a>
-                <div *ngIf="contextmenu">
-                    <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
-                        <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
-                    </div>
-                </div>
-                <p class="small me-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
-            </div>
-        </div>
-        <div class="d-flex flex-row justify-content-end"  *ngIf="Recivemsg.status == 'Sending'">
-            <div (click)="disableContextMenu()" oncontextmenu="return false;">
+    <div style="margin-top: 80px;margin-bottom:43px;">
+        <div class="container-fluid" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order">
+            <div class="d-flex flex-row justify-content-start" *ngIf="Recivemsg.status == 'Reciving'">
+                <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                    alt="avatar 1"  class="rounded-circle"
+                    height="30"
+                    width="30">
                 <div *ngIf="Recivemsg.urlStatus" style="margin-bottom: 20px;">
                     <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)" href="{{Recivemsg.url}}" target="_blank" >
                         <div class="card" style="height: 100px;height: 100px;">
                             <img src="https://thumbs.dreamstime.com/b/multiple-file-document-icon-logo-design-element-multiple-file-document-icon-logo-design-element-white-background-122728126.jpg" height="80px" width="100px" class="card-img-top" alt="Fissure in Sandstone"/>
-                            <p class="card-text text-center bg-primary text-white">{{Recivemsg.message}}</p>
+                            <p class="card-text text-center bg-light">{{Recivemsg.message}}</p>
                         </div>
                     </a>
                     <br>
-                    <p class="small me-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
                     <div *ngIf="contextmenu">
                         <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
                             <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
@@ -71,38 +60,62 @@
                 </div>
                 <div *ngIf="!Recivemsg.urlStatus">
                     <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
-                        <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">{{Recivemsg.message}}</p>
+                        <p class="small p-2 rounded-3 bg-light ">{{Recivemsg.message}}</p>
                     </a>
                     <div *ngIf="contextmenu">
                         <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
                             <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
                         </div>
                     </div>
-                    <p class="small me-3 mb-3 rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
                 </div>
             </div>
-            <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-            alt="avatar 1" class="rounded-circle"
-            height="40"
-            width="40">
+            <div class="d-flex flex-row justify-content-end"  *ngIf="Recivemsg.status == 'Sending'">
+                <div (click)="disableContextMenu()" oncontextmenu="return false;">
+                    <div *ngIf="Recivemsg.urlStatus" style="margin-bottom: 20px;">
+                        <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)" href="{{Recivemsg.url}}" target="_blank" >
+                            <div class="card" style="height: 100px;height: 100px;">
+                                <img src="https://thumbs.dreamstime.com/b/multiple-file-document-icon-logo-design-element-multiple-file-document-icon-logo-design-element-white-background-122728126.jpg" height="80px" width="100px" class="card-img-top" alt="Fissure in Sandstone"/>
+                                <p class="card-text text-center text-white" style="background: #7386d5;">{{Recivemsg.message}}</p>
+                            </div>
+                        </a>
+                        <br>
+                        <p class="small  rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                        <div *ngIf="contextmenu">
+                            <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
+                                <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!Recivemsg.urlStatus">
+                        <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)">
+                            <p class="small p-2  text-white rounded-3"  style="background: #7386d5;">{{Recivemsg.message}}</p>
+                        </a>
+                        <div *ngIf="contextmenu">
+                            <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
+                                <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
+                            </div>
+                        </div>
+                        <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                    </div>
+                </div>
+                <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                alt="avatar 1" class="rounded-circle"
+                height="40"
+                width="40">
+            </div>
         </div>
+    </div>
+    <div id="footer">
+        <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-lg" formControlName="chat" placeholder="Type message" >
+                <button class="input-group-text" id="input" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <button class="input-group-text" type="button" (click)="fileUpload()"><i class="fas fa-file"></i></button>
+            </div>
+        </form>
     </div>
 </div>
 
-<div id="footer">
-    <img
-        src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
-        class="rounded-circle"
-        height="45"
-        width="45"
-        alt="Avatar"
-        loading="lazy"
-    />&nbsp;
-    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-        <div class="input-group">
-            <input type="text" class="form-control form-control-lg" formControlName="chat" placeholder="Type message" >
-            <button class="input-group-text" id="input" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-            <button class="input-group-text" type="button" (click)="fileUpload()"><i class="fas fa-file"></i></button>
-        </div>
-    </form>
-</div>
+
+

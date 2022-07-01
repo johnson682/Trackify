@@ -11,7 +11,7 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 })
 export class EditComponent implements OnInit {
   
-  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+  ProjectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
   addtaskForm:UntypedFormGroup
   today = new Date()
   isOpen=false
@@ -61,25 +61,25 @@ export class EditComponent implements OnInit {
 
   init(task){
     this.addtaskForm.patchValue({
-      Name:task.projectName,
-      projectType:task.projectType,
-      startedDate:task.startedDate,
-      description:task.description
+      Name:task.ProjectName,
+      projectType:task.ProjectType,
+      startedDate:task.Date,
+      description:task.Description
     })
   }
 
   onSubmit(){    
-    let projectName = this.addtaskForm.value.Name
-    let description = this.addtaskForm.value.description
-    let projectType = this.addtaskForm.value.projectType
+    let ProjectName = this.addtaskForm.value.Name
+    let Description = this.addtaskForm.value.description
+    let ProjectType = this.addtaskForm.value.projectType
     this.tasksheet.updateTask(this.uid,this.id,{
-      startedDate:this.date,date:
+      Date:this.date,date:
       this.singleDate,
-      description:description,
-      projectType:projectType,
+      Description:Description,
+      ProjectType:ProjectType,
       year:this.year,
       month:this.month,
-      projectName:projectName
+      ProjectName:ProjectName
     },'task')
     this.onCancel()
     this.toastr.sweetalert2("info" , 'updated Successfully')

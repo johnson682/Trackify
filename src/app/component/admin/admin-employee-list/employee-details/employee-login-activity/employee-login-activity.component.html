@@ -25,11 +25,13 @@
         style="width: 100px;float:right;" 
         [items]="monthNames" 
         [(ngModel)]="task.month"
+        (change)="changeMonth($event)" 
         [clearable]="false">
       </ng-select>
       <ng-select
         style="width: 100px;float:right;" 
         [items]="years" 
+        (change)="changeYear($event)" 
         [(ngModel)]="task.year"
         [clearable]="false">
       </ng-select>
@@ -62,7 +64,7 @@
       </tr>
     </thead>
     <tbody> 
-      <tr *ngFor="let task of datasFromLogin | filterBy:task;">
+      <tr *ngFor="let task of datasFromLogin | filterBy:task | orderBy:order;">
         <td><p class=" mb-0">{{task.localDate}}</p></td>
         <td><p class=" mb-0">{{task.startTime}}</p></td>
         <td><p class=" mb-0">{{task.endTime}}</p></td>
