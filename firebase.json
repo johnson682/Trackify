@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "tracki",
     "public": "dist/trackify",
     "ignore": [
       "firebase.json",

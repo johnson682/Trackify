@@ -89,6 +89,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
 
   changeDay(event){
     if(event != undefined){
+      
       this.dataFronChangeEvent(event,this.uid,this.month,this.year)
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
@@ -138,6 +139,7 @@ export class EmployeeLoginActivityComponent implements OnInit {
   }
 
   dataFronChangeEvent(event,uid,month,year){
+    this.order =['date','startTime']
     this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
       this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event  || obj.year == event)

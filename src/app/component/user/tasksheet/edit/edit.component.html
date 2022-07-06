@@ -44,6 +44,7 @@
               <br>
               <textarea
                 type="text" 
+                rows="5"
                 class="form-control"
                 name="description"
                 placeholder="Description"
@@ -59,7 +60,7 @@
                 [disabled]="!addtaskForm.valid">
                 <i class="fas fa-edit"></i>&nbsp;Update
               </button>
-              <button class="btn" (click)="onCancel()"><i class="fas fa-ban"></i>&nbsp;Cancel</button>
+              <button class="btn" type="button" (click)="onCancel()"><i class="fas fa-ban"></i>&nbsp;Cancel</button>
             </form>
           </div>
           <button 

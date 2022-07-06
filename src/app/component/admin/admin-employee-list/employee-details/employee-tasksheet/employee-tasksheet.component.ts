@@ -44,9 +44,9 @@ export class EmployeeTasksheetComponent implements OnInit {
       this.userData=data
       for(let i=0 ;i<this.employeeDetails.length;i++){
         this.exportData.push({
+          SNO:1+1,
           Date:this.employeeDetails[i].Date,
-          ProjectName:this.employeeDetails[i].ProjectName,
-          ProjectType:this.employeeDetails[i].ProjectType,
+          Day:this.employeeDetails[i].day,
           Description:this.employeeDetails[i].Description
         })
       }

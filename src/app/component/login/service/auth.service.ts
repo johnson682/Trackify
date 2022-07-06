@@ -115,11 +115,21 @@ export class AuthService {
         try {
             
             await this.afAuth.sendPasswordResetEmail(passwordResetEmail);
-            Swal.fire({
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+              Toast.fire({
                 icon: 'success',
-                title: 'Successfully',
-                text: 'Password reset email sent,check your box'
-            });
+                title: 'Please check Your email',
+              })
         } catch (error) {
             Swal.fire({
                 icon: 'error',

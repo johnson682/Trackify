@@ -7,13 +7,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-
+  passwordResetEmail:string;
   constructor(
     public authService: AuthService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
+  }
+
+  forgot(){
+    this.authService.forgotPassword(this.passwordResetEmail).then(()=>{
+      this.router.navigate(['/login'])
+      document.getElementById("closeModalButton").click();
+    })
   }
 
   login(){

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as moment from 'moment';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -12,7 +13,7 @@ import { TasksheetService } from 'src/app/service/tasksheet.service';
 export class EditComponent implements OnInit {
   
   ProjectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
-  addtaskForm:UntypedFormGroup
+  addtaskForm:FormGroup
   today = new Date()
   isOpen=false
 
@@ -78,23 +79,48 @@ export class EditComponent implements OnInit {
       Description:Description,
       ProjectType:ProjectType,
       year:this.year,
+      day:this.day,
       month:this.month,
       ProjectName:ProjectName
     },'task')
-    this.onCancel()
+    this.router.navigate(['/user/user-main/tasksheet'])
+    document.getElementById("closeModalButton").click();
     this.toastr.sweetalert2("info" , 'updated Successfully')
   }
 
   onCancel(){
-    document.getElementById('exampleModal').classList.add('animate__animated','animate__fadeOut')
-    this.router.navigate(['/user/user-main/tasksheet'])
-    document.getElementById("closeModalButton").click();
+    if(this.addtaskForm.dirty){
+      Swal.fire({
+        text:'Are you sure?',
+        showCancelButton:true,
+        showConfirmButton:true,
+        confirmButtonText:'Yes',
+        cancelButtonText:'No',
+        showClass: {
+          popup: 'animate__animated animate__fadeIn'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOut'
+        }
+      }).then(result=>{
+        if(result.value){
+          this.router.navigate(['/user/user-main/tasksheet'])
+          document.getElementById("closeModalButton").click();
+        }
+      })
+    }else{
+      this.router.navigate(['/user/user-main/tasksheet'])
+      document.getElementById("closeModalButton").click();
+    }
+
   }
 
+  day:any
   change(event){
     const month=moment(event).format("MMM")
     const date=moment(event).format("DD-MM-YYYY")
     this.year=new Date(event).getFullYear()
+    this.day = moment(event).format('dddd')
     this.singleDate =new Date(event).getDate()
     this.date = `${date}`
     this.month = `${month}`

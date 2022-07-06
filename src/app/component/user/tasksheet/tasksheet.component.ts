@@ -6,6 +6,7 @@ import { NotificationService } from 'src/app/service/notification.service';
 import * as moment from 'moment';
 import { ExcelsheetService } from 'src/app/service/excelsheet.service';
 import { concatAll, map } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-tasksheet',
   templateUrl: './tasksheet.component.html',
@@ -45,7 +46,7 @@ export class TasksheetComponent implements OnInit {
   onFetchData(){
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
-      this.order = 'date'
+      this.order = 'Date'
     }) 
   }
 
@@ -69,21 +70,34 @@ export class TasksheetComponent implements OnInit {
 
   data:any[] = []
   exportExcel(){
-    for(let i=0 ;i<this.tasks.length;i++){
-      this.data.push({
-        Date:this.tasks[i].Date,
-        ProjectName:this.tasks[i].ProjectName,
-        ProjectType:this.tasks[i].ProjectType,
-        Description:this.tasks[i].Description
+    if(this.tasks.length > 0){
+      for(let i=0 ;i<this.tasks.length;i++){
+        this.data.push({
+          SNO:i+1,
+          Date:this.tasks[i].Date,
+          Day:this.tasks[i].day,
+          Description:this.tasks[i].Description
+        })
+      }
+      this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)
+      // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
+      //   return rest
+      // })
+      this.data =[]
+    }else{
+      Swal.fire({
+        title:'Oops...',
+        text:'No Data Found',
+        icon:'error',
+        showClass: {
+          popup: 'animate__animated animate__fadeIn'
+        },
       })
     }
-    this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)
-    // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
-    //   return rest
-    // })
   }
 
   changeMonth(event){
+    this.order = 'Date'
     if(event != undefined){
       this.month = event
       this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
@@ -93,6 +107,7 @@ export class TasksheetComponent implements OnInit {
   }
 
   changeYear(event){
+    this.order = 'Date'
     this.year = event
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data

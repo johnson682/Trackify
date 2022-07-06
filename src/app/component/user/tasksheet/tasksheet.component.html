@@ -51,24 +51,24 @@
         <tr>
           <th>S.NO</th>
           <th>Date <i class="fas fa-arrow-down"></i></th>
-          <th>projectType</th>
-          <th>projectName</th>
-          <th>Description</th>
+          <th>Day</th>
+          <!-- <th>projectType</th>
+          <th>projectName</th> -->
+          <th>Task</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody> 
           <tr *ngFor="let task of tasks | filterBy:task | orderBy:order;let i= index;" >
             <th>
-              <div class="d-flex align-items-center">
-                <div class="ms-3"><p class="mb-0">{{i+1}}</p></div>
-              </div>
+              <p class="mb-0" >{{i+1}}</p>
             </th>
             <td><p class="mb-0">{{task.Date}}</p></td>
-            <td><p class=" mb-0">{{task.ProjectType}}</p></td>
-            <td><p class=" mb-0">{{task.ProjectName}}</p></td>
-            <td style="width: 350px;"><p class="mb-0 w-100" >{{task.Description}}</p></td>
-            <td style="width: 150px;"> 
+            <td><p class="mb-0">{{task.day}}</p></td>
+            <!-- <td><p class=" mb-0">{{task.ProjectType}}</p></td>
+            <td><p class=" mb-0">{{task.ProjectName}}</p></td> -->
+            <td style="max-width:35ch;" ><p class="mb-0">{{task.Description}}</p></td>
+            <td> 
               <button 
                 type="button" 
                 class="btn btn-outline rounded-circle" 

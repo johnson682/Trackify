@@ -40,23 +40,21 @@
       <tr>
         <th>S.NO</th>
         <th>Date</th>
-        <th>ProjectName</th>
-        <th>ProjectType</th>
+        <th>Day</th>
+        <!-- <th>ProjectName</th>
+        <th>ProjectType</th> -->
         <th>Description</th>
       </tr>
     </thead>
     <tbody> 
       <tr *ngFor="let task of employeeDetails | filterBy:task | orderBy:order;let i= index;" >
         <th>
-          <div class="d-flex align-items-center">
-            <div class="ms-3">
-              <p class="text mb-0">{{i+1}}</p>
-            </div>
-          </div>
+          <p class="text mb-0">{{i+1}}</p>
         </th>
         <td><p class="text-muted mb-0">{{task.Date}}</p></td>
-        <td><p class="text-muted mb-0">{{task.ProjectName}}</p></td>
-        <td><p class="text-muted mb-0">{{task.ProjectType}}</p></td>
+        <td><p class="text-muted mb-0">{{task.day}}</p></td>
+        <!-- <td><p class="text-muted mb-0">{{task.ProjectName}}</p></td> -->
+        <!-- <td><p class="text-muted mb-0">{{task.ProjectType}}</p></td> -->
         <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.Description}}</p></td>
       </tr>
     </tbody>
