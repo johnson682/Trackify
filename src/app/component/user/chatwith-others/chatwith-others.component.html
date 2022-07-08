@@ -29,7 +29,7 @@
       </span>
     </div>
     <ul class="nav nav-pills list-unstyled flex-column mb-auto border-bottom">
-      <li class="nav-item"  *ngFor="let user of users | filterBy: userFilter | orderBy:order">
+      <li class="nav-item"  *ngFor="let user of users | filterBy: userFilter">
         <a routerLink="/user/Chat/{{user.uid}}" (click)="select(user.uid)" routerLinkActive="active" style="margin: 5px;" id="link" class="d-flex justify-content-between">
           <div class="d-flex flex-row">
             <div>

@@ -19,7 +19,6 @@ export class ChatwithOthersComponent implements OnInit {
   userData:any;
   uid:any;
   reciverUid:any
-  order:any
 
   contextmenu = false;
   contextmenuX = 0;
@@ -35,8 +34,6 @@ export class ChatwithOthersComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    
-    this.order ='sendingDate'
     const userData = JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.init()
