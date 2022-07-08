@@ -33,6 +33,7 @@
     "firebase": "^9.8.1",
     "firebase-tools": "^11.2.0",
     "moment": "^2.29.3",
+    "ng2-charts": "^3.1.0",
     "ngx-bootstrap": "^8.0.0",
     "ngx-filter": "^0.0.7",
     "ngx-filter-pipe": "^2.1.2",
@@ -45,6 +46,7 @@
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.4.17",
     "tslib": "^2.3.0",
+    "underscore": "^1.13.4",
     "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
@@ -54,6 +56,7 @@
     "@angular/compiler-cli": "^14.0.2",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
+    "@types/underscore": "^1.11.4",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",

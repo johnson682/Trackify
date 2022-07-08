@@ -28,7 +28,7 @@ import { ChatBoxComponent } from './chatwith-others/chat-box/chat-box.component'
 import { UserListComponent } from './chatwith-others/user-list/user-list.component';
 import { ChatwithOthersComponent } from './chatwith-others/chatwith-others.component';
 import { DarkModeComponent } from '../dark-mode/dark-mode.component';
-
+import { NgChartsModule } from 'ng2-charts';
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http)
 }
@@ -50,7 +50,7 @@ export function HttpLoaderFactory(http:HttpClient){
     ChatBoxComponent,
     UserListComponent,
     ChatwithOthersComponent,
-    DarkModeComponent
+    DarkModeComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +61,7 @@ export function HttpLoaderFactory(http:HttpClient){
     NgSelectModule,
     FilterPipeModule,
     OrderModule,
+    NgChartsModule,
     BsDatepickerModule.forRoot(),
     TranslateModule.forRoot({
       loader:{

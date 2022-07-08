@@ -52,7 +52,6 @@ export class UserloginActivityComponent implements OnInit {
 
     const monthNum = moment().format('M')
     this.dateTotal = this.getDaysInMonth(monthNum,this.year)
-    
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }

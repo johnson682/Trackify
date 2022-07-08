@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,7 +16,6 @@ export class DashboardComponent implements OnInit {
   years=[];
   date=[];
   dateTotal:any;
-
   constructor(
     private tasksheetService:TasksheetService) { }
 
@@ -26,15 +24,19 @@ export class DashboardComponent implements OnInit {
     this.month= moment().format('MMM')
     this.year =new Date().getFullYear()
     this.task={day: new Date().getDate(),month:this.month,year:this.year}
+    const monthNum = moment().format('M')
+    this.dateTotal = this.getDaysInMonth(monthNum,this.year)
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-    for(let i=1;i<=31;i++){
+    
+    for(let i=1;i<=this.dateTotal;i++){
       this.date.push(i)
     }
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.init()
+   
   }
   init(){
     let date = new Date().getDate()
@@ -42,7 +44,7 @@ export class DashboardComponent implements OnInit {
     let year = new Date().getFullYear()
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === month && obj.year === year )
+      this.file=this.datasFromLogin.filter(obj =>obj.date === date && obj.month === month && obj.year === year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -57,11 +59,11 @@ export class DashboardComponent implements OnInit {
 
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.datasFromTimetracker = data
+     
       const datas=this.datasFromTimetracker.filter(obj=>obj.date === date && obj.month === month && obj.year === year)
       this.totalTask = datas.length
     })
   }
-
 
   changeDay(event){
     if(event != undefined){
@@ -90,6 +92,7 @@ export class DashboardComponent implements OnInit {
     if(event != undefined){
       this.month = event
       let temp =[];
+      
       const monthNum = moment().month(event).format('M')
       this.dateTotal = this.getDaysInMonth(monthNum,this.year)
       for(let i=1;i<=this.dateTotal;i++){
@@ -124,7 +127,7 @@ export class DashboardComponent implements OnInit {
     if(collectionName == 'ActivityLog'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event || obj.year === event)
+        this.file=this.datasFromLogin.filter(obj =>obj.date===event || obj.month === event || obj.year === event)
         var finalData = this.file.map((obj)=>{
           return obj.totalTime
         })
@@ -139,7 +142,7 @@ export class DashboardComponent implements OnInit {
     }else if(collectionName == 'task'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromTimetracker = data
-        const datas = this.datasFromTimetracker.filter( obj => obj.date === event || obj.month === event || obj.year === event)
+        const datas = this.datasFromTimetracker.filter( obj => obj.month === event || obj.year === event)
         if(datas.length === 0){
           this.totalTask =0
         }else{
@@ -149,4 +152,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  
+  
 }
