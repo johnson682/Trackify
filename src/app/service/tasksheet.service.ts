@@ -1,6 +1,8 @@
+
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Injectable, Query } from '@angular/core';
+import { query, orderBy } from "firebase/firestore";  
+import { AngularFirestore, AngularFirestoreCollection ,} from '@angular/fire/compat/firestore';
 import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -35,7 +37,7 @@ export class TasksheetService {
   }
 
   fromFireBase(uid,month,year,varName){
-    return this.data.doc(uid).collection('Year').doc(`${year}`).collection(`Month`).doc(`${month}`).collection(varName)
+    return this.data.doc(uid).collection('Year').doc(`${year}`).collection(`Month`).doc(`${month}`).collection(varName,ref=>ref.orderBy('localDate'))
   }
 
   padTo2Digits(num) {
@@ -58,3 +60,5 @@ export class TasksheetService {
   }
 
 }
+
+

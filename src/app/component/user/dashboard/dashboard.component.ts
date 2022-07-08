@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Chart } from 'chart.js';
 import * as moment from 'moment';
+import * as _ from 'underscore';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +38,7 @@ export class DashboardComponent implements OnInit {
     const userData=JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
     this.init()
-   
+    
   }
   init(){
     let date = new Date().getDate()
@@ -44,7 +46,8 @@ export class DashboardComponent implements OnInit {
     let year = new Date().getFullYear()
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      this.file=this.datasFromLogin.filter(obj =>obj.date === date && obj.month === month && obj.year === year )
+      this.chart(this.datasFromLogin)
+      this.file=this.datasFromLogin.filter(obj =>obj.month === month && obj.year === year )
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -59,31 +62,31 @@ export class DashboardComponent implements OnInit {
 
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.datasFromTimetracker = data
-     
-      const datas=this.datasFromTimetracker.filter(obj=>obj.date === date && obj.month === month && obj.year === year)
+      this.chart2(this.datasFromTimetracker)
+      const datas=this.datasFromTimetracker.filter(obj=>obj.month === month && obj.year === year)
       this.totalTask = datas.length
     })
   }
 
-  changeDay(event){
-    if(event != undefined){
-      this.dataFromEventChange(event,this.uid,this.month,this.year,'ActivityLog')
-      this.dataFromEventChange(event,this.uid,this.month,this.year,'task')
-    }else{
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
-        this.datasFromLogin=data
-        var finalData = this.datasFromLogin.map((obj)=>{
-          return obj.totalTime
-        })
-        var time = finalData.reduce(this.add)
-        this.time = this.tasksheetService.convertMsToHM(time)
-      })
-      this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
-        this.datasFromTimetracker = data
-        this.totalTask = this.datasFromTimetracker.length
-      })
-    }
-  }
+  // changeDay(event){
+  //   if(event != undefined){
+  //     this.dataFromEventChange(event,this.uid,this.month,this.year,'ActivityLog')
+  //     this.dataFromEventChange(event,this.uid,this.month,this.year,'task')
+  //   }else{
+  //     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
+  //       this.datasFromLogin=data
+  //       var finalData = this.datasFromLogin.map((obj)=>{
+  //         return obj.totalTime
+  //       })
+  //       var time = finalData.reduce(this.add)
+  //       this.time = this.tasksheetService.convertMsToHM(time)
+  //     })
+  //     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
+  //       this.datasFromTimetracker = data
+  //       this.totalTask = this.datasFromTimetracker.length
+  //     })
+  //   }
+  // }
   getDaysInMonth(month,year) {
     return new Date(year, month, 0).getDate();
   };
@@ -127,7 +130,8 @@ export class DashboardComponent implements OnInit {
     if(collectionName == 'ActivityLog'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromLogin = data
-        this.file=this.datasFromLogin.filter(obj =>obj.date===event || obj.month === event || obj.year === event)
+        this.chart(this.datasFromLogin)
+        this.file=this.datasFromLogin.filter(obj => obj.month === event || obj.year === event)
         var finalData = this.file.map((obj)=>{
           return obj.totalTime
         })
@@ -142,6 +146,7 @@ export class DashboardComponent implements OnInit {
     }else if(collectionName == 'task'){
       this.tasksheetService.getAllTask(uid,{month:month,year:year},collectionName).subscribe(data=>{
         this.datasFromTimetracker = data
+        this.chart2(this.datasFromTimetracker)
         const datas = this.datasFromTimetracker.filter( obj => obj.month === event || obj.year === event)
         if(datas.length === 0){
           this.totalTask =0
@@ -152,6 +157,72 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  chartData:any;
+  chartLabels:any;
+  chartOptions:any;
+  charStatus = false
+  chart(datasFromLogin){
+    if(datasFromLogin.length > 0 ){
+      this.charStatus = true;
+    }else{
+      this.charStatus = false
+    }
+   
+    const d = _.groupBy(datasFromLogin,'date')
+    let arr=[]
+    for(let group in d){
+      arr.push(group)
+    }
+    let datas:any[]=[]
+    
+    datasFromLogin.forEach(element=>{
+      arr.forEach(ele=>{
+        if(element.date == ele){
+          var array = element.totalHours.split(":");
+          var minutes = (parseInt(array[0], 10) * 60 ) + (parseInt(array[1], 10))
+          datas.push(minutes)
+        }
+      })
+    })
+    
+    this.chartData = [{label:this.year+'/'+ this.month,data:datas}];
+    this.chartLabels =arr;
+    this.chartOptions = {
+      responsive: true,
+    };
+  }
+  chart2Data:any;
+  chart2Labels:any;
+  chart2Options:any;
+  char2Status = false
+  chart2(datasFromTimetracker){
   
+    if(datasFromTimetracker.length > 0 ){
+      this.char2Status = true;
+    }else{
+      this.char2Status = false
+    }
+   
+    const d = _.groupBy(datasFromTimetracker,'singledate')
+    let arr=[]
+    for(let group in d){
+      arr.push(group)
+    }
+    let datas:any[]=[]
+    let count =0
+    datasFromTimetracker.forEach(element=>{
+      arr.forEach(ele=>{
+        if(element.singledate == ele){
+          count += 1 
+          datas.push(count)
+        }
+      })
+    })
+    this.chart2Data = [{label:this.year+'/'+ this.month,data:datas}];
+    this.chart2Labels =arr;
+    this.chart2Options = {
+      responsive: true,
+    };
+  }
   
 }

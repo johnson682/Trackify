@@ -20,7 +20,6 @@ export class TasksheetComponent implements OnInit {
 
   tasks:any
   uid:any
-  order:string
   month:any;
   task:any;
   year:any
@@ -46,7 +45,6 @@ export class TasksheetComponent implements OnInit {
   onFetchData(){
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data
-      this.order = 'Date'
     }) 
   }
 
@@ -74,7 +72,7 @@ export class TasksheetComponent implements OnInit {
       for(let i=0 ;i<this.tasks.length;i++){
         this.data.push({
           SNO:i+1,
-          Date:this.tasks[i].Date,
+          Date:this.tasks[i].localDate,
           Day:this.tasks[i].day,
           Description:this.tasks[i].Description
         })
@@ -97,7 +95,6 @@ export class TasksheetComponent implements OnInit {
   }
 
   changeMonth(event){
-    this.order = 'Date'
     if(event != undefined){
       this.month = event
       this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
@@ -107,7 +104,6 @@ export class TasksheetComponent implements OnInit {
   }
 
   changeYear(event){
-    this.order = 'Date'
     this.year = event
     this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.tasks = data

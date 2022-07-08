@@ -75,10 +75,10 @@ export class MessageService{
     }
 
     sender(senderUid,reciverUid){
-        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage')
+        return this.data.doc(senderUid).collection('Message').doc(reciverUid).collection('newMessage',ref=>ref.orderBy('sendingDate'))
     }
     reciver(senderUid,reciverUid){
-        return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage')
+        return this.data.doc(reciverUid).collection('Message').doc(senderUid).collection('newMessage',ref=>ref.orderBy('sendingDate'))
     }
     
     getLastData(senderUid,reciverUid){

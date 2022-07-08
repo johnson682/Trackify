@@ -64,7 +64,7 @@ export class EditComponent implements OnInit {
     this.addtaskForm.patchValue({
       Name:task.ProjectName,
       projectType:task.ProjectType,
-      startedDate:task.Date,
+      startedDate:task.localDate,
       description:task.Description
     })
   }

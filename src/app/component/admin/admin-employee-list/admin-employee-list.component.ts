@@ -11,6 +11,7 @@ import { UserService } from 'src/app/service/user.service';
 export class AdminEmployeeListComponent implements OnInit {
   users:any
   userLoginTime:any
+  userFilter: any = { name: '' };
   constructor(
     private userService:UserService,
     private router:Router,

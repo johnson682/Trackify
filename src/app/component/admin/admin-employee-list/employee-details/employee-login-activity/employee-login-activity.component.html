@@ -64,7 +64,7 @@
       </tr>
     </thead>
     <tbody> 
-      <tr *ngFor="let task of datasFromLogin | filterBy:task | orderBy:order;">
+      <tr *ngFor="let task of datasFromLogin | filterBy:task ">
         <td><p class=" mb-0">{{task.localDate}}</p></td>
         <td><p class=" mb-0">{{task.startTime}}</p></td>
         <td><p class=" mb-0">{{task.endTime}}</p></td>

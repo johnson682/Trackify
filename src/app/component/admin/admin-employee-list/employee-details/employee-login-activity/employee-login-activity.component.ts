@@ -13,7 +13,6 @@ import * as XLSX from 'xlsx';
 export class EmployeeLoginActivityComponent implements OnInit {
 
   uid:any;
-  order:any;
   month:any;task:any;year:any
   monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
   years=[];date=[]
@@ -64,7 +63,6 @@ export class EmployeeLoginActivityComponent implements OnInit {
         this.time = this.tasksheetService.convertMsToHM(time)
       }
     })
-    this.order =['date','startTime']
   }
   
 
@@ -94,7 +92,6 @@ export class EmployeeLoginActivityComponent implements OnInit {
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
-        this.order =['date','startTime']
         this.file = this.datasFromLogin
         
         var finalData =this.file.map((obj)=>{
@@ -139,7 +136,6 @@ export class EmployeeLoginActivityComponent implements OnInit {
   }
 
   dataFronChangeEvent(event,uid,month,year){
-    this.order =['date','startTime']
     this.tasksheetService.getAllTask(uid,{month:month,year:year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
       this.file=this.datasFromLogin.filter(obj => obj.date === event || obj.month === event  || obj.year == event)

@@ -59,11 +59,11 @@
         </tr>
       </thead>
       <tbody> 
-          <tr *ngFor="let task of tasks | filterBy:task | orderBy:order;let i= index;" >
+          <tr *ngFor="let task of tasks | filterBy:task;let i= index;" >
             <th>
               <p class="mb-0" >{{i+1}}</p>
             </th>
-            <td><p class="mb-0">{{task.Date}}</p></td>
+            <td><p class="mb-0">{{task.localDate}}</p></td>
             <td><p class="mb-0">{{task.day}}</p></td>
             <!-- <td><p class=" mb-0">{{task.ProjectType}}</p></td>
             <td><p class=" mb-0">{{task.ProjectName}}</p></td> -->

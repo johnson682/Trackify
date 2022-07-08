@@ -99,7 +99,6 @@ export class AuthService {
             uid:user.uid,
             email:user.email,
             Status:true,
-            StopStatus:true,
             startTime:new Date().getTime(),
             localDate:moment().format('DD-MM-YYYY'),
             month:moment().format('MMM'),

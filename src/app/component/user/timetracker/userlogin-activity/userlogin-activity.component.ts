@@ -24,7 +24,6 @@ export class UserloginActivityComponent implements OnInit {
   month:any;
   task:any;
   year:any
-  order:any
   datasFromLogin:any
   file:any
   time:any;
@@ -38,13 +37,7 @@ export class UserloginActivityComponent implements OnInit {
     const userData= JSON.parse(localStorage.getItem('user'))
     this.uid = userData.uid
 
-    this.userService.userRef.doc(this.uid).get().subscribe(data=>{
-      const datas = data.data()
-      if(datas.StopStatus){
-        this.stopButton = true
-      }
-      this.localTimeStart = datas.localTimeStart
-    })
+    
     
     this.month= moment().format('MMM');
     this.year = new Date().getFullYear()
@@ -59,13 +52,22 @@ export class UserloginActivityComponent implements OnInit {
       this.date.push(i)
     }
 
-    let date = new Date().getDate()
-    this.order= 'startTime'
+    this.fetchData()
+  }
 
+  fetchData(){
+    let date = new Date().getDate()
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
       this.datasFromLogin = data
-      
+
       this.file=this.datasFromLogin.filter(obj => obj.date === date && obj.month === this.month && obj.year === this.year )   
+
+      if(this.file.length >0){
+        this.userService.updateUserData(this.uid,{StopStatus:false})
+      }else{
+        this.userService.updateUserData(this.uid,{StopStatus:true})
+      }
+
       var finalData = this.file.map((obj)=>{
         return obj.totalTime
       })
@@ -77,8 +79,15 @@ export class UserloginActivityComponent implements OnInit {
         this.time = this.tasksheetService.convertMsToHM(time)
       }
     })
-  }
 
+    this.userService.userRef.doc(this.uid).get().subscribe(data=>{
+      const datas = data.data()
+      if(datas.StopStatus){
+        this.stopButton = true
+      }
+      this.localTimeStart = datas.localTimeStart
+    })
+  }
   getDaysInMonth(month,year) {
     return new Date(year, month, 0).getDate();
   };
@@ -96,6 +105,7 @@ export class UserloginActivityComponent implements OnInit {
         this.userService.updateUserData(this.uid,{StopStatus:false})
         this.userService.userRef.doc(this.uid).get().subscribe(data=>{
           const datas= data.data()
+
           if(!datas.StopStatus){
             this.stopButton = false
           }
@@ -138,6 +148,7 @@ export class UserloginActivityComponent implements OnInit {
         this.notificationService.sweetalert2('error','Login Activity removed!!')
       } else if (result.dismiss === Swal.DismissReason.cancel) {}
     }) 
+
   }
 
   changeDay(event){
@@ -147,7 +158,6 @@ export class UserloginActivityComponent implements OnInit {
     }else{
       this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'ActivityLog').subscribe(data=>{
         this.datasFromLogin=data
-        this.order =['date','startTime']
         this.file = this.datasFromLogin
         
         var finalData =this.file.map((obj)=>{

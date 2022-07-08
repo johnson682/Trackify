@@ -2,10 +2,23 @@
   <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="users == null"></div>
 </div>
 <div class="container-fluid" *ngIf="users != null">
-  <button class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#exampleModal2" routerLink="addEmployee" >Add</button>
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary btn-sm" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#exampleModal2" routerLink="addEmployee" >Add</button>
+    </div>
+    <div class="col">
+      <div class="input-group rounded">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+          aria-describedby="search-addon" [(ngModel)]="userFilter.name"/>
+        <span class="input-group-text border-0" id="search-addon">
+          <i class="fas fa-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>
   <hr>
   <div class="row d-flex h-100">
-    <div class="col-md-12 col-xl-3" *ngFor="let user of users">
+    <div class="col-md-12 col-xl-3" *ngFor="let user of users | filterBy: userFilter">
       <div class="card hover-shadow" style="border-radius: 15px;">
         <div class="row">
           <div class="col">

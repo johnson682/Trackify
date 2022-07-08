@@ -49,12 +49,12 @@ export class UserSidenavComponent implements OnInit {
           'No, keep Login'
         ).then((result) => {
           if (result.value) {
-            this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
+            // this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
             this.authService.logout(this.uid)
           } 
        })
       }else{
-        this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
+        // this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
         this.authService.logout(this.uid)
       }
     })

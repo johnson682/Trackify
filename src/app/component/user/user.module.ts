@@ -70,6 +70,7 @@ export function HttpLoaderFactory(http:HttpClient){
         deps:[HttpClient]
       }
     }),
+    NgChartsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -11,7 +11,6 @@ import { UserService } from 'src/app/service/user.service';
 export class EmployeeTasksheetComponent implements OnInit {
 
   uid:any;employeeDetails:any
-  order:any
   userData:any;
   exportData:any[]=[]
 
@@ -21,7 +20,6 @@ export class EmployeeTasksheetComponent implements OnInit {
   constructor(private tasksheetService:TasksheetService,private excelsheetService:ExcelsheetService,private userService:UserService) { }
 
   ngOnInit(): void {
-    this.order = 'date'
     this.year = new Date().getFullYear()
     this.month=moment().format('MMM')
     this.task={month:this.month,year:this.year}
@@ -44,8 +42,8 @@ export class EmployeeTasksheetComponent implements OnInit {
       this.userData=data
       for(let i=0 ;i<this.employeeDetails.length;i++){
         this.exportData.push({
-          SNO:1+1,
-          Date:this.employeeDetails[i].Date,
+          SNO:i+1,
+          Date:this.employeeDetails[i].localDate,
           Day:this.employeeDetails[i].day,
           Description:this.employeeDetails[i].Description
         })
@@ -55,7 +53,6 @@ export class EmployeeTasksheetComponent implements OnInit {
   }
 
   changeMonth(event){
-    this.order = 'date'
     this.month = event
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data
@@ -63,7 +60,6 @@ export class EmployeeTasksheetComponent implements OnInit {
   }
 
   changeYear(event){
-    this.order = 'date'
     this.year = event
     this.tasksheetService.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
       this.employeeDetails = data

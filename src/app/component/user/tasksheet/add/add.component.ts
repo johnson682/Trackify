@@ -44,7 +44,7 @@ export class AddComponent implements OnInit {
   }
 
   onSubmit(){
-    let Date = this.date
+    let localDate = this.date
     let Description = this.addtaskForm.value.description
     let ProjectType = this.addtaskForm.value.projectType
     let ProjectName = this.addtaskForm.value.Name
@@ -52,7 +52,7 @@ export class AddComponent implements OnInit {
     let day = this.day
     let year = this.year
     let singledate = this.singleDate
-    this.tasksheet.add(this.uid,{Date,Description,month,year,ProjectType,singledate,ProjectName,day},'task')
+    this.tasksheet.add(this.uid,{localDate,Description,month,year,ProjectType,singledate,ProjectName,day},'task')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
     this.toastr.sweetalert2('success','Added Succesfully')

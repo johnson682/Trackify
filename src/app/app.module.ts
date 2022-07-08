@@ -61,7 +61,7 @@ const firebaseConfig = {
     FormsModule,
     OrderModule,
     ReactiveFormsModule,
-    FilterPipeModule,
+    FilterPipeModule
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],

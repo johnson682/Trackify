@@ -81,7 +81,7 @@ export class ChatBoxComponent implements OnInit {
     
     this.userService.getData(this.reciverUid).subscribe(data=>{
       this.selectedUser = data
-      if(this.selectedUser){
+      if(this.selectedUser.length>0){
         this.message.updateMsg(this.senderUid,this.reciverUid,{notification:true})
       }
     })
