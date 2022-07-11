@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "trackify-d3824",
     "public": "dist/trackify",
     "ignore": [
       "firebase.json",

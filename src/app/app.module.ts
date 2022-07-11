@@ -25,6 +25,7 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
+import { UserIdleModule } from 'angular-user-idle';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
@@ -61,7 +62,9 @@ const firebaseConfig = {
     FormsModule,
     OrderModule,
     ReactiveFormsModule,
-    FilterPipeModule
+    FilterPipeModule,
+    UserIdleModule.forRoot({idle: 1, timeout: 5, ping: 120})
+
   ],
   providers: [AuthService,UserService],
   bootstrap: [AppComponent],
