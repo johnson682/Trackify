@@ -50,12 +50,12 @@ export class UserSidenavComponent implements OnInit {
         ).then((result) => {
           if (result.value) {
             // this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-            this.authService.logout(this.uid)
+            this.authService.logout()
           } 
        })
       }else{
         // this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-        this.authService.logout(this.uid)
+        this.authService.logout()
       }
     })
   }

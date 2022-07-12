@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
   
   logout(){
     this.adminProfileService.adminRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-    this.authService.logout(this.uid)
+    this.authService.logout()
   }
 
 }
