@@ -74,7 +74,7 @@ export class EditComponent implements OnInit {
     let Description = this.addtaskForm.value.description
     let ProjectType = this.addtaskForm.value.projectType
     this.tasksheet.updateTask(this.uid,this.id,{
-      Date:this.date,date:
+      localDate:this.date,date:
       this.singleDate,
       Description:Description,
       ProjectType:ProjectType,
