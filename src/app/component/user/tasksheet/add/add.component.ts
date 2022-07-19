@@ -51,8 +51,8 @@ export class AddComponent implements OnInit {
     let month =this.month
     let day = this.day
     let year = this.year
-    let singledate = this.singleDate
-    this.tasksheet.add(this.uid,{localDate,Description,month,year,ProjectType,singledate,ProjectName,day},'task')
+    let date = this.singleDate
+    this.tasksheet.add(this.uid,{localDate,Description,month,year,ProjectType,date,ProjectName,day},'task')
     this.router.navigate(['/user/user-main/tasksheet'])
     document.getElementById("closeModalButton").click();
     this.toastr.sweetalert2('success','Added Succesfully')
