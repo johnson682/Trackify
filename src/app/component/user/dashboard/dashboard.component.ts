@@ -203,7 +203,7 @@ export class DashboardComponent implements OnInit {
       this.char2Status = false
     }
    
-    const d = _.groupBy(datasFromTimetracker,'singledate')
+    const d = _.groupBy(datasFromTimetracker,'date')
     let arr=[]
     for(let group in d){
       arr.push(group)
@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit {
     let count =0
     datasFromTimetracker.forEach(element=>{
       arr.forEach(ele=>{
-        if(element.singledate == ele){
+        if(element.date == ele){
           count += 1 
           datas.push(count)
         }
