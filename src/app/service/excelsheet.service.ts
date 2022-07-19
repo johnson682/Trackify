@@ -16,7 +16,7 @@ export class ExcelsheetService{
             {wpx:30},
             {wpx:100},
             {wpx:100},
-            {wpx:200},
+            {wpx:600},
         ]
         myworksheet["!margins"]= {left:1.0, right:1.0, top:1.0, bottom:1.0, header:0.5, footer:0.5 }
         myworksheet['!cols']=wscols
