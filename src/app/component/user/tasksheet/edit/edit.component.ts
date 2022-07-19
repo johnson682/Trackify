@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class EditComponent implements OnInit {
   
-  ProjectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+  ProjectType=['Testing','Angular','Documentation'];
   addtaskForm:FormGroup
   today = new Date()
   isOpen=false
@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
     })
 
     this.addtaskForm = this.formBUilder.group({
-      Name:['',Validators.required],
+      Name:[''],
       projectType:['',Validators.required],
       startedDate:['',Validators.required],
       description:['',Validators.required]

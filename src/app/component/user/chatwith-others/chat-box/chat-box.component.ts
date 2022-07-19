@@ -185,7 +185,14 @@ export class ChatBoxComponent implements OnInit {
   }
 
   saveMessageDetails(){
+    // var obj ={
+    //   name:"antony",
+    //   email:"peterantony40@gmail.com"
+    // }
+    // const encrypts = this.encryptedDecryptedService.set('messages',obj)
+    // console.log(encrypts);
     const encrypt = this.encryptedDecryptedService.set('messages',this.userMessage)
+    
     let nums = new Date().getDate()*Math.floor(Math.random()*100000000000000000000)
     this.message.add(this.senderUid,this.reciverUid,{
       message:encrypt,

@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit {
-  projectType=['Ui','NodeJs','Backend','Testing','Angular','react'];
+  projectType=['Documentation','Testing','Angular'];
   year:any;month:any;projectName:any;date:any;singleDate:any;
   addtaskForm:FormGroup
   isOpen = false;
@@ -36,7 +36,7 @@ export class AddComponent implements OnInit {
     this.date = moment().format('DD-MM-YYYY')
     this.today = new Date()
     this.addtaskForm = new FormGroup({
-      'Name':new FormControl('',Validators.required),
+      'Name':new FormControl(''),
       'startedDate':new FormControl(this.date,Validators.required),
       'description':new FormControl('',Validators.required),
       "projectType":new FormControl(this.projectName,Validators.required)

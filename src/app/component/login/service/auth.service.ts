@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/compat/auth";
+import { AngularFireAuth  } from "@angular/fire/compat/auth";
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
-import { User } from "../../../model/user";
 import * as moment from "moment";
-
+import { User } from "../../../model/user";
 
 @Injectable({
     providedIn: 'root',
@@ -38,6 +37,16 @@ export class AuthService {
         })
     }
 
+    autoLogin(){
+        const user = JSON.parse(localStorage.getItem('user'))
+        if(user){
+            if (user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
+                this.router.navigate(['/admin']);
+            } else {
+                this.router.navigate(['/user']);
+            }
+        }
+    }
     async login(email:string,password:string){
         try {
             const result = await this.afAuth.signInWithEmailAndPassword(email, password);

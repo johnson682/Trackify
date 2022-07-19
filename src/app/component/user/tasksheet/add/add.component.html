@@ -9,13 +9,13 @@
               <ng-select
                 [items]="projectType" 
                 [(ngModel)]="projectName"
-                placeholder="Select Project Type" 
+                placeholder="*Select Project Type" 
                 formControlName="projectType">
               </ng-select>
               <br>
               <div class="row">
                 <div class="col">
-                  <input type="text" formControlName="Name" placeholder="ProjectName" class="form-control" name="name">
+                  <input type="text" formControlName="Name" placeholder="Project Name" class="form-control" name="name">
                   <span *ngIf="!addtaskForm.get('Name').valid && addtaskForm.get('Name').touched" class="help-block">
                     The field is required
                   </span>
@@ -47,7 +47,7 @@
                 type="text"
                 class="form-control"
                 name="description"
-                placeholder="Description"
+                placeholder="*Description"
                 formControlName="description"></textarea>
               <span *ngIf="!addtaskForm.get('description').valid && addtaskForm.get('description').touched" class="help-block">
                 The field is required
