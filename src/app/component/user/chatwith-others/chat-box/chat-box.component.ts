@@ -128,6 +128,8 @@ export class ChatBoxComponent implements OnInit {
       this.currentFile = new FileUpload(file)
       this.fileiploadService.pushFileStorage(this.currentFile,this.senderUid,this.reciverUid).subscribe(data=>{
         this.percentage = Math.round(data)
+        console.log(this.percentage);
+        
       })
       this.saveSenderDetail()
       this.saveReciverDetails()
@@ -152,7 +154,7 @@ export class ChatBoxComponent implements OnInit {
           this.message.addSenderDetail(this.senderUid,this.reciverUid,{
             name:this.currentUser.name,
             email:this.currentUser.email,
-            imageFile:this.selectedUser.imageFile != null ? this.selectedUser.imageFile : null,
+            imageFile:this.currentUser.imageFile,
             uid:this.currentUser.uid,
             notification:false,
             newMessage:this.lastData.message,
@@ -173,7 +175,7 @@ export class ChatBoxComponent implements OnInit {
           this.message.addReciverDetails(this.senderUid,this.reciverUid,{
             name:this.selectedUser.name,
             email:this.selectedUser.email,
-            imageFile:this.selectedUser.imageFile != null ? this.selectedUser.imageFile : null,
+            imageFile:this.selectedUser.imageFile,
             uid:this.selectedUser.uid,
             notification:true,
             newMessage:this.lastData.message,

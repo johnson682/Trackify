@@ -55,7 +55,7 @@
         <td><p class="text-muted mb-0">{{task.day}}</p></td>
         <!-- <td><p class="text-muted mb-0">{{task.ProjectName}}</p></td> -->
         <!-- <td><p class="text-muted mb-0">{{task.ProjectType}}</p></td> -->
-        <td style="width: 350px;"><p class="text-muted mb-0 w-100" >{{task.Description}}</p></td>
+        <td style="max-width:20ch;overflow-wrap:break-word;"><p class="text-muted mb-0 w-100" *ngFor="let subDescription of task.Description?.split(',')" >{{subDescription}}</p></td>
       </tr>
     </tbody>
   </table>

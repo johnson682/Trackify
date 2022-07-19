@@ -34,7 +34,7 @@
           <div class="d-flex flex-row">
             <div>
               <img
-                src="{{user?.imageFile != null ? user?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                src="{{user?.imageFile}}"
                 alt="avatar" class="d-flex align-self-center me-3" class="rounded-circle"
                 height="47"
                 width="47">
@@ -57,7 +57,7 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a  class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="{{userData?.imageFile != null ? userData?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}" alt="" width="32" height="32" class="rounded-circle me-2">
+          <img src="{{userData?.imageFile }}" alt="" width="32" height="32" class="rounded-circle me-2">
           <strong>{{userData?.name}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-top" id="dropmenu" aria-labelledby="navbarDropdownMenuLink">

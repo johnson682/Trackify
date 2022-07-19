@@ -31,36 +31,58 @@ export class AdminProfileComponent implements OnInit {
   }
 
   async addprofile(){
-    const { value: file } = await Swal.fire({
-      title: 'Select image',
-      input: 'file',
-      inputAttributes: {
-        'accept': 'image/*',
-        'aria-label': 'Upload your profile picture'
-      }
-    })
-    
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e)=>{
-        if(e.total <= 700000){
-          this.imageFile = e.target.result
-          this.adminProfileService.updateAdminData(this.uid,{imageFile:this.imageFile})
-        }else{
-          Swal.fire({
-            icon:'error',
-            title:'oops...',
-            text:'Image Size must less than 700kb'
-          }).then(
-            this.addprofile
-          )
+    Swal.fire({
+      imageUrl:`${this.imageFile}`,
+      imageAlt:'Select Image No Image Found',
+      imageWidth: 220,
+      imageHeight: 220,
+      showClass: {
+        popup: 'animate__animated animate__fadeIn'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Change Your profile',
+      cancelButtonText: 'No, cancel!',
+      cancelButtonColor:'red'
+    }).then(async result=>{
+      if(result.value){
+        const { value: file } =await Swal.fire({
+          title: 'Select image',
+          input: 'file',
+          inputAttributes: {
+            'accept': 'image/*',
+            'aria-label': 'Upload your profile picture'
+          },
+          showClass: {
+            popup: 'animate__animated animate__fadeIn'
+          }
+        })
+        if (file) {
+          const reader = new FileReader()
+          reader.onload = (e)=>{
+            if(e.total <= 700000){
+              this.imageFile = e.target.result
+              this.adminProfileService.updateAdminData(this.uid,{imageFile:this.imageFile})
+            }else{
+              Swal.fire({
+                icon:'error',
+                title:'oops...',
+                text:'Image Size must less than 700kb',
+                showClass: {
+                  popup: 'animate__animated animate__fadeIn'
+                },
+                allowOutsideClick:false
+              }).then(
+                this.addprofile
+              )
+            }
+          }
+          reader.readAsDataURL(file)
         }
       }
-      reader.readAsDataURL(file)
-    }
+    })
   }
 
   removeImg(){
-    this.adminProfileService.updateAdminData(this.uid,{imageFile:null})
+    this.adminProfileService.updateAdminData(this.uid,{imageFile:'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'})
   }
 }

@@ -66,11 +66,11 @@ export class AuthService {
         }
     }
 
-    async SignUp(email: string, password: string , name:string) {
+    async SignUp(email: string, password: string , name:string,imageFile:string) {
         try {
             const result = await this.afAuth
                 .createUserWithEmailAndPassword(email, password);
-            this.setUserDataToRegister(result.user, name);
+            this.setUserDataToRegister(result.user, name , imageFile);
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -80,11 +80,12 @@ export class AuthService {
         }
       }
 
-    setUserDataToRegister(user:any,name:any){
+    setUserDataToRegister(user:any,name:any,imageFile:any){
         const userData:any={
             uid:user.uid,
             email:user.email,
-            name:name
+            name:name,
+            imageFile:imageFile
         }
         return this.userRef.doc(user.uid).set(userData,{merge:true})
     }

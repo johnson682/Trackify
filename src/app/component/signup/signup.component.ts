@@ -26,7 +26,8 @@ export class SignupComponent implements OnInit {
     let email = this.addEmployeeForm.value.email
     let password = this.addEmployeeForm.value.password
     let userName = this.addEmployeeForm.value.userName
-    this.authService.SignUp(email,password,userName)
+    let imageFile = 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'
+    this.authService.SignUp(email,password,userName,imageFile)
     this.notificationService.sweetalert2("success","Employee Added Successfully")
     this.onCancel()
   }

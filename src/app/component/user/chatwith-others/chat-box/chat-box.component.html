@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <a class="navbar-brand float-end">
                 <img
-                src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                src="{{selectedUser?.imageFile}}"
                 class="rounded-circle"
                 height="40"
                 width="40"
@@ -39,7 +39,7 @@
     <div style="margin-top: 80px;margin-bottom:43px;">
         <div class="container-fluid" *ngFor="let Recivemsg of dataofSenderMessage | orderBy:order">
             <div class="d-flex flex-row justify-content-start" *ngIf="Recivemsg.status == 'Reciving'">
-                <img src="{{selectedUser?.imageFile != null ? selectedUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                <img src="{{selectedUser?.imageFile }}"
                     alt="avatar 1"  class="rounded-circle"
                     height="30"
                     width="30">
@@ -99,7 +99,7 @@
                         <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
                     </div>
                 </div>
-                <img src="{{currentUser?.imageFile != null ? currentUser?.imageFile : 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'}}"
+                <img src="{{currentUser?.imageFile}}"
                 alt="avatar 1" class="rounded-circle"
                 height="40"
                 width="40">

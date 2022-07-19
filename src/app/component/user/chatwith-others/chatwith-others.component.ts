@@ -40,6 +40,13 @@ export class ChatwithOthersComponent implements OnInit {
   }
 
   init(){
+
+    this.userService.getData(this.uid).subscribe(data=>{
+      console.log(data);
+      
+    })
+    
+
     this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
       this.users.forEach(ele=>{
