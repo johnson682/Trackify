@@ -70,7 +70,7 @@
               <td><p class="mb-0">{{task.day}}</p></td>
               <!-- <td><p class=" mb-0">{{task.ProjectType}}</p></td>
               <td><p class=" mb-0">{{task.ProjectName}}</p></td> -->
-              <td style="max-width:20ch;overflow-wrap:break-word;" ><p class="mb-0">{{task.Description}}</p></td>
+              <td style="max-width:20ch;overflow-wrap:break-word;" ><p class="mb-0" *ngFor="let subDescription of task.Description?.split(',')">{{subDescription}}</p></td>
               <td> 
                 <button 
                   type="button" 
