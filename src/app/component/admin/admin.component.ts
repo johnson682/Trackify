@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
 
   uid:any
   user:any
+  imageFile:any
   constructor(public authService:AuthService,private adminProfileService:AdminProfileService) { }
 
   ngOnInit() {

@@ -28,8 +28,9 @@ const routes: Routes = [
         {path:'EmployeeProfileDetailsEdit',component:EmployeeProfileDetailsEditComponent}
       ]},
     ]},
-    {path:'adminProfile',component:AdminProfileComponent},
-    {path:'adminProfile/:id',component:AdminProfileEditComponent},
+    {path:'adminProfile',component:AdminProfileComponent,children:[
+      {path:':id',component:AdminProfileEditComponent},
+    ]},
     {path:'**',component:PageNotFoundComponent,pathMatch: 'full'},
   ]},
 ];
