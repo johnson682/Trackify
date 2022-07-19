@@ -63,7 +63,7 @@ const firebaseConfig = {
     OrderModule,
     ReactiveFormsModule,
     FilterPipeModule,
-    // UserIdleModule.forRoot({idle: 5, timeout: 1, ping: 120})
+    // UserIdleModule.forRoot({idle: 5, timeout: 10, ping: 120})
 
   ],
   providers: [AuthService,UserService],

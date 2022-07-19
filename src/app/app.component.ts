@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserIdleService } from 'angular-user-idle';
 import { AuthService } from './component/login/service/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,26 +17,20 @@ export class AppComponent implements OnInit{
     // this.userIdle.startWatching();
     
     // // Start watching when user idle is starting.
-    // this.userIdle.onTimerStart().subscribe();
+    // this.userIdle.onTimerStart().subscribe(count=>{
+    //   console.log(count);
+      
+    // });
+    
     
     // // Start watch when time is up.
     // this.userIdle.onTimeout().subscribe(() => {
     //   this.authService.logout()
+    //   this.userIdle.stopTimer()
     // });
 
     if(this.authService.isLoggedIn){
       this.authService.autoLogin()
     }
-
-    window.onbeforeunload = function (event) {
-    var message = 'Important: Please click on \'Save\' button to leave this page.';
-    if (typeof event == 'undefined') {
-      event = window.event;
-    }
-    if (event) {
-      event.returnValue = message;
-    }
-    return message;
-    };
   }  
 }
