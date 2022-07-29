@@ -20,11 +20,12 @@ export class ExcelsheetService{
         ]
         myworksheet["!margins"]= {left:1.0, right:1.0, top:1.0, bottom:1.0, header:0.5, footer:0.5 }
         myworksheet['!cols']=wscols
-        const myworkbook: XLSX.WorkBook = { Sheets: { 'sheet': myworksheet }, SheetNames: ['sheet'] };
+        const myworkbook: XLSX.WorkBook = { Sheets: { 'Tasksheet': myworksheet }, SheetNames: ['Tasksheet'] };
         myworkbook.Props={
             CreatedDate:new Date()
         }
         const excelBuffer: any = XLSX.write(myworkbook, { bookType: 'xlsx', type: 'array'});
+        
         this.saveAsExcelFile(excelBuffer, filename);
         
     }

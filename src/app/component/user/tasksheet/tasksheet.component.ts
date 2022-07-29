@@ -24,6 +24,7 @@ export class TasksheetComponent implements OnInit {
   task:any;
   year:any
 
+  userData:any
   constructor(
     private tasksheet:TasksheetService,
     private router:Router,
@@ -37,8 +38,8 @@ export class TasksheetComponent implements OnInit {
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
-    const userData=JSON.parse(localStorage.getItem('user'))
-    this.uid =userData.uid
+    this.userData=JSON.parse(localStorage.getItem('user'))
+    this.uid =this.userData.uid
     this.onFetchData()
   }
 
@@ -80,7 +81,7 @@ export class TasksheetComponent implements OnInit {
       this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)
       // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
       //   return rest
-      // })
+      // }) //for remove specific field of arraf of object
       this.data =[]
     }else{
       Swal.fire({

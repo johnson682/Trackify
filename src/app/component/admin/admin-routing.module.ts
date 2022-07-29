@@ -15,7 +15,7 @@ import { AdminComponent } from './admin.component';
 
 
 const routes: Routes = [
-  {path:'',component:AdminComponent,canActivate:[AdminGuard],data: {uid: 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3'},children:[
+  {path:'',component:AdminComponent,canActivate:[AdminGuard],data: {uid: '5ChkFNzhwHQ3mV8YaUmZgH6IPlz1'},children:[
     {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent,children:[
       {path:'addEmployee',component:SignupComponent},

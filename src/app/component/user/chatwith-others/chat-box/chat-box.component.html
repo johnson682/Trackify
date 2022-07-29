@@ -46,7 +46,7 @@
                 <div *ngIf="Recivemsg.urlStatus" style="margin-bottom: 20px;">
                     <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)" href="{{Recivemsg.url}}" target="_blank" >
                         <div class="card" style="height: 100px;height: 100px;">
-                            <img src="/assets/img/document.jpg" height="80px" width="100px" class="card-img-top" alt="Document"/>
+                            <img src="../../../../../assets/img/document.jpg" height="80px" width="100px" class="card-img-top" alt="Document"/>
                             <p class="card-text text-center bg-light">{{Recivemsg.message}}</p>
                         </div>
                     </a>
@@ -73,9 +73,13 @@
             <div class="d-flex flex-row justify-content-end"  *ngIf="Recivemsg.status == 'Sending'">
                 <div (click)="disableContextMenu()" oncontextmenu="return false;">
                     <div *ngIf="Recivemsg.urlStatus" style="margin-bottom: 20px;">
+                        <!-- <div class="progress form-group" *ngIf="percentage > 0">
+                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="percentage">
+                            </div>
+                        </div> -->
                         <a id="dropDelete" (contextmenu)="onrightClick($event,Recivemsg)" href="{{Recivemsg.url}}" target="_blank" >
                             <div class="card" style="height: 100px;height: 100px;">
-                                <img src="src/assets/img/document.jpg" height="80px" width="100px" class="card-img-top" alt="document"/>
+                                <img src="../../../../../assets/img/document.jpg" height="80px" width="100px" class="card-img-top" alt="document"/>
                                 <p class="card-text text-center text-white" style="background: #7386d5;">{{Recivemsg.message}}</p>
                             </div>
                         </a>

@@ -40,7 +40,7 @@ export class AuthService {
     autoLogin(){
         const user = JSON.parse(localStorage.getItem('user'))
         if(user){
-            if (user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
+            if (user.uid === '5ChkFNzhwHQ3mV8YaUmZgH6IPlz1') {
                 this.router.navigate(['/admin']);
             } else {
                 this.router.navigate(['/user']);
@@ -50,7 +50,7 @@ export class AuthService {
     async login(email:string,password:string){
         try {
             const result = await this.afAuth.signInWithEmailAndPassword(email, password);
-            if (result.user.uid === 'zKHyZ0FyaAV4EnnMFrG3aeEeX8J3') {
+            if (result.user.uid === '5ChkFNzhwHQ3mV8YaUmZgH6IPlz1') {
                 this.router.navigate(['/admin']);
                 this.setAdminData(result.user);
             } else {

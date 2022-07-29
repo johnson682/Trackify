@@ -127,10 +127,13 @@ export class ChatBoxComponent implements OnInit {
       this.userMessage = file.name
       this.currentFile = new FileUpload(file)
       this.fileiploadService.pushFileStorage(this.currentFile,this.senderUid,this.reciverUid).subscribe(data=>{
-        this.percentage = Math.round(data)
-        console.log(this.percentage);
-        
+        this.percentage = Math.round(data);
+        console.log(`Uploaded! ${this.percentage}%`);
       })
+
+      // setTimeout(() => {
+      //   this.percentage = 0;
+      // }, 1500);
       this.saveSenderDetail()
       this.saveReciverDetails()
     }
