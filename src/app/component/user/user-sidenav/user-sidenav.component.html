@@ -1,92 +1,97 @@
-
-<header>
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="margin-top:100px;">
-    <div class="position-sticky">
-      <div class="list-group list-group-flush mx-3 mt-4">
-        <a routerLink="dashboard" routerLinkActive="active" 
-          class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-chart-line"></i>&nbsp;
-          <span>Dashboard</span>
-        </a>
-        <a routerLinkActive="active" routerLink="tasksheet" 
-          class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-tasks"></i>&nbsp;
-          <span>Tasksheet</span>
-        </a>
-        <a 
-          routerLink="timetracker/loginActivity" routerLinkActive="active" 
-          class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-history"></i>&nbsp;
-          <span>Login Activity</span>
-        </a>
-        <a 
-          routerLink="contact" routerLinkActive="active" 
-          class="list-group-item list-group-item-action py-2 ripple">
-          <i class="fas fa-address-book"></i>&nbsp;
-          <span>Contact Us</span>
-        </a>
-      </div>
-        <!-- <div class="row-12" style="position: fixed;bottom:10px;left:120px;width: 150px;color: white;">
-          {{'USER.SELECT' | translate }} : 
-          <ng-select
-            [(ngModel)]="translate.defaultLang"
-            [items]="translate.getLangs()"
-            (change)="translate.use($event)">
-          </ng-select>
-        </div> -->
-    </div>
-  </nav>
-  <nav class="navbar navbar-expand-lg" id="navbar">
-    <div class="container-fluid">
-      <button
-        id="nav"
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="true"
-        aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-      <a class="navbar-brand" id="brand">
-        <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="Trackify" width="60px">&nbsp;
-        <span>Trackify</span>
-      </a>
-      <ul class="navbar-nav ms-auto d-flex flex-row" id="sidebarMenu">
-        <!-- <li class="nav-item">
-          <app-dark-mode></app-dark-mode>
-        </li> -->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false" style="color: white;">
-            <img
-              src="{{user?.imageFile}}"
-              class="rounded-circle"
-              height="30"
-              width="30"
-              alt="Avatar"
-              loading="lazy"/>
-            <span>&nbsp;{{user?.name}}</span>
+<ngx-loading
+[show]="loading"
+[config]="{ backdropBorderRadius: '3px' }"
+></ngx-loading>
+<div *ngIf="!loading">
+  <header>
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse" style="margin-top:100px;">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a routerLink="dashboard" routerLinkActive="active" 
+            class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-line"></i>&nbsp;
+            <span>Dashboard</span>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="userprofile"><i class="fas fa-user"></i>&nbsp;{{'USER.MYPROFILE' | translate}}</a></li>
-            <li><a class="dropdown-item" routerLink="/user/Chat"><i class="fas fa-comment"></i>&nbsp;{{'USER.CHAT' | translate}}</a></li>
-            <li><a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i>&nbsp;{{'USER.LOGOUT' | translate}}</a></li>
-          </ul>
-        </li>
-      </ul>
+          <a routerLinkActive="active" routerLink="tasksheet" 
+            class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-tasks"></i>&nbsp;
+            <span>Tasksheet</span>
+          </a>
+          <a 
+            routerLink="timetracker/loginActivity" routerLinkActive="active" 
+            class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-history"></i>&nbsp;
+            <span>Login Activity</span>
+          </a>
+          <!-- <a 
+            routerLink="contact" routerLinkActive="active" 
+            class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-address-book"></i>&nbsp;
+            <span>Contact Us</span>
+          </a> -->
+        </div>
+          <!-- <div class="row-12" style="position: fixed;bottom:10px;left:120px;width: 150px;color: white;">
+            {{'USER.SELECT' | translate }} : 
+            <ng-select
+              [(ngModel)]="translate.defaultLang"
+              [items]="translate.getLangs()"
+              (change)="translate.use($event)">
+            </ng-select>
+          </div> -->
+      </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg" id="navbar">
+      <div class="container-fluid">
+        <button
+          id="nav"
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#sidebarMenu"
+          aria-controls="sidebarMenu"
+          aria-expanded="true"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <a class="navbar-brand" id="brand">
+          <img src="../../../assets/img/5b9d82421e5f524376f22e90c17956ad.png" alt="Trackify" width="60px">&nbsp;
+          <span>Trackify</span>
+        </a>
+        <ul class="navbar-nav ms-auto d-flex flex-row" id="sidebarMenu">
+          <!-- <li class="nav-item">
+            <app-dark-mode></app-dark-mode>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false" style="color: white;">
+              <img
+                src="{{user?.imageFile}}"
+                class="rounded-circle"
+                height="30"
+                width="30"
+                alt="Avatar"
+                loading="lazy"/>
+              <span>&nbsp;{{user?.name}}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" routerLink="userprofile"><i class="fas fa-user"></i>&nbsp;{{'USER.MYPROFILE' | translate}}</a></li>
+              <li><a class="dropdown-item" routerLink="/user/Chat"><i class="fas fa-comment"></i>&nbsp;{{'USER.CHAT' | translate}}</a></li>
+              <li><a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i>&nbsp;{{'USER.LOGOUT' | translate}}</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+    
+  <main id="main">
+    <div class=" pt-4">
+      <router-outlet></router-outlet>
     </div>
-  </nav>
-</header>
-  
-<main id="main">
-  <div class=" pt-4">
-    <router-outlet></router-outlet>
-  </div>
-</main>
+  </main>
+</div>
   

@@ -15,7 +15,8 @@ export class UserSidenavComponent implements OnInit {
   user:any
 
   imageFile:any
-  users:any
+  users:any;
+  loading= false
   constructor(
     private userService:UserService ,
     public authService:AuthService,
@@ -49,13 +50,19 @@ export class UserSidenavComponent implements OnInit {
           'No, keep Login'
         ).then((result) => {
           if (result.value) {
+            this.loading = true;
             this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-            this.authService.logout()
+            this.authService.logout().then(()=>{
+              this.loading = false
+            })
           } 
        })
       }else{
+        this.loading = true;
         this.userService.userRef.doc(this.uid).update({ Status: false ,logoutTime:moment().format('MMM DD')});
-        this.authService.logout()
+        this.authService.logout().then(()=>{
+          this.loading = false
+        })
       }
     })
   }

@@ -25,7 +25,6 @@ export class ChatwithOthersComponent implements OnInit {
   contextmenuY = 0;
 
   userFilter: any = { name: '' };
-
   constructor(
     private router:Router,
     private userService:UserService,
@@ -41,14 +40,12 @@ export class ChatwithOthersComponent implements OnInit {
 
   init(){
 
-    this.userService.getData(this.uid).subscribe(data=>{
-      console.log(data);
-      
-    })
+    this.userService.getData(this.uid).subscribe()
     
 
     this.message.getAllChatUser(this.uid).subscribe(data=>{
       this.users = data
+      
       this.users.forEach(ele=>{
         const decrypt = this.encryptedDecryptedService.get('messages',ele.newMessage)
         const message=decrypt.replace(/['"]+/g, '')

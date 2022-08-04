@@ -1,96 +1,93 @@
 <div class="d-flex justify-content-center">
   <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 200px;" role="status" *ngIf="tasks == null"></div>
 </div>
+
 <div class="container-fluid" *ngIf="tasks != null">
-  <div class="card p-2">
-    <div class="row">
-      <div class="col">
-        <button 
-          class="btn " 
-          style="border-color:#7386D5;color:#7386D5;" 
-          routerLink="/user/user-main/tasksheet/addTotasksheet" 
-          data-toggle="modal" 
-          data-target="#exampleModal1" 
-          data-backdrop="static" 
-          data-keyboard="false">
-          <i class="fas fa-plus"></i>&nbsp;Add
-        </button>
-        <button class="btn btn-sm" (click)="exportExcel()" ><i class="fas fa-table"></i>&nbsp;Export</button>
-      </div>
-      <div class="col">
-        <ng-select
-          style="width: 100px;float:right;" 
-          [items]="monthNames" 
-          (change)="changeMonth($event)"
-          [(ngModel)]="task.month"
-          [clearable]="false">
-        </ng-select>
-        <ng-select
-          style="width: 100px;float:right;" 
-          (change)="changeYear($event)" 
-          [items]="years" 
-          [(ngModel)]="task.year"
-          [clearable]="false">
-        </ng-select>
-      </div>
+  <div class="row">
+    <div class="col">
+      <button 
+        class="btn " 
+        style="border-color:#7386D5;color:#7386D5;" 
+        routerLink="/user/user-main/tasksheet/addTotasksheet" 
+        data-toggle="modal" 
+        data-target="#exampleModal1" 
+        data-backdrop="static" 
+        data-keyboard="false">
+        <i class="fas fa-plus"></i>&nbsp;Add
+      </button>
+      <button class="btn btn-sm" (click)="exportExcel()" ><i class="fas fa-table"></i>&nbsp;Export</button>
+    </div>
+    <div class="col">
+      <ng-select
+        style="width: 100px;float:right;" 
+        [items]="monthNames" 
+        (change)="changeMonth($event)"
+        [(ngModel)]="task.month"
+        [clearable]="false">
+      </ng-select>
+      <ng-select
+        style="width: 100px;float:right;" 
+        (change)="changeYear($event)" 
+        [items]="years" 
+        [(ngModel)]="task.year"
+        [clearable]="false">
+      </ng-select>
     </div>
   </div>
-  <div class="card">
-    <ng-container *ngIf="tasks.length == 0">
-      <div class="container-fluid  mt-100">
-          <div class="row">
-             <div class="col-md-12">
-                 <div class="col-sm-12 empty-cart-cls text-center" style="margin-top: 100px;">
-                    <img src="https://static.vecteezy.com/system/resources/previews/005/006/031/original/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
-                    <h3><strong>Your Table Is Empty</strong></h3>
-                  </div>
-              </div>
+  <ng-container *ngIf="tasks.length == 0">
+    <div class="container-fluid  mt-100">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-sm-12 empty-cart-cls text-center" style="margin-top: 100px;">
+            <img src="https://static.vecteezy.com/system/resources/previews/005/006/031/original/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg" width="130" height="130" class="img-fluid mb-4 mr-3">
+            <h3><strong>Your Table Is Empty</strong></h3>
           </div>
+        </div>
       </div>
-    </ng-container>
-    <div class="table"  *ngIf="tasks.length != 0">
-      <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
-        <thead class="bg-light">
-          <tr>
-            <th>S.NO</th>
-            <th>Date <i class="fas fa-arrow-down"></i></th>
-            <th>Day</th>
-            <!-- <th>projectType</th>
-            <th>projectName</th> -->
-            <th>Task</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody> 
-            <tr *ngFor="let task of tasks | filterBy:task;let i= index;" >
-              <th>
-                <p class="mb-0" >{{i+1}}</p>
-              </th>
-              <td><p class="mb-0">{{task.localDate}}</p></td>
-              <td><p class="mb-0">{{task.day}}</p></td>
-              <!-- <td><p class=" mb-0">{{task.ProjectType}}</p></td>
-              <td><p class=" mb-0">{{task.ProjectName}}</p></td> -->
-              <td style="max-width:20ch;overflow-wrap:break-word;" ><p class="mb-0" *ngFor="let subDescription of task.Description?.split(',')">{{subDescription}}</p></td>
-              <td> 
-                <button 
-                  type="button" 
-                  class="btn btn-outline rounded-circle" 
-                  style="cursor: pointer;border-color:#7386D5;color:#7386D5;" 
-                  data-toggle="modal" 
-                  data-target="#exampleModal" 
-                  data-backdrop="static" 
-                  data-keyboard="false"
-                  (click)="onEditTask(task)" >
-                  <i class="fas fa-edit"></i>
-                </button>
-                <button type="button" class="btn btn-outline rounded-circle" style="cursor: pointer;border-color:red;color:red;"  (click)="onDelete(task)">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-      </table>
     </div>
+  </ng-container>
+  <div class="table"  *ngIf="tasks.length != 0">
+    <table class="table align-middle mb-0 bg-white" style="text-align: center;" id="table-sheet">
+      <thead class="bg-light">
+        <tr>
+          <th>S.NO</th>
+          <th>Date <i class="fas fa-arrow-down"></i></th>
+          <th>Day</th>
+          <!-- <th>projectType</th>
+          <th>projectName</th> -->
+          <th>Task</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody> 
+          <tr *ngFor="let task of tasks | filterBy:task;let i= index;" >
+            <th>
+              <p class="mb-0" >{{i+1}}</p>
+            </th>
+            <td><p class="mb-0">{{task.localDate}}</p></td>
+            <td><p class="mb-0">{{task.day}}</p></td>
+            <!-- <td><p class=" mb-0">{{task.ProjectType}}</p></td>
+            <td><p class=" mb-0">{{task.ProjectName}}</p></td> -->
+            <td style="max-width:20ch;overflow-wrap:break-word;" ><p class="mb-0" *ngFor="let subDescription of task.Description?.split(',')">{{subDescription}}</p></td>
+            <td> 
+              <button 
+                type="button" 
+                class="btn btn-outline rounded-circle" 
+                style="cursor: pointer;border-color:#7386D5;color:#7386D5;" 
+                data-toggle="modal" 
+                data-target="#exampleModal" 
+                data-backdrop="static" 
+                data-keyboard="false"
+                (click)="onEditTask(task)" >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-outline rounded-circle" style="cursor: pointer;border-color:red;color:red;"  (click)="onDelete(task)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+    </table>
   </div>
 </div>
 <router-outlet></router-outlet>

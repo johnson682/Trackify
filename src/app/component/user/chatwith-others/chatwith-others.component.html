@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="pt-1">
-            <p class="small mb-1" >{{ user?.newMessageTime }}</p>
+            <p class="small mb-1" >{{ user?.newMessageTime | amTimeAgo }}</p>
             <span *ngIf="!user.notification" class="small mb-1 float-end text-danger"><i class="fas fa-circle"></i></span>
           </div>
         </a>

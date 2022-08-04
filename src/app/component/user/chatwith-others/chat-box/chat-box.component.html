@@ -51,7 +51,7 @@
                         </div>
                     </a>
                     <br>
-                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate | amTimeAgo}}</p>
                     <div *ngIf="contextmenu">
                         <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
                             <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
@@ -67,7 +67,7 @@
                             <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
                         </div>
                     </div>
-                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                    <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate | amTimeAgo}}</p>
                 </div>
             </div>
             <div class="d-flex flex-row justify-content-end"  *ngIf="Recivemsg.status == 'Sending'">
@@ -84,7 +84,7 @@
                             </div>
                         </a>
                         <br>
-                        <p class="small  rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                        <p class="small  rounded-3 text-muted">{{Recivemsg.sendingDate | amTimeAgo}}</p>
                         <div *ngIf="contextmenu">
                             <div class="contextmenu" [ngStyle]="{'left.px': contextmenuX, 'top.px': contextmenuY}">
                                 <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
@@ -100,7 +100,7 @@
                                 <a style="text-decoration: none;" id="deleteMsg" (click)="delete()">Delete</a>
                             </div>
                         </div>
-                        <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate}}</p>
+                        <p class="small rounded-3 text-muted">{{Recivemsg.sendingDate | amTimeAgo}}</p>
                     </div>
                 </div>
                 <img src="{{currentUser?.imageFile}}"

@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/component/login/service/auth.service';
 export class LoginComponent implements OnInit{
   loginForm:UntypedFormGroup 
   uid:any
+  loading = false
   constructor(public authService:AuthService,private router:Router){}
   ngOnInit(): void {
       this.loginForm = new UntypedFormGroup({
@@ -20,8 +21,15 @@ export class LoginComponent implements OnInit{
       })
   }
   onSubmit(){
-    let email = this.loginForm.value.email
-    let password = this.loginForm.value.password
-    this.authService.login(email,password)
+    this.loading = true
+
+    setTimeout(()=>{
+      let email = this.loginForm.value.email
+      let password = this.loginForm.value.password
+      this.authService.login(email,password).then(()=>{
+        this.loading = false
+      })
+    },2000)
+
   }
 }

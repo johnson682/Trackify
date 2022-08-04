@@ -7,7 +7,6 @@ import { FileUploadService } from 'src/app/service/fileupload.service';
 import { MessageService } from 'src/app/service/message.service';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
-import * as CryptoJS from 'crypto-js';
 import { EncryptDecryptService } from 'src/app/service/encrypt&Decrypt.service';
 @Component({
   selector: 'app-chat-box',
@@ -95,6 +94,7 @@ export class ChatBoxComponent implements OnInit {
   fetchDataUserList(){
     this.message.getAllSenderMessage(this.senderUid,this.reciverUid).subscribe(data=>{
       this.dataofSenderMessage = data
+      
       window.scrollTo(0, document.body.scrollHeight);
       this.order ='sendingDate'
       this.dataofSenderMessage.forEach(ele=>{
@@ -128,7 +128,6 @@ export class ChatBoxComponent implements OnInit {
       this.currentFile = new FileUpload(file)
       this.fileiploadService.pushFileStorage(this.currentFile,this.senderUid,this.reciverUid).subscribe(data=>{
         this.percentage = Math.round(data);
-        console.log(`Uploaded! ${this.percentage}%`);
       })
 
       // setTimeout(() => {
@@ -208,7 +207,7 @@ export class ChatBoxComponent implements OnInit {
       notification:true,
       sendingTime:+new Date(),
       sendingSingleDate:new Date().getDate(),
-      sendingDate:moment().format('MMM-DD | hh:mm:ss a')
+      sendingDate:new Date().toLocaleString()
     })
   }
 

@@ -29,6 +29,9 @@ import { UserListComponent } from './chatwith-others/user-list/user-list.compone
 import { ChatwithOthersComponent } from './chatwith-others/chatwith-others.component';
 import { DarkModeComponent } from '../dark-mode/dark-mode.component';
 import { NgChartsModule } from 'ng2-charts';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from "ngx-loading";
+import { MomentModule } from 'ngx-moment';
+
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http)
 }
@@ -70,7 +73,15 @@ export function HttpLoaderFactory(http:HttpClient){
         deps:[HttpClient]
       }
     }),
-    NgChartsModule
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: "rgba(255,255,255,0.3)",
+      backdropBorderRadius: "6px",
+      primaryColour: "#7386D5",
+      secondaryColour: "#7386D5",
+      tertiaryColour: "#7386D5",
+    }),
+    MomentModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

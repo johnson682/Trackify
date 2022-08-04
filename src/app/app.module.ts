@@ -26,7 +26,8 @@ import { PageNotFoundComponent } from './component/page-not-found/page-not-found
 import { AuthService } from './component/login/service/auth.service';
 import { UserService } from './service/user.service';
 import { UserIdleModule } from 'angular-user-idle';
-
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from "ngx-loading";
+import { MomentModule } from 'ngx-moment';
 const firebaseConfig = {
   apiKey: "AIzaSyA1gBrtVrJOZwY9-voO4SrNGK8HJkyGans",
     authDomain: "trackify-d3824.firebaseapp.com",
@@ -43,7 +44,7 @@ const firebaseConfig = {
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +64,16 @@ const firebaseConfig = {
     OrderModule,
     ReactiveFormsModule,
     FilterPipeModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes,
+      backdropBackgroundColour: "rgba(255,255,255,0.3)",
+      backdropBorderRadius: "6px",
+      primaryColour: "#7386D5",
+      secondaryColour: "#7386D5",
+      tertiaryColour: "#7386D5",
+      title:'Loading'
+    }),
+    MomentModule
     // UserIdleModule.forRoot({idle: 5, timeout: 10, ping: 120})
 
   ],
