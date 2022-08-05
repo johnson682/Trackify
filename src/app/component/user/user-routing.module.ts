@@ -21,11 +21,7 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 
 
 const routes: Routes = [
-
-  {path:'',component:UserComponent,canActivate:[AuthGuard],children:[
-    {path:'',redirectTo:'user-main',pathMatch:'full'},
     {path:'user-main',component:UserSidenavComponent,children:[
-      {path:'',redirectTo:'tasksheet',pathMatch:'full'},
       {path:'userprofile',component:UserprofileComponent,children:[
         {path:':id',component:UserEditComponent}
       ]},
@@ -42,14 +38,14 @@ const routes: Routes = [
       ]},
       {path:'dashboard',component:DashboardComponent},
       {path:'contact',component:ContactUsComponent},
+      {path:'',redirectTo:'tasksheet',pathMatch:'full'},
     ]},
     {path:'Chat',component:ChatwithOthersComponent,children:[
       {path:'userlist',component:UserListComponent},
       {path:':id',component:ChatBoxComponent},
     ]},
-    
+    {path:'',redirectTo:'user-main',pathMatch:'full'},
     {path:'**',component:PageNotFoundComponent,pathMatch: 'full' }
-  ]},
 ];
 
 @NgModule({

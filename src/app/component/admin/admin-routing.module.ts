@@ -16,21 +16,21 @@ import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
   {path:'',component:AdminComponent,canActivate:[AdminGuard],data: {uid: '5ChkFNzhwHQ3mV8YaUmZgH6IPlz1'},children:[
-    {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
     {path:'adminEmployeeList',component:AdminEmployeeListComponent,children:[
       {path:'addEmployee',component:SignupComponent},
     ]},
     {path:'adminEmployeeList/:uid',component:EmployeeDetailsComponent,children:[
-      {path:'',redirectTo:'EmployeeProfileDetails',pathMatch:'full'},
       {path:'EmployeeLoginActivity',component:EmployeeLoginActivityComponent},
       {path:'EmployeeTasksheet',component:EmployeeTasksheetComponent},
       {path:'EmployeeProfileDetails',component:EmployeeProfileDetailsComponent,children:[
         {path:'EmployeeProfileDetailsEdit',component:EmployeeProfileDetailsEditComponent}
       ]},
+      {path:'',redirectTo:'EmployeeProfileDetails',pathMatch:'full'},
     ]},
     {path:'adminProfile',component:AdminProfileComponent,children:[
       {path:':id',component:AdminProfileEditComponent},
     ]},
+    {path:'',redirectTo:'adminEmployeeList',pathMatch:'full'},
     {path:'**',component:PageNotFoundComponent,pathMatch: 'full'},
   ]},
 ];
