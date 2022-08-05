@@ -31,13 +31,15 @@ export class TasksheetComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private notificationService:NotificationService,
-    private excelsheetService:ExcelsheetService) { this.config={
+    private excelsheetService:ExcelsheetService) { 
+      
+    this.config={
       currentPage: 1,
-      itemsPerPage:4,
+      itemsPerPage:5,
       totalItems:0
     }
     route.queryParams.subscribe(
-      params => this.config.currentPage= params['page']?params['page']:1
+      params => this.config.currentPage = params['page'] ? params['page'] : 1
     );
   }
 
