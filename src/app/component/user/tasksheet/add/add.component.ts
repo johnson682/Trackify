@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -25,6 +25,7 @@ export class AddComponent implements OnInit {
 
   constructor(
     private router:Router,
+    private location:Location,
     private tasksheet:TasksheetService,
     private toastr:NotificationService) { }
 
@@ -53,7 +54,8 @@ export class AddComponent implements OnInit {
     let year = this.year
     let date = this.singleDate
     this.tasksheet.add(this.uid,{localDate,Description,month,year,ProjectType,date,ProjectName,day},'task')
-    this.router.navigate(['/user/user-main/tasksheet'])
+    // this.router.navigate(['/user/user-main/tasksheet'])
+    this.location.back()
     document.getElementById("closeModalButton").click();
     this.toastr.sweetalert2('success','Added Succesfully')
   }

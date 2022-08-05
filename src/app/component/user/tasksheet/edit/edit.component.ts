@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, Validators, UntypedFormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -30,6 +31,7 @@ export class EditComponent implements OnInit {
     private tasksheet:TasksheetService,
     private route:ActivatedRoute,
     private formBUilder:UntypedFormBuilder,
+    private location:Location,
     private toastr:NotificationService) { }
 
   ngOnInit(): void {
@@ -83,7 +85,8 @@ export class EditComponent implements OnInit {
       month:this.month,
       ProjectName:ProjectName
     },'task')
-    this.router.navigate(['/user/user-main/tasksheet'])
+    // this.router.navigate(['/user/user-main/tasksheet'])
+    this.location.back()
     document.getElementById("closeModalButton").click();
     this.toastr.sweetalert2("info" , 'updated Successfully')
   }

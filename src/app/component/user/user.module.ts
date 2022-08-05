@@ -31,6 +31,7 @@ import { DarkModeComponent } from '../dark-mode/dark-mode.component';
 import { NgChartsModule } from 'ng2-charts';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from "ngx-loading";
 import { MomentModule } from 'ngx-moment';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http)
@@ -65,6 +66,7 @@ export function HttpLoaderFactory(http:HttpClient){
     FilterPipeModule,
     OrderModule,
     NgChartsModule,
+    NgxPaginationModule,
     BsDatepickerModule.forRoot(),
     TranslateModule.forRoot({
       loader:{

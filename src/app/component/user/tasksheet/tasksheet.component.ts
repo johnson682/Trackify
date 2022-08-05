@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import * as XLSX from 'xlsx';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -24,17 +24,31 @@ export class TasksheetComponent implements OnInit {
   task:any;
   year:any
 
-  userData:any
+  userData:any;
+  config:any;
   constructor(
     private tasksheet:TasksheetService,
     private router:Router,
+    private route:ActivatedRoute,
     private notificationService:NotificationService,
-    private excelsheetService:ExcelsheetService) { }
+    private excelsheetService:ExcelsheetService) { this.config={
+      currentPage: 1,
+      itemsPerPage:4,
+      totalItems:0
+    }
+    route.queryParams.subscribe(
+      params => this.config.currentPage= params['page']?params['page']:1
+    );
+  }
+
+  pageChange(newPage) {
+    this.router.navigate(['user/user-main/tasksheet'], { queryParams: { page: newPage } });
+  }
 
   ngOnInit(): void {
     this.month= moment().format('MMM')
     this.year =new Date().getFullYear()
-    this.task={month:this.month,year:this.year}
+    this.task={month:this.month,year:this.year,localDate:''}
     for(let i=2022;i<=2040;i++){
       this.years.push(i)
     }
