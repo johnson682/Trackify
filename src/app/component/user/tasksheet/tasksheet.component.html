@@ -108,7 +108,7 @@
     <div class="d-flex justify-content-center">
       <div class="spinner-border" style="text-align: center;color: #7386D5;width: 3rem; height: 3rem;margin-top: 100px;margin-bottom: 100px;" role="status" *ngIf="loading"></div>
     </div>
-    <div *ngIf="tasks.length != 0 && tasks.length > 5">
+    <div *ngIf="tasks.length != 0 && tasks.length > 4">
       <pagination-controls 
         class="pagination justify-content-center"
         (pageChange)="pageChange($event)">
