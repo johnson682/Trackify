@@ -35,16 +35,20 @@ export class TasksheetComponent implements OnInit {
       
     this.config={
       currentPage: 1,
-      itemsPerPage:5,
+      itemsPerPage:4,
       totalItems:0
     }
     route.queryParams.subscribe(
       params => this.config.currentPage = params['page'] ? params['page'] : 1
     );
   }
-
+  loading= false;
   pageChange(newPage) {
-    this.router.navigate(['user/user-main/tasksheet'], { queryParams: { page: newPage } });
+    this.loading = true;
+    setTimeout(()=>{
+      this.loading = false;
+      this.router.navigate(['user/user-main/tasksheet'], { queryParams: { page: newPage } });
+    },1000)
   }
 
   ngOnInit(): void {
