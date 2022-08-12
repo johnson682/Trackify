@@ -23,13 +23,11 @@ export class LoginComponent implements OnInit{
   onSubmit(){
     this.loading = true
 
-    setTimeout(()=>{
-      let email = this.loginForm.value.email
-      let password = this.loginForm.value.password
-      this.authService.login(email,password).then(()=>{
-        this.loading = false
-      })
-    },2000)
+    let email = this.loginForm.value.email
+    let password = this.loginForm.value.password
+    this.authService.login(email,password).then(()=>{
+      this.loading = false
+    })
 
   }
 }
