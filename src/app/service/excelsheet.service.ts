@@ -11,7 +11,15 @@ const EXCEL_EXTENSION = '.xlsx';
 export class ExcelsheetService{
     
     exportAsExcelFile(json:any,filename:string){
-        const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+        const heading = [['','',filename]]
+        const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet([]);
+        var range = { s: { c: 0, r: 0 }, e: { c: 3, r: 0 } };//A1:A5
+        var data = XLSX.utils.encode_range(range);
+        console.log(data);
+        XLSX.utils.sheet_add_aoa(myworksheet,heading);
+        XLSX.utils.sheet_add_json(myworksheet, json, { origin: 'A2' });
+
+        // const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
         let wscols =[
             {wpx:30},
             {wpx:100},
@@ -23,9 +31,7 @@ export class ExcelsheetService{
         const myworkbook: XLSX.WorkBook = { Sheets: { 'Tasksheet': myworksheet }, SheetNames: ['Tasksheet'] };
         myworkbook.Props={CreatedDate:new Date()}
         const excelBuffer: any = XLSX.write(myworkbook, { bookType: 'xlsx', type: 'array'});
-
-        this.saveAsExcelFile(excelBuffer, filename);
-        
+        this.saveAsExcelFile(excelBuffer, filename);  
     }
 
     saveAsExcelFile(buffer: any, fileName: string): void {

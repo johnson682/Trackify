@@ -88,7 +88,9 @@ export class TasksheetComponent implements OnInit {
   }
 
   data:any[] = []
+  fullMonth:any;
   exportExcel(){
+    this.fullMonth =moment().format('MMMM')
     if(this.tasks.length > 0){
       for(let i=0 ;i<this.tasks.length;i++){
         this.data.push({
@@ -98,7 +100,7 @@ export class TasksheetComponent implements OnInit {
           TASK:this.tasks[i].Description
         })
       }
-      this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)
+      this.excelsheetService.exportAsExcelFile(this.data,`Tasksheet ${this.month}-${this.year}`)
       // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
       //   return rest
       // }) //for remove specific field of arraf of object
@@ -118,6 +120,7 @@ export class TasksheetComponent implements OnInit {
   changeMonth(event){
     if(event != undefined){
       this.month = event
+      this.fullMonth =moment(event).format('MMMM')
       this.tasksheet.getAllTask(this.uid,{month:this.month,year:this.year},'task').subscribe(data=>{
         this.tasks = data
       })
