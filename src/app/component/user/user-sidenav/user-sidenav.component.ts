@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
 import { NotificationService } from 'src/app/service/notification.service';
+import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
 import { AuthService } from '../../login/service/auth.service';
 @Component({
@@ -20,6 +21,7 @@ export class UserSidenavComponent implements OnInit {
   constructor(
     private userService:UserService ,
     public authService:AuthService,
+    private tasksheetService:TasksheetService,
     private notificationService:NotificationService,
     public translate:TranslateService
    ) { 
@@ -36,6 +38,9 @@ export class UserSidenavComponent implements OnInit {
       this.user = data
     })
   } 
+
+  localTimeEnd:any;
+  stopTime:any;
 
   logout(){
     this.userService.userRef.doc(this.uid).get().subscribe(data=>{
@@ -55,6 +60,29 @@ export class UserSidenavComponent implements OnInit {
             this.authService.logout().then(()=>{
               this.loading = false
             })
+            this.userService.updateUserData(this.uid,{StopStatus:false})
+            this.userService.userRef.doc(this.uid).get().subscribe(data=>{
+              const datas= data.data()
+              this.localTimeEnd = moment().format('hh:mm a')
+              this.stopTime = new Date().getTime()
+              const  totalTime = this.stopTime - datas.startTime
+              const time = this.tasksheetService.convertMsToHM(totalTime) 
+              
+              this.tasksheetService.add(this.uid,{
+                startTimeInMS:datas.startTime,
+                stopTimeInMs:this.stopTime,
+                startTime:datas.localTimeStart,
+                endTime:this.localTimeEnd,
+                month:moment().format('MMM'),
+                year:new Date().getFullYear(),
+                date:new Date().getDate(),
+                totalHours:time,
+                totalTime:totalTime,
+                localDate:moment().format('DD-MM-YYYY')
+              },'ActivityLog')
+      
+            })
+            
           } 
        })
       }else{
