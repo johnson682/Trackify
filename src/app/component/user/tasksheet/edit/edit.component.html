@@ -31,7 +31,8 @@
                       formControlName="startedDate"
                       (bsValueChange)="change($event)"
                       [isOpen]="isOpen"
-                      [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                      [datesDisabled]="disabledDates"
+                      [bsConfig]="{ containerClass: 'theme-dark-blue',dateInputFormat: 'MM/DD/YYYY',  selectFromOtherMonth: true }">
                     <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
                       <i class="fa fa-calendar"></i>
                     </a>

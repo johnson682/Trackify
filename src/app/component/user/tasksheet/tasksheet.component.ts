@@ -93,9 +93,9 @@ export class TasksheetComponent implements OnInit {
       for(let i=0 ;i<this.tasks.length;i++){
         this.data.push({
           SNO:i+1,
-          Date:this.tasks[i].localDate,
-          Day:this.tasks[i].day,
-          Description:this.tasks[i].Description
+          DATE:this.tasks[i].localDate,
+          DAY:this.tasks[i].day,
+          TASK:this.tasks[i].Description
         })
       }
       this.excelsheetService.exportAsExcelFile(this.data,`${this.year}/${this.month}/tasksheet`)

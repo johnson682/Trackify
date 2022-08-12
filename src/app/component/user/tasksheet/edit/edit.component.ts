@@ -121,12 +121,24 @@ export class EditComponent implements OnInit {
   day:any
   change(event){
     const month=moment(event).format("MMM")
-    const date=moment(event).format("DD-MM-YYYY")
+    const date=moment(event).format("MM/DD/YYYY")
     this.year=new Date(event).getFullYear()
     this.day = moment(event).format('dddd')
     this.singleDate =new Date(event).getDate()
     this.date = `${date}`
     this.month = `${month}`
+
+    let calenderDetails = {
+      month:this.month,
+      year:this.year
+    }
+    this.checkDate(calenderDetails)
+  }
+  disabledDates:any
+  checkDate(calenderDetails){
+    this.tasksheet.getAllTask(this.uid,calenderDetails,'task').subscribe(data=>{
+      this.disabledDates= data.map((a:any)=>new Date(a.localDate))
+    })
   }
 
 }

@@ -31,11 +31,13 @@
                       formControlName="startedDate"
                       [isOpen]="isOpen"
                       [maxDate]="today"
-                      [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'DD-MM-YYYY',  selectFromOtherMonth: true }">
+                      [datesDisabled]="disabledDates"
+                      [bsConfig]="{ containerClass: 'theme-dark-blue', showTodayButton: true, todayPosition: 'center' ,dateInputFormat: 'MM/DD/YYYY',  selectFromOtherMonth: true }">
                     <a class="input-group-text border-0" id="search-addon" (click)="isOpen = !isOpen">
                       <i class="fa fa-calendar"></i>
                     </a>
                   </div>
+                  <span *ngIf="existsDate"  class="help-block">This Date is Already Exists</span>
                   <span *ngIf="!addtaskForm.get('startedDate').valid && addtaskForm.get('startedDate').touched" class="help-block">
                     The field is required
                   </span>
@@ -57,7 +59,7 @@
                 style="cursor: pointer;"
                 type="submit"
                 class="btn primary"
-                [disabled]="!addtaskForm.valid">
+                [disabled]="!addtaskForm.valid || existsDate">
                 <i class="fas fa-plus"></i>&nbsp;Add
               </button>
               <button class="btn" type="button" (click)="onCancel()"><i class="fas fa-ban"></i>&nbsp;Cancel</button>

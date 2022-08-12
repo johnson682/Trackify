@@ -34,7 +34,7 @@ export class AddComponent implements OnInit {
     let data=JSON.parse(localStorage.getItem('user'))
     this.uid = data.uid
     this.upstartedDate =false
-    this.date = moment().format('DD-MM-YYYY')
+    this.date = moment().format('MM/DD/YYYY')
     this.today = new Date()
     this.addtaskForm = new FormGroup({
       'Name':new FormControl(''),
@@ -89,15 +89,36 @@ export class AddComponent implements OnInit {
   }
 
   day:any;
-
+  disabledDates:any
+  existsDate=false;
   change(event){
     const month=moment(event).format('MMM')
-    const date=moment(event).format('DD-MM-YYYY')
+    const date=moment(event).format('MM/DD/YYYY')
     this.year=new Date(event).getFullYear()
     this.day = moment(event).format('dddd')
     this.singleDate = new Date(event).getDate()
     this.date = date
     this.month = `${month}`
+
+    let calenderDetails = {
+      month:this.month,
+      year:this.year
+    }
+    this.checkDate(calenderDetails)
+  }
+
+  checkDate(calenderDetails){
+    this.tasksheet.getAllTask(this.uid,calenderDetails,'task').subscribe(data=>{
+      this.disabledDates= data.map((a:any)=>new Date(a.localDate))
+      data.forEach((ele:any)=>{
+        if(ele.localDate == this.date){
+          this.existsDate = true
+        }else{
+          this.existsDate = false;
+        }
+      })
+       
+    })
   }
  
 }
