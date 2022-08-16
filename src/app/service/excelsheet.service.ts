@@ -17,7 +17,7 @@ export class ExcelsheetService{
         var data = XLSX.utils.encode_range(range);
         console.log(data);
         XLSX.utils.sheet_add_aoa(myworksheet,heading);
-        XLSX.utils.sheet_add_json(myworksheet, json, { origin: 'A2' });
+        XLSX.utils.sheet_add_json(myworksheet, json, { origin: 'A2' },);
 
         // const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
         let wscols =[
