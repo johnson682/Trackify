@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ExcelsheetService } from 'src/app/service/excelsheet.service';
 import { TasksheetService } from 'src/app/service/tasksheet.service';
 import { UserService } from 'src/app/service/user.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-employee-tasksheet',
   templateUrl: './employee-tasksheet.component.html',
@@ -40,15 +41,30 @@ export class EmployeeTasksheetComponent implements OnInit {
   exportExcel(){
     this.userService.getData(this.uid).subscribe(data=>{
       this.userData=data
-      for(let i=0 ;i<this.employeeDetails.length;i++){
-        this.exportData.push({
-          SNO:i+1,
-          Date:this.employeeDetails[i].localDate,
-          Day:this.employeeDetails[i].day,
-          Description:this.employeeDetails[i].Description
+      if(this.employeeDetails.length > 0){
+        for(let i=0 ;i<this.employeeDetails.length;i++){
+          this.exportData.push({
+            SNO:i+1,
+            DATE:this.employeeDetails[i].localDate,
+            DAY:this.employeeDetails[i].day,
+            TASK:this.employeeDetails[i].Description
+          })
+        }
+        this.excelsheetService.exportAsExcelFile(this.exportData,`Tasksheet ${this.month}-${this.year}`,'tasksheet')
+        // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
+        //   return rest
+        // }) //for remove specific field of arraf of object
+        this.exportData =[]
+      }else{
+        Swal.fire({
+          title:'Oops...',
+          text:'No Data Found',
+          icon:'error',
+          showClass: {
+            popup: 'animate__animated animate__fadeIn'
+          },
         })
       }
-      this.excelsheetService.exportAsExcelFile(this.exportData,`${this.userData.name}/${this.year}/${this.month}/tasksheet`)
     })
   }
 

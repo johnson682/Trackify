@@ -100,7 +100,7 @@ export class TasksheetComponent implements OnInit {
           TASK:this.tasks[i].Description
         })
       }
-      this.excelsheetService.exportAsExcelFile(this.data,`Tasksheet ${this.month}-${this.year}`)
+      this.excelsheetService.exportAsExcelFile(this.data,`Tasksheet ${this.month}-${this.year}`,'tasksheet')
       // const data =this.tasks.map(({uid,month,year,date,...rest})=>{
       //   return rest
       // }) //for remove specific field of arraf of object
