@@ -34,7 +34,8 @@ export class EmployeeLoginActivityComponent implements OnInit {
     
     this.month= moment().format('MMM');
     this.year = new Date().getFullYear()
-    this.task={date:new Date().getDate(),month:this.month,year:this.year}
+    let date = new Date().getDate()
+    this.task={date:date,month:this.month,year:this.year}
 
     const monthNum = moment().format('M')
     this.dateTotal = this.getDaysInMonth(monthNum,this.year)
@@ -46,7 +47,6 @@ export class EmployeeLoginActivityComponent implements OnInit {
       this.date.push(i)
     }
 
-    let date = new Date().getDate()
 
     const userData= JSON.parse(localStorage.getItem('Employee Uid'))
     this.uid = userData
