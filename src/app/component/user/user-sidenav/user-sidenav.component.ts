@@ -60,29 +60,6 @@ export class UserSidenavComponent implements OnInit {
             this.authService.logout().then(()=>{
               this.loading = false
             })
-            this.userService.updateUserData(this.uid,{StopStatus:false})
-            this.userService.userRef.doc(this.uid).get().subscribe(data=>{
-              const datas= data.data()
-              this.localTimeEnd = moment().format('hh:mm a')
-              this.stopTime = new Date().getTime()
-              const  totalTime = this.stopTime - datas.startTime
-              const time = this.tasksheetService.convertMsToHM(totalTime) 
-              
-              this.tasksheetService.add(this.uid,{
-                startTimeInMS:datas.startTime,
-                stopTimeInMs:this.stopTime,
-                startTime:datas.localTimeStart,
-                endTime:this.localTimeEnd,
-                month:moment().format('MMM'),
-                year:new Date().getFullYear(),
-                date:new Date().getDate(),
-                totalHours:time,
-                totalTime:totalTime,
-                localDate:moment().format('DD-MM-YYYY')
-              },'ActivityLog')
-      
-            })
-            
           } 
        })
       }else{
